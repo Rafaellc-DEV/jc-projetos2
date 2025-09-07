@@ -38,14 +38,13 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 - Filtrar notícias por tema específico.
 - Baixar notícias para ler offline (PDF/HTML).
 - Comentar, curtir e compartilhar notícias.
-- Receber chamadas rápidas por e-mail.
+- Receber chamadas de notícias rápidas por e-mail.
 - Ativar modo escuro e ajustar acessibilidade (fonte/contraste).
 - Registrar feedback de experiência.
 
 ### 📈 Diferenciais
 - Experiência mobile otimizada.
-- Conteúdo acessível (leitura em voz alta, alt text).
-- Possibilidade de plano **Premium** (sem anúncios).
+- Conteúdo acessível.
 
 ---
 
@@ -62,13 +61,13 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 
 | Nome                                      | Funções | Email                              | Disciplina         |
 |-------------------------------------------|---------|------------------------------------|--------------------|
-| Claudemir Adriano de Albuquerque Silva    | —       | [caas@cesar.school](mailto:caas@cesar.school) | Projetos 2 + FDS |
-| Danilo Campelo                            | —       | [dsc4@cesar.school](mailto:dsc4@cesar.school) | Projetos 2 + FDS |
-| Fábio                                     | —       | [fhdlla@cesar.school](mailto:fhdlla@cesar.school) | Projetos 2 + FDS |
-| Felipe Borba De Carvalho                  | —       | [fbc2@cesar.school](mailto:fbc2@cesar.school) | Projetos 2 + FDS |
-| Francisco Rodrigues de Oliveira Junior    | —       | —                                  | Projetos 2 + FDS |
-| Lucas Chaves                              | —       | [lca3@cesar.school](mailto:lca3@cesar.school) | Projetos 2 + FDS |
-| Pedro Gabriel Paes da Justa Silva         | —       | [pgpjs@cesar.school](mailto:pgpjs@cesar.school) | Projetos 2 + FDS |
+| Claudemir Adriano de Albuquerque Silva    | Dev Backend | [caas@cesar.school](mailto:caas@cesar.school) | Projetos 2 + FDS |
+| Danilo Campelo                            | Dev Backend | [dsc4@cesar.school](mailto:dsc4@cesar.school) | Projetos 2 + FDS |
+| Fábio                                     | Dev Backend | [fhdlla@cesar.school](mailto:fhdlla@cesar.school) | Projetos 2 + FDS |
+| Felipe Borba De Carvalho                  | Dev Frontend + Designer | [fbc2@cesar.school](mailto:fbc2@cesar.school) | Projetos 2 + FDS |
+| Francisco Rodrigues de Oliveira Junior    | PO (Product Owner)| [froj@cesar.school](mailto:froj@cesar.school) | Projetos 2 + FDS |
+| Lucas Chaves                              | Scrum Master | [lca3@cesar.school](mailto:lca3@cesar.school) | Projetos 2 + FDS |
+| Pedro Gabriel Paes da Justa Silva         | Dev Frontend + Designer | [pgpjs@cesar.school](mailto:pgpjs@cesar.school) | Projetos 2 + FDS |
 | Rafael Lyra Costa                         | DEV Backend + QA Testes| [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
 
 ## 📦 Entregas
@@ -91,9 +90,18 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 <summary>🚀 Entrega 1</summary>
 <br/>
 
+### 📄 Quadro Jira
+![Quadro Jira](./prints\entrega1_quadro_part1.png)
+![Quadro Jira](./prints\entrega1_quadro_part2.png)
+
+### 📄 Jira Backlog
+![Quadro Jira](./prints\entrega1_backlog.png)
+
 <p align="center">
   <a href="https://docs.google.com/document/d/1nmucgv21ZFmh4KJL6easKM9BG2wHbv332d-kuiChz2I/edit?usp=sharing">
     <img src="https://img.shields.io/badge/Histórias-483D8B?style=for-the-badge&logo=google&logoColor=white" alt="Histórias Usuário"/></a> 
+  <a href="https://time2projetos2.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZGI1ZmI2MzY3NmQyNDgwZGFjYzE1MTdjYzdlNDMxYjAiLCJwIjoiaiJ9">
+    <img src="https://img.shields.io/badge/Jira-0000ff?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira"/></a>
 </p>
 <br/>
   
@@ -118,4 +126,4 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 
 ## 💡 Observações
 
-> Projeto desenvolvido na disciplina de **Projetos 2** e **FDS (Fundamentos de Desenvolvimento de Software.) – 2025.2** na CESAR School.
+> Projeto desenvolvido na disciplina de **Projetos 2** e **FDS (Fundamentos de Desenvolvimento de Software) – 2025.2** na CESAR School.
