@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./prints/logo_jc_readme.png" alt="Logo JC PE" width="200" style="border-radius:50%;"/>
+</p>
+
+
 # 📰 JC Online – Aplicação Web
 
 **JC Online** é uma aplicação web com design adaptável, focada em melhorar a experiência de leitura de notícias.  
@@ -91,11 +96,11 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 <br/>
 
 ### 📄 Quadro Jira
-![Quadro Jira](./prints\entrega1_quadro_part1.png)
-![Quadro Jira](./prints\entrega1_quadro_part2.png)
+![Quadro Jira](prints/entrega1_quadro_part1.png)
+![Quadro Jira](prints/entrega1_quadro_part2.png)
 
 ### 📄 Jira Backlog
-![Quadro Jira](./prints\entrega1_backlog.png)
+![Quadro Jira](prints/entrega1_backlog.png)
 
 <p align="center">
   <a href="https://docs.google.com/document/d/1nmucgv21ZFmh4KJL6easKM9BG2wHbv332d-kuiChz2I/edit?usp=sharing">
