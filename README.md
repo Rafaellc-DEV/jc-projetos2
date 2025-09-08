@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./prints/logo_jc_readme.png" alt="Logo JC PE" width="200" style="border-radius:50%;"/>
+  <img src="./prints/logo_readme.png" alt="Logo JC PE" width="200"/>
 </p>
 
 
@@ -11,7 +11,6 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 🔗 **Acesse a plataforma online:**  
 👉 [https://DEV)
 
----
 
 ## 📄 Documentações e Entregas
 
@@ -28,7 +27,6 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
     <img src="https://img.shields.io/badge/Jira-0000ff?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira"/></a>
 </div>
 
----
 
 ## 🚀 Funcionalidades Principais 
 
@@ -50,8 +48,6 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 ### 📈 Diferenciais
 - Experiência mobile otimizada.
 - Conteúdo acessível.
-
----
 
 ## 🛠️ Tecnologias Utilizadas
 - **Frontend**: 
@@ -99,8 +95,28 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 ![Quadro Jira](prints/entrega1_quadro_part1.png)
 ![Quadro Jira](prints/entrega1_quadro_part2.png)
 
+---
+
 ### 📄 Jira Backlog
 ![Quadro Jira](prints/entrega1_backlog.png)
+
+---
+
+### 👥 Funções
+| Nome                                   | Função                     |
+|----------------------------------------|-----------------------------|
+| Claudemir Adriano de Albuquerque Silva | Dev Backend                |
+| Danilo Campelo                         | Dev Backend                |
+| Fábio                                  | Dev Backend                |
+| Felipe Borba De Carvalho               | Dev Frontend + Designer    |
+| Francisco Rodrigues de Oliveira Junior | PO (Product Owner)         |
+| Lucas Chaves                           | Scrum Master               |
+| Pedro Gabriel Paes da Justa Silva      | Dev Frontend + Designer    |
+| Rafael Lyra Costa                      | Dev Backend + QA Testes    |
+
+---
+
+### 📄 Links da entrega
 
 <p align="center">
   <a href="https://docs.google.com/document/d/1nmucgv21ZFmh4KJL6easKM9BG2wHbv332d-kuiChz2I/edit?usp=sharing">
