@@ -7,7 +7,8 @@
 
 # 📰 JC Online – Aplicação Web
 
-**JC Online** é uma aplicação web com design adaptável, focada em melhorar a experiência de leitura de notícias.  
+**JC Online** é uma aplicação web com design adaptável, focada em melhorar a experiência de leitura de notícias.
+
 O objetivo é oferecer **acessibilidade, personalização e engajamento** dos usuários, ao mesmo tempo em que garante ferramentas de gestão para administradores e editores.
 
 🔗 **Acesse a plataforma online:**  
