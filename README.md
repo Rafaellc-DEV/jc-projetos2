@@ -77,7 +77,7 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 | Lucas Chaves                              | Scrum Master | [lca3@cesar.school](mailto:lca3@cesar.school) | Projetos 2 + FDS |
 | Pedro Gabriel Paes da Justa Silva         | Dev Frontend + Designer | [pgpjs@cesar.school](mailto:pgpjs@cesar.school) | Projetos 2 + FDS |
 | Rafael Lyra Costa                         | DEV Backend + QA Testes| [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
-
+| João Lucas Severiano                      | Dev Frontend + Designer | [jlsss@cesar.school](mailto:jlsss@cesar.school) | Projetos 2 + FDS |
 ## 📦 Entregas
 
 ### Projetos 2
