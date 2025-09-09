@@ -35,6 +35,8 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 </div>
 
 
+
+
 ## 🚀 Funcionalidades Principais 
 
 ### 👩‍💻 Administração
