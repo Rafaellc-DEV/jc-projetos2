@@ -152,6 +152,14 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
   <br/>
 </details>
 
+## 👾 Issues e Bugs Tracker
+
+- Utilizado para acompanhar todos os problemas e novas ideias que surgirem durante o desenvolvimento.
+
+- Cada tarefa registrada precisa informar: o que fazer (descrição), como encontrar o problema (passos para reproduzir), quem vai fazer (responsável), qual a urgência (prioridade) e em que etapa está (status).
+
+- Plataformas que podem ser usadas para isso: GitHub Issues, Jira, Trello.
+
 ---
 
 ## 💡 Observações
