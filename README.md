@@ -74,6 +74,8 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 | Pedro Gabriel Paes da Justa Silva         | Dev Frontend + Designer | [pgpjs@cesar.school](mailto:pgpjs@cesar.school) | Projetos 2 + FDS |
 | Rafael Lyra Costa                         | DEV Backend + QA Testes| [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
 | João Lucas Severiano                      | Dev Frontend + Designer | [jlsss@cesar.school](mailto:jlsss@cesar.school) | Projetos 2 + FDS |
+
+
 ## 📦 Entregas
 
 ### Projetos 2
@@ -163,6 +165,15 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 
  ### 📄 Diagrama de atividades do Sistema
   ![Diagrama de atividades](prints/Diagrama_Atividades.png)
+
+  ## 👾 Issues e Bugs Tracker
+
+- Utilizado para acompanhar todos os problemas e novas ideias que surgirem durante o desenvolvimento.
+
+- Cada tarefa registrada precisa informar: o que fazer (descrição), como encontrar o problema (passos para reproduzir), quem vai fazer (responsável), qual a urgência (prioridade) e em que etapa está (status).
+
+- Plataformas que podem ser usadas para isso: GitHub Issues, Jira, Trello.
+
   <br/>
 </details>
 
@@ -175,14 +186,6 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
   <summary>🚀 Entrega 4</summary>
   <br/>
 </details>
-
-## 👾 Issues e Bugs Tracker
-
-- Utilizado para acompanhar todos os problemas e novas ideias que surgirem durante o desenvolvimento.
-
-- Cada tarefa registrada precisa informar: o que fazer (descrição), como encontrar o problema (passos para reproduzir), quem vai fazer (responsável), qual a urgência (prioridade) e em que etapa está (status).
-
-- Plataformas que podem ser usadas para isso: GitHub Issues, Jira, Trello.
 
 ---
 
