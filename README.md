@@ -3,12 +3,6 @@
 </p>
 
 
-
-
-
-
-
-
 # 📰 JC Online – Aplicação Web
 
 **JC Online** é uma aplicação web com design adaptável, focada em melhorar a experiência de leitura de notícias.
@@ -139,6 +133,36 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 
 <details>
   <summary>🚀 Entrega 2</summary>
+  <br/>
+
+  ### 📄 Links da entrega
+
+<p align="center">
+  <a href="https://docs.google.com/document/d/1nmucgv21ZFmh4KJL6easKM9BG2wHbv332d-kuiChz2I/edit?usp=sharing">
+    <img src="https://img.shields.io/badge/Histórias-483D8B?style=for-the-badge&logo=google&logoColor=white" alt="Histórias Usuário"/></a> 
+  <a href="https://time2projetos2.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZGI1ZmI2MzY3NmQyNDgwZGFjYzE1MTdjYzdlNDMxYjAiLCJwIjoiaiJ9">
+    <img src="https://img.shields.io/badge/Jira-0000ff?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira"/></a>
+  <a href="https://www.figma.com/design/3VrvmwIAN8WB01nf0a7Zyz/Untitled?node-id=0-1&t=L9QFYe6fDEtr1nbI-1">
+    <img src="https://img.shields.io/badge/Figma-FF7262?style=for-the-badge&logo=figma&logoColor=white" alt="Protótipos"/></a>
+  <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
+    <img src="https://img.shields.io/badge/Screencast-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+  <a href="https://www.canva.com/design/DAGzjAnYGoQ/pjgqU4m0RzsDCLpylTslIg/edit?utm_content=DAGzjAnYGoQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+    <img src="https://img.shields.io/badge/Diagrama de atividades-a7532c?style=for-the-badge&logo=Canva&logoColor=white" alt="Diagrama"/></a>
+</p>
+
+### 📄 Quadro Jira
+![Quadro Jira](prints/entrega1_quadro_part1.png)
+![Quadro Jira](prints/entrega1_quadro_part2.png)
+
+---
+
+### 📄 Jira Backlog
+![Quadro Jira](prints/entrega1_backlog.png)
+
+---
+
+ ### 📄 Diagrama de atividades do Sistema
+  ![Diagrama de atividades](prints/Diagrama_Atividades.png)
   <br/>
 </details>
 
