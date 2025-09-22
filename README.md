@@ -100,11 +100,15 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 ![Quadro Jira](p<img width="881" height="585" alt="Quadro Jira - Entrega 2" src="https://github.com/user-attachments/assets/4e494e70-8f13-4dae-827d-75fa2c03ab66" />
 rints/entrega1_quadro_part2.png)
 
+![PHOTO-2025-09-22-19-32-29](https://github.com/user-attachments/assets/57365de2-6a3a-4029-b846-4e452f91f0dd)
+
+
 ---
 
 ### 📄 Jira Backlog
 
 <img width="966" height="552" alt="Backlog Jira - Entrega 2" src="https://github.com/user-attachments/assets/bde87539-b4be-46db-8f83-7c7d9a6abc8d" />
+![PHOTO-2025-09-22-19-32-34](https://github.com/user-attachments/assets/24e388cf-6fc8-49a2-a3f6-a6c035c4166d)
 
 ---
 
