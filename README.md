@@ -102,12 +102,14 @@ rints/entrega1_quadro_part2.png)
 
 ![Quadro Jira](prints/Quadro%20Jira%20-%20Entrega%202.png)
 
+
 ---
 
 ### 📄 Jira Backlog
 
 <img width="966" height="552" alt="Backlog Jira - Entrega 2" src="https://github.com/user-attachments/assets/bde87539-b4be-46db-8f83-7c7d9a6abc8d" />
 ![Jira Backlog](prints/Backlog%20Jira%20-%20Entrega%202.png)
+
 ---
 
 ### 👥 Funções
