@@ -159,11 +159,13 @@ rints/entrega1_quadro_part2.png)
 ### 📄 Quadro Jira
 ![Quadro Jira](prints/entrega1_quadro_part1.png)
 ![Quadro Jira](prints/entrega1_quadro_part2.png)
+![Quadro Jira](prints/Quadro_Jira_Entrega_2.png)  
 
 ---
 
 ### 📄 Jira Backlog
 ![Quadro Jira](prints/entrega1_backlog.png)
+![Jira Backlog](prints/Backlog_Jira_Entrega_2.png)  
 
 ---
 
