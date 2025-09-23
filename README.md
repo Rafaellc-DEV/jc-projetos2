@@ -26,6 +26,8 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
     <img src="https://img.shields.io/badge/Google_Drive-F4B400?style=for-the-badge&logo=google&logoColor=white" alt="Pasta Compartilhada"/></a>
   <a href="https://time2projetos2.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZGI1ZmI2MzY3NmQyNDgwZGFjYzE1MTdjYzdlNDMxYjAiLCJwIjoiaiJ9">
     <img src="https://img.shields.io/badge/Jira-0000ff?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira"/></a>
+  <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
+    <img src="https://img.shields.io/badge/Screencast Figma-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
 </div>
 
 
@@ -97,17 +99,17 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 <br/>
 
 ### 📄 Quadro Jira
-rints/entrega1_quadro_part2.png)
 
-![Quadro Jira](prints/Quadro%20Jira%20-%20Entrega%202.PNG)
+![Quadro Jira](prints/entrega1_quadro_part1.png)
+
+![Quadro Jira](prints/entrega1_quadro_part2.png)
 
 
 ---
 
 ### 📄 Jira Backlog
 
-
-![Jira Backlog](prints/Backlog%20Jira%20-%20Entrega%202.PNG)
+![Jira Backlog](prints/entrega1_backlog.png)
 
 ---
 
@@ -156,23 +158,31 @@ rints/entrega1_quadro_part2.png)
     <img src="https://img.shields.io/badge/Diagrama de atividades-a7532c?style=for-the-badge&logo=Canva&logoColor=white" alt="Diagrama"/></a>
 </p>
 
-### 📄 Quadro Jira
-![Quadro Jira](prints/entrega1_quadro_part1.png)
-![Quadro Jira](prints/entrega1_quadro_part2.png)
+## Quadro Jira
+
 ![Quadro Jira](prints/Quadro_Jira_Entrega_2.png)  
 
 ---
 
-### 📄 Jira Backlog
-![Quadro Jira](prints/entrega1_backlog.png)
+## Jira Backlog
 ![Jira Backlog](prints/Backlog_Jira_Entrega_2.png)  
 
 ---
 
- ### 📄 Diagrama de atividades do Sistema
-  ![Diagrama de atividades](prints/Diagrama_Atividades.png)
+ ## Diagrama de atividades do Sistema
+  ![Diagrama de atividades](prints/entrega2_diagrama.png)
 
-  ## 👾 Issues e Bugs Tracker
+---
+
+## Figma
+
+![Figma](prints/entrega2_figma.png)
+
+---
+
+## Issues
+
+![Issues](prints/entrega02_issues.png)
 
 - Utilizado para acompanhar todos os problemas e novas ideias que surgirem durante o desenvolvimento.
 
