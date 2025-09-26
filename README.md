@@ -77,6 +77,75 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 | Rafael Lyra Costa                         | DEV Backend + QA Testes| [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
 | João Lucas Severiano                      | Dev Frontend + Designer | [jlsss@cesar.school](mailto:jlsss@cesar.school) | Projetos 2 + FDS |
 
+---
+
+## ⚙️ Como Executar o Projeto
+
+<details>
+  <summary>🚀 Rodando o Projeto Localmente</summary>
+  
+
+## Siga os passos abaixo para executar o projeto em sua máquina.
+
+### Pré-requisitos
+
+Antes de começar, certifique-se de que você tem o seguinte instalado:
+* [Python 3.8+](https://www.python.org/downloads/)
+* [Git](https://git-scm.com/downloads/)
+
+### Passos para Execução
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/](https://github.com/)[SEU-USUARIO]/jc-projetos2.git
+    cd jc-projetos2
+    ```
+    > **Obs:** Lembre-se de substituir `[SEU-USUARIO]` pelo seu nome de usuário do GitHub.
+
+2.  **Crie e ative o ambiente virtual:**
+    *Este passo cria um ambiente isolado para as dependências do projeto.*
+    ```bash
+    # Criar o ambiente
+    python -m venv venv
+    ```
+    *Agora, ative o ambiente:*
+    ```bash
+    # No Windows (PowerShell):
+    .\venv\Scripts\Activate
+
+    # No Linux ou macOS:
+    source venv/bin/activate
+    ```
+
+3.  **Instale as dependências:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Execute as migrações do banco de dados:**
+    ```bash
+    python manage.py migrate
+    ```
+
+5.  **Crie um superusuário (Opcional):**
+    *Isso permitirá o acesso à área de administração do Django.*
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+6.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    python manage.py runserver
+    ```
+
+7.  **Acesse a aplicação no seu navegador:**
+    -   **Interface Principal:** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+    -   **Área Administrativa:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+Pronto! A aplicação estará rodando em sua máquina local.
+</details>
+
+---
 
 ## 📦 Entregas
 
