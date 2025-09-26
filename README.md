@@ -82,7 +82,7 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 ## ⚙️ Como Executar o Projeto
 
 <details>
-  <summary>🚀 Rodando o Projeto Localmente</summary>
+  <summary>✅ Primeira vez no projeto (setup inicial)</summary>
   
 
 ## Siga os passos abaixo para executar o projeto em sua máquina.
@@ -143,6 +143,121 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
     -   **Área Administrativa:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 Pronto! A aplicação estará rodando em sua máquina local.
+</details>
+
+<details>
+  <summary>🔁 Workflow Diário (Antes de Começar a Codificar)</summary>
+  <br>
+  
+  Siga estes passos todos os dias para garantir que seu ambiente está atualizado.
+
+  1.  **Ative o ambiente virtual (`venv`)**
+      * **Windows (PowerShell):**
+          ```powershell
+          .\venv\Scripts\Activate
+          ```
+      * **Linux/Mac:**
+          ```bash
+          source venv/bin/activate
+          ```
+
+  2.  **Sincronize com o repositório remoto**
+      *Para baixar as atualizações feitas por outros desenvolvedores.*
+      ```bash
+      git pull origin main
+      ```
+
+  3.  **Atualize as dependências**
+      *Faça isso se o arquivo `requirements.txt` foi modificado no passo anterior.*
+      ```bash
+      pip install -r requirements.txt
+      ```
+
+  4.  **Aplique migrações do banco de dados**
+      *Necessário se a estrutura do banco de dados (`models.py`) foi alterada.*
+      ```bash
+      python manage.py migrate
+      ```
+
+  5.  **Inicie o servidor local**
+      ```bash
+      python manage.py runserver
+      ```
+</details>
+
+<details>
+  <summary>🔄 Esqueceu de dar `pull` antes de codificar?</summary>
+  <br>
+  
+  Se você tem alterações locais e o `git pull` falha, não se preocupe! 🚨. Use o `stash` para salvar seu trabalho temporariamente.
+
+  1.  **Guarde suas alterações locais:**
+      *Isso "limpa" sua área de trabalho, mas salva seu código em um local seguro.*
+      ```bash
+      git stash
+      ```
+
+  2.  **Atualize o repositório:**
+      *Agora que sua área está limpa, você pode puxar as atualizações sem conflitos.*
+      ```bash
+      git pull origin main
+      ```
+
+  3.  **Restaure suas alterações:**
+      *Isso aplica suas alterações salvas sobre o código que você acabou de baixar.*
+      ```bash
+      git stash pop
+      ```
+      > **Dica:** Se ocorrerem conflitos aqui, o Git irá te avisar para resolvê-los manualmente.
+</details>
+
+<details>
+  <summary>🧱 Guia: Alterando os Models</summary>
+  <br>
+  
+  Quando você modificar qualquer arquivo `models.py`, siga esta ordem:
+
+  1.  **Gere os arquivos de migração:**
+      ```bash
+      python manage.py makemigrations
+      ```
+
+  2.  **Aplique as alterações no seu banco de dados local:**
+      ```bash
+      python manage.py migrate
+      ```
+
+  3.  **Suba as mudanças para o repositório:**
+      ```bash
+      git add .
+      git commit -m "feat: altera models de X (gera migração)"
+      git push origin main
+      ```
+</details>
+
+<details>
+  <summary>📦 Guia: Adicionando uma Nova Biblioteca</summary>
+  <br>
+  
+  Ao instalar um novo pacote com `pip`, não se esqueça de atualizar o `requirements.txt`.
+
+  1.  **Instale a biblioteca no seu venv:**
+      ```bash
+      pip install nome-da-biblioteca
+      ```
+
+  2.  **Atualize ("congele") o `requirements.txt`:**
+      *Este comando salva a lista de todas as bibliotecas e suas versões exatas.*
+      ```bash
+      pip freeze > requirements.txt
+      ```
+
+  3.  **Suba o `requirements.txt` atualizado:**
+      ```bash
+      git add requirements.txt
+      git commit -m "chore: adiciona a biblioteca nome-da-biblioteca"
+      git push origin main
+      ```
 </details>
 
 ---
