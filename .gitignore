@@ -1,0 +1,27 @@
+# Ambiente virtual
+venv/
+
+# Banco de dados local
+db.sqlite3
+
+# Cache e arquivos temporários
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Migrações compiladas
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+
+*.sqlite3
+
+.env
+
