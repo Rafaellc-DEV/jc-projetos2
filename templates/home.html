@@ -1,8 +1,71 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Início - JC Online{% endblock %}
+{% block title %}Página Inicial - JC Online{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* Placeholder de foto */
+  .ph-foto {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* quadrado */
+    background: #f1f1f1;
+    border-radius: 30px;
+    display: grid;
+    place-items: center;
+    color: #666;
+    font-weight: 600;
+    letter-spacing: .2px;
+    user-select: none;
+  }
+
+  /* 🔥 Dá um respiro do topo (navbar já é maior) */
+  main.container {
+    padding-top: 24px;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Bem-vindo ao JC Online</h1>
-    <p>Seu portal de notícias está no ar 🚀</p>
+<div class="text-center py-5">
+  <h1 class="mb-4">Bem-vindo ao JC Online</h1>
+  <p class="lead">Aqui você encontra as principais notícias de Pernambuco e do Brasil.</p>
+
+  <hr class="my-4">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="ph-foto">Foto notícia 1</div>
+        <div class="card-body">
+          <h5 class="card-title">Notícia 1</h5>
+          <p class="card-text">Resumo da notícia 1 para chamar a atenção do leitor.</p>
+          <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="ph-foto">Foto notícia 2</div>
+        <div class="card-body">
+          <h5 class="card-title">Notícia 2</h5>
+          <p class="card-text">Resumo da notícia 2 para chamar a atenção do leitor.</p>
+          <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-4">
+        <div class="ph-foto">Foto notícia 3</div>
+        <div class="card-body">
+          <h5 class="card-title">Notícia 3</h5>
+          <p class="card-text">Resumo da notícia 3 para chamar a atenção do leitor.</p>
+          <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
