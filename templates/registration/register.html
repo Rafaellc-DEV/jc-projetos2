@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Criar conta - JC Online{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width: 480px;">
+  <h2 class="mb-4 text-center">Criar conta</h2>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="username" class="form-label">Usuário *</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail (opcional)</label>
+      <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Senha *</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="mb-3">
+      <label for="password2" class="form-label">Confirmar senha *</label>
+      <input type="password" class="form-control" id="password2" name="password2" required>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Criar conta</button>
+  </form>
+
+  {% if messages %}
+    <div class="mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-3">
+    Já tem conta? <a href="{% url 'login' %}">Entrar</a>
+  </div>
+</div>
+{% endblock %}
