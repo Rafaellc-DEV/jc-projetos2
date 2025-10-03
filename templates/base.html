@@ -8,6 +8,8 @@
 
   <!-- Bootstrap (CDN) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
   <!-- CSS do projeto -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -15,9 +17,9 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-  <!-- NAVBAR BRANCA COM LOGO CENTRALIZADA (NÃO FIXA) -->
+  <!-- NAVBAR BRANCA COM LOGO CENTRALIZADA -->
   <header class="topbar">
-    <!-- Botão hambúrguer (esquerda) -->
+    <!-- Botão hambúrguer -->
     <button class="hamburger" aria-label="Abrir menu"
             data-bs-toggle="offcanvas" data-bs-target="#mainMenu" aria-controls="mainMenu">
       <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
@@ -25,12 +27,12 @@
       </svg>
     </button>
 
-    <!-- Logo (centro) -->
+    <!-- Logo -->
     <a href="{% url 'home' %}" class="brand">
       <img src="{% static 'img/logo.png' %}" alt="Logo JC Online" class="brand-logo">
     </a>
 
-    <!-- Lado direito: busca + botão -->
+    <!-- Lado direito -->
     <div class="right-side">
       <form class="search" role="search" method="get" action="{% url 'search' %}">
         <input type="search" name="q" placeholder="Faça sua pesquisa" aria-label="Buscar" />
@@ -43,14 +45,28 @@
       </form>
 
       {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}" class="btn-auth">Sair</a>
+        <div class="dropdown">
+          <a class="profile-link d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle me-2" style="font-size:1.3rem;"></i>
+            <span class="text-truncate" style="max-width: 160px;">
+              {{ request.user.first_name|default:request.user.username }}
+            </span>
+            <i class="bi bi-caret-down ms-1"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+          </ul>
+        </div>
       {% else %}
-        <a href="{% url 'login' %}" class="btn-auth">Entre / Cadastre-se</a>
+        <a href="{% url 'login' %}" class="profile-link d-flex align-items-center">
+          <span class="me-2 fw-semibold">Entrar</span>
+          <i class="bi bi-person-circle" style="font-size:1.3rem;"></i>
+        </a>
       {% endif %}
     </div>
   </header>
 
-  <!-- Offcanvas (menu lateral) -->
+  <!-- Offcanvas -->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="mainMenu" aria-labelledby="mainMenuLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="mainMenuLabel">Menu</h5>
@@ -64,7 +80,9 @@
         {% if request.user.is_authenticated %}
           <a class="list-group-item list-group-item-action" href="{% url 'logout' %}">Sair</a>
         {% else %}
-          <a class="list-group-item list-group-item-action" href="{% url 'login' %}">Minha conta</a>
+          <a class="list-group-item list-group-item-action d-flex align-items-center" href="{% url 'login' %}">
+            <i class="bi bi-person-circle me-2"></i> Entrar
+          </a>
         {% endif %}
       </nav>
     </div>
@@ -77,94 +95,20 @@
       --muted: #eaeaea;
       --ring: #d0d0d0;
     }
-
-    /* Barra superior – altura automática, NÃO fixa */
-    .topbar{
-      /* sem position fixed/sticky */
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 16px;
-      padding: 12px 24px;      /* ajuste geral do respiro */
-      background: var(--bg);
-      color: var(--text);
-      box-shadow: 0 1px 0 rgba(0,0,0,.06);
-      border-bottom: 1px solid rgba(0,0,0,.05);
-    }
-
-    .hamburger{
-      justify-self: start;
-      display:inline-grid; place-items:center;
-      width:60px; height:60px;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .hamburger:hover{ background:#f7f7f7 }
-    .hamburger:focus-visible{ outline: 2px solid var(--ring); outline-offset: 2px; }
-
-    .brand{ justify-self: center; text-decoration: none; color: inherit; }
-    .brand-logo{
-      width: 220px;     /* controla pelo width */
-      height: auto;     /* mantém proporção */
-      display: block;
-      object-fit: contain;
-    }
-
-    .right-side{
-      justify-self: end;
-      display:flex; align-items:center; gap:16px;
-      min-width: 0;
-    }
-
-    .search{
-      position: relative;
-      display:flex; align-items:center;
-      min-width: 200px; max-width: 340px;
-      flex: 1 1 220px;
-      border: 1px solid var(--muted);
-      border-radius: 999px;
-      padding: 12px 50px 12px 18px;
-      background:#fff;
-    }
-    .search input{
-      border:0; outline:0; width:100%;
-      font-size:1.1rem;
-      color:var(--text);
-      background:transparent;
-    }
-    .search input::placeholder{ color:#9b9b9b }
-    .search:focus-within{ box-shadow: 0 0 0 3px rgba(0,0,0,.04); border-color:#dcdcdc }
-    .search-icon{
-      position:absolute; right:12px; display:grid; place-items:center;
-      width:34px; height:34px;
-      border:0; background:transparent; color:#d14b42; cursor:pointer;
-    }
-
-    .btn-auth{
-      white-space: nowrap;
-      text-decoration:none;
-      padding: 12px 20px;
-      border:1px solid var(--muted);
-      border-radius: 999px;
-      color: var(--text);
-      font-weight:600;
-      font-size:1.05rem;
-    }
-    .btn-auth:hover{ background:#f7f7f7 }
-    .btn-auth:focus-visible{ outline: 2px solid var(--ring); outline-offset:2px }
-
-    @media (max-width: 768px){
-      .search{ display:none; }
-      .btn-auth{ padding: 10px 16px; font-size:1rem }
-      .brand-logo{ width: 160px; } /* logo menor no mobile */
-      .hamburger{ width:50px; height:50px; }
-    }
+    .topbar{display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 12px 24px; background: var(--bg); color: var(--text); box-shadow: 0 1px 0 rgba(0,0,0,.06);}
+    .hamburger{justify-self: start; display:inline-grid; place-items:center; width:60px; height:60px; border-radius:8px; background:transparent; cursor:pointer;}
+    .brand{justify-self: center;}
+    .brand-logo{width: 220px; height: auto;}
+    .right-side{justify-self: end; display:flex; align-items:center; gap:16px;}
+    .search{position: relative; display:flex; align-items:center; min-width: 200px; max-width: 340px; border: 1px solid var(--muted); border-radius: 999px; padding: 12px 50px 12px 18px;}
+    .search input{border:0; outline:0; width:100%;}
+    .search-icon{position:absolute; right:12px; display:grid; place-items:center; width:34px; height:34px; border:0; background:transparent; color:#d14b42; cursor:pointer;}
+    .profile-link{padding: 10px 14px; border:1px solid var(--muted); border-radius: 999px; text-decoration:none; color: var(--text); background: #fff;}
+    .profile-link:hover{background:#f7f7f7;}
+    @media (max-width: 768px){.search{display:none;}.brand-logo{width:160px;}.hamburger{width:50px; height:50px;}}
   </style>
 
-  <!-- Mensagens do Django -->
+  <!-- Mensagens Django -->
   <div class="container mt-3">
     {% if messages %}
       {% for message in messages %}
@@ -175,7 +119,7 @@
     {% endif %}
   </div>
 
-  <!-- Conteúdo principal -->
+  <!-- Conteúdo -->
   <main class="container flex-grow-1 py-4">
     {% block content %}{% endblock %}
   </main>
@@ -189,6 +133,20 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Auto dismiss dos alerts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const alerts = document.querySelectorAll(".alert");
+      alerts.forEach(function(alert) {
+        setTimeout(() => {
+          alert.style.transition = "opacity 0.5s ease";
+          alert.style.opacity = "0";
+          setTimeout(() => alert.remove(), 500);
+        }, 3000); // 3 segundos
+      });
+    });
+  </script>
 
   <!-- JS do projeto -->
   <script src="{% static 'js/app.js' %}"></script>

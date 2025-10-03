@@ -15,16 +15,19 @@ def search(request):
 def login_view(request):
     next_url = request.GET.get("next") or request.POST.get("next") or "home"
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
+        email = request.POST.get("email", "").strip().lower()
         password = request.POST.get("password", "")
-        user = authenticate(request, username=username, password=password)
+
+        user = authenticate(request, username=email, password=password)
+
         if user is not None:
             login(request, user)
             messages.success(request, "Login realizado com sucesso!")
             return redirect(next_url)
-        messages.error(request, "Usuário ou senha inválidos.")
-    return render(request, "registration/login.html", {"next": next_url})
 
+        messages.error(request, "E-mail ou senha inválidos.")
+
+    return render(request, "registration/login.html", {"next": next_url})
 def logout_view(request):
     logout(request)
     messages.info(request, "Você saiu da sua conta.")
@@ -32,27 +35,54 @@ def logout_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
-        email = request.POST.get("email", "").strip()
-        password = request.POST.get("password", "")
-        password2 = request.POST.get("password2", "")
+        first_name = request.POST.get("first_name", "").strip()
+        last_name  = request.POST.get("last_name", "").strip()
+        email      = request.POST.get("email", "").strip().lower()
+        password   = request.POST.get("password", "")
+        password2  = request.POST.get("password2", "")
 
-        # validações simples
-        if not username or not password or not password2:
-            messages.error(request, "Preencha todos os campos obrigatórios.")
-            return render(request, "registration/register.html")
+        # validações básicas
+        if not all([first_name, last_name, email, password, password2]):
+            messages.error(request, "Preencha todos os campos.")
+            return render(request, "registration/register.html", {
+                "first_name": first_name, "last_name": last_name, "email": email
+            })
+
+        if "@" not in email or "." not in email.split("@")[-1]:
+            messages.error(request, "Informe um e-mail válido.")
+            return render(request, "registration/register.html", {
+                "first_name": first_name, "last_name": last_name, "email": email
+            })
 
         if password != password2:
             messages.error(request, "As senhas não conferem.")
-            return render(request, "registration/register.html")
+            return render(request, "registration/register.html", {
+                "first_name": first_name, "last_name": last_name, "email": email
+            })
+
+        if len(password) < 6:
+            messages.error(request, "A senha deve ter pelo menos 6 caracteres.")
+            return render(request, "registration/register.html", {
+                "first_name": first_name, "last_name": last_name, "email": email
+            })
+
+        username = email  # usamos o e-mail como username
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Esse usuário já existe.")
-            return render(request, "registration/register.html")
+            messages.error(request, "Já existe uma conta com este e-mail.")
+            return render(request, "registration/register.html", {
+                "first_name": first_name, "last_name": last_name, "email": email
+            })
 
-        # cria usuário
-        user = User.objects.create_user(username=username, email=email, password=password)
-        messages.success(request, "Conta criada com sucesso! Faça login.")
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name
+        )
+
+        messages.success(request, "Cadastro realizado! Faça login.")
         return redirect("login")
 
     return render(request, "registration/register.html")
