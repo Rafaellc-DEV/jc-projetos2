@@ -1,0 +1,8 @@
+<!-- templates/premium.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 text-center">
+  <h1>🎉 Conteúdo Premium</h1>
+  <p>Bem-vindo, {{ request.user.username }}! Você é um assinante e pode ver esta página.</p>
+</div>
+{% endblock %}
