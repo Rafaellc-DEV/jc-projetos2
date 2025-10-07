@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from accounts.decorators import subscriber_required
 
 User = get_user_model()
 
@@ -86,3 +87,11 @@ def register_view(request):
         return redirect("login")
 
     return render(request, "registration/register.html")
+
+def conteudo_premium(request):
+    """
+    View protegida: só assinantes (user_type == 'ASSINANTE') podem ver.
+    Se o usuário for FREE, o decorator o redireciona automaticamente
+    e registra o acesso no AccessLog.
+    """
+    return render(request, "premium.html")
