@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from accounts.decorators import subscriber_required
+from .decorators import subscriber_required
 
 User = get_user_model()
 
