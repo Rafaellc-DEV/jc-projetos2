@@ -92,15 +92,24 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 Antes de começar, certifique-se de que você tem o seguinte instalado:
 * [Python 3.8+](https://www.python.org/downloads/)
 * [Git](https://git-scm.com/downloads/)
+* (Opcional) [VS Code](https://code.visualstudio.com/) — recomendado para editar e executar o projeto.
+
+#### Extensões úteis no VS Code:
+- **Python** (by Microsoft)
+- **Django**
+
+---
 
 ### Passos para Execução
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[SEU-USUARIO]/jc-projetos2.git
+    git clone https://github.com/[SEU-USUARIO]/jc-projetos2.git
     cd jc-projetos2
     ```
-    > **Obs:** Lembre-se de substituir `[SEU-USUARIO]` pelo seu nome de usuário do GitHub.
+    > **Obs:** Substitua `[SEU-USUARIO]` pelo seu nome de usuário do GitHub.
+
+---
 
 2.  **Crie e ative o ambiente virtual:**
     *Este passo cria um ambiente isolado para as dependências do projeto.*
@@ -108,41 +117,61 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
     # Criar o ambiente
     python -m venv venv
     ```
+
     *Agora, ative o ambiente:*
     ```bash
     # No Windows (PowerShell):
     .\venv\Scripts\Activate
+    ```
 
+    > ⚠️ Caso apareça um erro dizendo que a execução de scripts está bloqueada, execute o comando abaixo antes de ativar:
+    ```bash
+    Set-ExecutionPolicy Unrestricted -Scope Process
+    ```
+
+    ```bash
     # No Linux ou macOS:
     source venv/bin/activate
     ```
+
+---
 
 3.  **Instale as dependências:**
     ```bash
     pip install -r requirements.txt
     ```
 
+---
+
 4.  **Execute as migrações do banco de dados:**
     ```bash
     python manage.py migrate
     ```
 
-5.  **Crie um superusuário (Opcional):**
-    *Isso permitirá o acesso à área de administração do Django.*
+---
+
+5.  **Crie um superusuário (opcional):**
+    *Permite o acesso à área administrativa do Django.*
     ```bash
     python manage.py createsuperuser
     ```
+
+---
 
 6.  **Inicie o servidor de desenvolvimento:**
     ```bash
     python manage.py runserver
     ```
 
-7.  **Acesse a aplicação no seu navegador:**
-    -   **Interface Principal:** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-    -   **Área Administrativa:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+---
 
-Pronto! A aplicação estará rodando em sua máquina local.
+7.  **Acesse a aplicação no seu navegador:**
+    - **Interface Principal:** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+    - **Área Administrativa:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
+---
+
+🎉 **Pronto!** A aplicação estará rodando em sua máquina local.
 </details>
 
 <details>
