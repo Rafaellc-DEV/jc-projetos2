@@ -41,7 +41,8 @@ def login_view(request):
             return redirect(next_url)
         messages.error(request, "Usuário ou senha inválidos.")
     # Se tiver template: login.html
-    return render(request, "login.html")
+    return render(request, "registration/login.html")
+
 
 
 def logout_view(request):
@@ -66,7 +67,7 @@ def register_view(request):
             messages.success(request, "Cadastro realizado. Faça login.")
             return redirect("login")
     # Se tiver template: register.html
-    return render(request, "register.html")
+    return render(request, "registration/register.html")
 
 
 # ----------------------
