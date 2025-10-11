@@ -74,3 +74,43 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f'Comentário de {self.autor} em {self.noticia.titulo[:30]}...'
+
+# ==========================
+# Modelo de Categoria
+# ==========================
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categorias'
+
+
+# Modelo PreferenciasFeed
+class PreferenciasFeed(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,  # Use settings.AUTH_USER_MODEL em vez de 'auth.User'
+        on_delete=models.CASCADE,
+        related_name='preferencias_feed'
+    )
+    categorias = models.ManyToManyField(
+        Categoria,
+        related_name='preferencias_usuarios',
+        blank=True
+    )
+    ordem_categorias = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Ordem de prioridade das categorias em formato JSON, ex: {'categoria_id': ordem}"
+    )
+
+    def __str__(self):
+        return f"Preferências de {self.usuario.username}"
+
+    class Meta:
+        verbose_name = "Preferência de Feed"
+        verbose_name_plural = "Preferências de Feed"
