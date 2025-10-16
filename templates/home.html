@@ -6,241 +6,79 @@
 {% block extra_head %}
 <style>
   /* Font and color scheme inspired by El Mundo/Estadão */
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #333;
-    background-color: #f8f8f8;
-  }
-
-  h1, .card-title {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: #000;
-  }
-
-  .lead {
-    font-size: 1.1rem;
-    color: #555;
-  }
+  body { font-family: Arial, Helvetica, sans-serif; color: #333; background-color: #f8f8f8; }
+  h1, .card-title { font-family: Georgia, 'Times New Roman', Times, serif; color: #000; }
+  .lead { font-size: 1.1rem; color: #555; }
 
   /* Container styling */
-  main.container {
-    max-width: 1200px;
-    padding: 0 15px;
-    margin: 0 auto;
-  }
+  main.container { max-width: 1200px; padding: 0 15px; margin: 0 auto; }
 
   /* News section */
-  .news-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 10px 0;
-  }
+  .news-container { max-width: 800px; margin: 0 auto; padding: 10px 0; }
 
   /* Card styling */
-  .card {
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-
+  .card { border: none; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
   .ph-foto {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #f1f1f1;
-    border-radius: 8px 8px 0 0;
-    display: grid;
-    place-items: center;
-    color: #666;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    user-select: none;
+    width: 100%; aspect-ratio: 16/9; background: #f1f1f1;
+    border-radius: 8px 8px 0 0; display: grid; place-items: center;
+    color: #666; font-weight: 600; letter-spacing: .2px; user-select: none;
   }
+  .card-body { padding: 15px; }
+  .card-title { font-size: 1.25rem; margin-bottom: 10px; }
+  .card-text { font-size: .9rem; color: #666; }
+  .btn-primary { background-color: #003087; border-color: #003087; font-size: .85rem; }
+  .btn-outline-secondary { font-size: .85rem; }
 
-  .card-body {
-    padding: 15px;
-  }
-
-  .card-title {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-  }
-
-  .card-text {
-    font-size: 0.9rem;
-    color: #666;
-  }
-
-  .btn-primary {
-    background-color: #003087;
-    border-color: #003087;
-    font-size: 0.85rem;
-  }
-
-  .btn-outline-secondary {
-    font-size: 0.85rem;
-  }
-
-  /* Ad styling */
+  /* Ads */
   .ad-top {
-    width: 100%;
-    max-width: 970px;
-    height: 250px;
-    background: url('https://picsum.photos/970/250') no-repeat center;
-    background-size: cover;
-    margin: 0 auto 10px auto;
-    display: none;
+    width: 100%; max-width: 970px; height: 250px;
+    background: url('https://picsum.photos/970/250') no-repeat center/cover;
+    margin: 0 auto 10px; display: none;
   }
-
   .ad-vertical {
-    width: 160px;
-    height: 600px;
-    background: url('https://picsum.photos/300/600') no-repeat center;
-    background-size: cover;
-    position: sticky;
-    top: 20px;
-    margin: 0 15px;
+    width: 160px; height: 600px;
+    background: url('https://picsum.photos/300/600') no-repeat center/cover;
+    position: sticky; top: 20px; margin: 0 15px;
   }
+  .ad-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 
-  .ad-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-  }
+  /* News item */
+  .news-item { font-family: Arial, Helvetica, sans-serif; color: #000; }
+  .news-item h1 { font-family: Georgia, 'Times New Roman', Times, serif; font-size: 2rem; margin: 0; line-height: 1.2; color: #000; text-align: left; }
+  .news-item p { font-size: .9rem; color: #555; margin: 5px 0; line-height: 1.5; text-align: left; }
+  .news-item .highlight { font-size: .9rem; margin: 5px 0; }
+  .news-item .highlight::before { content: "•"; color: #FF6600; font-weight: bold; margin-right: 5px; }
 
-  /* Custom styling for news layout based on first image */
-  .news-item {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #000;
-  }
-  .news-item h1 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 2rem;
-    margin: 0;
-    line-height: 1.2;
-    color: #000000;
-    text-align: left;
-  }
-  .news-item p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.9rem;
-    color: #555555;
-    margin: 5px 0;
-    line-height: 1.5;
-    text-align: left;
-  }
-  .news-item .highlight {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.9rem;
-    margin: 5px 0;
-  }
-  .news-item .highlight::before {
-    content: "•";
-    color: #FF6600;
-    font-weight: bold;
-    margin-right: 5px;
-  }
-
-  .news-item .label-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-
+  .news-item .label-container { display: flex; align-items: center; margin-bottom: 30px; }
   .news-item .label {
-    background-color: #E4F2EE;
-    color: #00796B;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 6px 12px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    background-color: #E4F2EE; color: #00796B; font-size: 12px; font-weight: bold; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px;
   }
+  .news-item .share-icon { width: 16px; height: 16px; color: #A0A0A0; font-size: 14px; }
 
-  .news-item .share-icon {
-    width: 16px;
-    height: 16px;
-    color: #A0A0A0;
-    font-size: 14px;
-  }
+  .news-item .bullets-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
 
-  .news-item .bullets-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 40px;
-  }
-
-  /* Responsive design */
+  /* Responsive */
   @media (max-width: 991px) {
-    .ad-vertical {
-      display: none;
-    }
-    .ad-top {
-      display: block;
-      height: 100px;
-      background: url('https://picsum.photos/300/100') no-repeat center;
-      background-size: cover;
-    }
-    .news-container {
-      max-width: 100%;
-    }
-    .ad-container {
-      flex-direction: column;
-      gap: 0;
-    }
-    .news-item h1 {
-      font-size: 1.5rem;
-    }
-    .news-item p {
-      font-size: 0.85rem;
-    }
-    .news-item .bullets-container {
-      grid-template-columns: 1fr;
-    }
+    .ad-vertical { display: none; }
+    .ad-top { display: block; height: 100px; background: url('https://picsum.photos/300/100') no-repeat center/cover; }
+    .news-container { max-width: 100%; }
+    .ad-container { flex-direction: column; gap: 0; }
+    .news-item h1 { font-size: 1.5rem; }
+    .news-item p { font-size: .85rem; }
+    .news-item .bullets-container { grid-template-columns: 1fr; }
   }
-
   @media (max-width: 576px) {
-    .card-title {
-      font-size: 1.1rem;
-    }
-    .card-text {
-      font-size: 0.85rem;
-    }
-    .ad-top {
-      height: 90px;
-      background: url('https://picsum.photos/300/90') no-repeat center;
-      background-size: cover;
-    }
-    .news-item h1 {
-      font-size: 1.2rem;
-    }
-    .news-item p {
-      font-size: 0.8rem;
-    }
-    .news-item .bullets-container {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Show ad-top only on mobile, adjust spacing on desktop */
-  @media (max-width: 991px) {
-    .ad-top {
-      display: block;
-    }
+    .card-title { font-size: 1.1rem; }
+    .card-text { font-size: .85rem; }
+    .ad-top { height: 90px; background: url('https://picsum.photos/300/90') no-repeat center/cover; }
+    .news-item h1 { font-size: 1.2rem; }
+    .news-item p { font-size: .8rem; }
+    .news-item .bullets-container { grid-template-columns: 1fr; }
   }
   @media (min-width: 992px) {
-    .ad-top {
-      display: none;
-    }
-    .news-container {
-      padding-top: 0; /* Remove gap on desktop */
-    }
+    .ad-top { display: none; }
+    .news-container { padding-top: 0; }
   }
 </style>
 {% endblock %}
@@ -251,7 +89,7 @@
   <div class="ad-top d-block d-lg-none"></div>
 
   <div class="ad-container">
-    <!-- Left vertical ad (always on desktop) -->
+    <!-- Left vertical ad (desktop) -->
     <div class="ad-vertical d-none d-lg-block"></div>
 
     <!-- News content -->
@@ -284,11 +122,11 @@
                 <p class="highlight">Escritório da filha de Noronha, do STJ, recebeu R$ 300 mil de empresa investigada pela PF</p>
               </div>
               <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button" 
-                      class="btn btn-outline-secondary btn-sm ms-2" 
-                      data-bs-toggle="modal" 
+              <button type="button"
+                      class="btn btn-outline-secondary btn-sm ms-2"
+                      data-bs-toggle="modal"
                       data-bs-target="#modalComentario"
-                      data-noticia-id="1" 
+                      data-noticia-id="1"
                       data-noticia-titulo="Notícia 1">
                 Comentar
               </button>
@@ -316,11 +154,11 @@
                 <p class="highlight">Além disso, ele destaca que a empresa propôs um acordo de dois anos oferecendo 100% da inflação. A classe reivindica ganho real de 3%.</p>
               </div>
               <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button" 
-                      class="btn btn-outline-secondary btn-sm ms-2" 
-                      data-bs-toggle="modal" 
+              <button type="button"
+                      class="btn btn-outline-secondary btn-sm ms-2"
+                      data-bs-toggle="modal"
                       data-bs-target="#modalComentario"
-                      data-noticia-id="2" 
+                      data-noticia-id="2"
                       data-noticia-titulo="Notícia 2">
                 Comentar
               </button>
@@ -348,11 +186,11 @@
                 <p class="highlight">Como consequência da alta excelência, o processo seletivo para entrar em uma das unidades do Grupo é historicamente concorrido.</p>
               </div>
               <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button" 
-                      class="btn btn-outline-secondary btn-sm ms-2" 
-                      data-bs-toggle="modal" 
+              <button type="button"
+                      class="btn btn-outline-secondary btn-sm ms-2"
+                      data-bs-toggle="modal"
                       data-bs-target="#modalComentario"
-                      data-noticia-id="3" 
+                      data-noticia-id="3"
                       data-noticia-titulo="Notícia 3">
                 Comentar
               </button>
@@ -360,7 +198,7 @@
           </div>
         </div>
 
-        <!-- Notícia 4-->
+        <!-- Notícia 4 -->
         <div class="col-12">
           <div class="card shadow-sm news-item">
             <div class="ph-foto">Foto notícia 4</div>
@@ -380,11 +218,11 @@
                 <p class="highlight">Dólar fecha no maior nível desde agosto após Trump ameaçar China com novas tarifas</p>
               </div>
               <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button" 
-                      class="btn btn-outline-secondary btn-sm ms-2" 
-                      data-bs-toggle="modal" 
+              <button type="button"
+                      class="btn btn-outline-secondary btn-sm ms-2"
+                      data-bs-toggle="modal"
                       data-bs-target="#modalComentario"
-                      data-noticia-id="4" 
+                      data-noticia-id="4"
                       data-noticia-titulo="Notícia 4">
                 Comentar
               </button>
@@ -394,7 +232,7 @@
       </div>
     </div>
 
-    <!-- Right vertical ad (always on desktop) -->
+    <!-- Right vertical ad (desktop) -->
     <div class="ad-vertical d-none d-lg-block"></div>
   </div>
 
@@ -404,13 +242,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalComentarioLabel">Deixar um Comentário em "<span id="noticiaTituloModal"></span>"</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3 text-center">
-            <button id="btnCurtir" class="btn btn-outline-danger">
-              ❤️ Curtiu? Deixe seu Like!
-            </button>
+            <button id="btnCurtir" class="btn btn-outline-danger">❤️ Curtiu? Deixe seu Like!</button>
           </div>
           <hr>
           <form id="formComentario" method="POST" data-url="{% url 'adicionar_comentario_ajax' %}">
@@ -428,18 +264,15 @@
             <input type="hidden" id="noticia_id" name="noticia_id" value="">
             <button type="submit" class="btn btn-success mt-3">Enviar Comentário</button>
           </form>
-          <div id="mensagemSucesso" class="alert alert-success mt-3" style="display:none;">
-            Enviado com sucesso!
-          </div>
+          <div id="mensagemSucesso" class="alert alert-success mt-3" style="display:none;">Enviado com sucesso!</div>
         </div>
       </div>
     </div>
   </div>
 </main>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script>
-$(document).ready(function() {
+$(function() {
   $('#modalComentario').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var noticiaId = button.data('noticia-id');
@@ -451,11 +284,11 @@ $(document).ready(function() {
     $('#btnCurtir').prop('disabled', false).text('❤️ Curtiu? Deixe seu Like!');
   });
 
-  $('#btnCurtir').click(function() {
+  $('#btnCurtir').on('click', function() {
     $(this).prop('disabled', true).text('❤️ Você curtiu!');
   });
 
-  $('#formComentario').submit(function(e) {
+  $('#formComentario').on('submit', function(e) {
     e.preventDefault();
     var form = $(this);
     var url = form.data('url');
@@ -467,16 +300,15 @@ $(document).ready(function() {
         if (response.sucesso) {
           form[0].reset();
           form.hide();
-          $('#mensagemSucesso').text(response.mensagem).show();
-          setTimeout(function(){
-            $('#modalComentario').modal('hide');
-          }, 3000);
+          $('#mensagemSucesso').text(response.mensagem || 'Enviado com sucesso!').show();
+          setTimeout(function(){ $('#modalComentario').modal('hide'); }, 3000);
         } else {
-          alert('Erro ao enviar: ' + response.erros);
+          alert('Erro ao enviar: ' + (response.erros || 'tente novamente.'));
         }
       },
-      error: function() {
-        alert('Ocorreu um erro na comunicação com o servidor. Verifique o console.');
+      error: function(xhr) {
+        console.error(xhr.responseText);
+        alert('Ocorreu um erro na comunicação com o servidor.');
       }
     });
   });
