@@ -10,7 +10,7 @@
 O objetivo é oferecer **acessibilidade, personalização e engajamento** dos usuários, ao mesmo tempo em que garante ferramentas de gestão para administradores e editores.
 
 🔗 **Acesse a plataforma online:**  
-👉 [https://DEV)
+👉 https://rafaeldev.pythonanywhere.com/
 
 
 ## 📄 Documentações e Entregas
@@ -26,29 +26,35 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
     <img src="https://img.shields.io/badge/Google_Drive-F4B400?style=for-the-badge&logo=google&logoColor=white" alt="Pasta Compartilhada"/></a>
   <a href="https://time2projetos2.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiZGI1ZmI2MzY3NmQyNDgwZGFjYzE1MTdjYzdlNDMxYjAiLCJwIjoiaiJ9">
     <img src="https://img.shields.io/badge/Jira-0000ff?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira"/></a>
+  <a href="https://trello.com/b/FPQBhOen/equipe-2-desafio-jc-online">
+    <img src="https://img.shields.io/badge/Trello-FF9F1A?style=for-the-badge&logo=Trello&logoColor=white" alt="Trello"/></a>
+  <a href="https://rafaeldev.pythonanywhere.com/">
+    <img src="https://img.shields.io/badge/Site_Online-34D058?style=for-the-badge&logo=python&logoColor=white"/>
+</a>
   <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
     <img src="https://img.shields.io/badge/Screencast Figma-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+  
 </div>
 
 
 
 
-## 🚀 Funcionalidades Principais 
+## 🚀 Funcionalidades 
 
-### 👩‍💻 Administração
-- Publicar, editar e excluir notícias.
-- Gerenciar anúncios.
-- Visualizar estatísticas de engajamento (dashboard de métricas).
+#### Gestão de Usuários
+- **Cadastro e Login:** Sistema completo para cadastro e login de usuários, incluindo perfis de acesso.
 
-### 🙋 Usuários
-- Cadastro e login para acesso personalizado.
-- Personalização de feed por editorias favoritas.
-- Filtrar notícias por tema específico.
-- Baixar notícias para ler offline (PDF/HTML).
-- Comentar, curtir e compartilhar notícias.
-- Receber chamadas de notícias rápidas por e-mail.
-- Ativar modo escuro e ajustar acessibilidade (fonte/contraste).
-- Registrar feedback de experiência.
+#### Interatividade e Engajamento
+- **Comentários:** Permite que os leitores comentem nas notícias.
+- **Curtidas:** Funcionalidade para curtir notícias.
+- **Notificações por E-mail:** Opção para receber notícias rápidas por e-mail.
+
+#### Personalização 
+- **Personalização de Feed:** Ferramentas para que o usuário possa customizar o feed de notícias.
+
+#### Acessibilidade
+- **Modo Claro/Escuro:** Alternância entre temas para maior conforto visual.
+- **Ajustes de Contraste e Fonte:** Controles para ajustar o contraste e o tamanho da fonte, garantindo a legibilidade.
 
 ### 📈 Diferenciais
 - Experiência mobile otimizada.
@@ -298,7 +304,10 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
 <details>
 <summary>🚀 SR1 (entrega 1)</summary>
   <br/>
- </details>
+  
+  [Visualizar Status Report 1](./prints/Status-Report-1.pdf)
+
+</details>
 
  <details>
 <summary>🚀 SR2 (entrega 2)</summary>
@@ -409,6 +418,22 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
 <details>
   <summary>🚀 Entrega 3</summary>
   <br/>
+
+  ---
+  ## Ⓜ️ Metodologia e Processo de Colaboração
+
+  A equipe reconhece os benefícios da **Programação em Par**, mas, devido à dificuldade em conciliar os horários de cada integrante, adotamos um modelo de trabalho que priorizou a flexibilidade e a responsabilidade individual.
+
+  Nosso processo de desenvolvimento foi estruturado da seguinte forma:
+
+  * **Desenvolvimento Focado em Tarefas:** Utilizamos o Jira para dividir o projeto em *tasks* bem definidas. Cada membro da equipe ficou responsável por implementar suas tarefas de ponta a ponta, o que permitiu um trabalho focado e maior agilidade nas entregas.
+
+  * **Controle de Versão com Git:** O Git foi a ferramenta central para integrar o trabalho de todos. Cada desenvolvedor realizava seus *commits* à medida que progredia em suas tarefas, mantendo o repositório sempre atualizado.
+
+  * **Qualidade e Correção Coletiva:** A garantia de qualidade foi tratada como uma responsabilidade do grupo. Ao identificar um bug ou um problema, o membro da equipe o relatava imediatamente para que o time pudesse discutir e encontrar a melhor solução em conjunto.
+
+  Essa abordagem nos permitiu avançar de forma eficiente, respeitando a autonomia de cada desenvolvedor e utilizando a comunicação em grupo como nosso principal mecanismo para garantir a integridade do projeto.
+
 </details>
 
 <details>
