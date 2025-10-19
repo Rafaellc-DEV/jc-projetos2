@@ -1,12 +1,13 @@
 # noticias/views.py
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, Http404
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
-from .models import Noticia, Comentario
+from .models import Noticia, Comentario, Categoria
 
 User = get_user_model()
 
@@ -15,9 +16,36 @@ User = get_user_model()
 # Páginas públicas
 # ----------------------
 def home(request):
-    # Se você já tiver um template, troque por: return render(request, "home.html", {...})
-    noticias = Noticia.objects.order_by("-data_publicacao")[:10]
-    return render(request, "home.html", {"noticias": noticias})
+    """
+    Busca todas as categorias e, para cada uma, separa a notícia mais recente
+    como destaque e as seguintes como relacionadas.
+    """
+    dados_home = []
+    # Pega todas as categorias que têm notícias
+    categorias = Categoria.objects.filter(noticias__isnull=False).distinct()
+
+    for categoria in categorias:
+        # Busca as notícias da categoria atual, ordenadas pela mais recente
+        noticias_da_categoria = Noticia.objects.filter(categoria=categoria).order_by('-data_publicacao')
+        
+        # A primeira da lista é o destaque
+        destaque = noticias_da_categoria.first()
+        # As próximas 4 são as relacionadas
+        relacionadas = noticias_da_categoria[1:5]
+
+        # Adiciona os dados organizados à lista se houver uma notícia de destaque
+        if destaque:
+            dados_home.append({
+                'categoria': categoria,
+                'destaque': destaque,
+                'relacionadas': relacionadas
+            })
+
+    context = {
+        'dados_home': dados_home
+    }
+    
+    return render(request, "home.html", context)
 
 
 def search(request):
@@ -25,6 +53,42 @@ def search(request):
     resultados = Noticia.objects.filter(titulo__icontains=q) if q else []
     return render(request, "search.html", {"q": q, "resultados": resultados})
 
+
+# ----------------------
+# Notícias e comentários
+# ----------------------
+def noticia_detalhe(request, categoria_slug, noticia_slug):
+    noticia = get_object_or_404(Noticia, categoria__slug=categoria_slug, slug=noticia_slug)
+    return render(request, "noticia_detalhe.html", {"noticia": noticia})
+
+
+@require_POST
+def adicionar_comentario_ajax(request):
+    try:
+        noticia_id = int(request.POST.get("noticia_id", ""))
+    except (ValueError, TypeError):
+        return JsonResponse({"ok": False, "error": "Parâmetro noticia_id inválido."}, status=400)
+
+    autor = (request.POST.get("autor") or "").strip()
+    texto = (request.POST.get("texto") or "").strip()
+
+    if not autor or not texto:
+        return JsonResponse({"ok": False, "error": "Autor e texto são obrigatórios."}, status=400)
+
+    noticia = get_object_or_404(Noticia, pk=noticia_id)
+    comentario = Comentario.objects.create(noticia=noticia, autor=autor, texto=texto)
+
+    return JsonResponse(
+        {
+            "ok": True,
+            "comentario": {
+                "id": comentario.id,
+                "autor": comentario.autor,
+                "texto": comentario.texto,
+                "data_criacao": comentario.data_criacao.isoformat(),
+            },
+        }
+    )
 
 # ----------------------
 # Autenticação
@@ -40,9 +104,7 @@ def login_view(request):
             next_url = request.POST.get("next") or request.GET.get("next") or "home"
             return redirect(next_url)
         messages.error(request, "Usuário ou senha inválidos.")
-    # Se tiver template: login.html
     return render(request, "registration/login.html")
-
 
 
 def logout_view(request):
@@ -66,7 +128,6 @@ def register_view(request):
             user = User.objects.create_user(username=username, password=password)
             messages.success(request, "Cadastro realizado. Faça login.")
             return redirect("login")
-    # Se tiver template: register.html
     return render(request, "registration/register.html")
 
 
@@ -75,48 +136,6 @@ def register_view(request):
 # ----------------------
 @login_required
 def conteudo_premium(request):
-    # Requer que o CustomUser possua user_type == "ASSINANTE"
     if getattr(request.user, "user_type", "FREE") != "ASSINANTE":
         return HttpResponseForbidden("Acesso restrito a assinantes.")
     return render(request, "premium.html")
-
-
-# ----------------------
-# Notícias e comentários
-# ----------------------
-def noticia_detalhe(request, pk: int):
-    noticia = get_object_or_404(Noticia, pk=pk)
-    return render(request, "noticia_detalhe.html", {"noticia": noticia})
-
-
-@require_POST
-def adicionar_comentario_ajax(request):
-    """
-    Espera POST com: noticia_id, autor, texto.
-    Retorna JSON com sucesso ou erros.
-    """
-    try:
-        noticia_id = int(request.POST.get("noticia_id", ""))
-    except ValueError:
-        return JsonResponse({"ok": False, "error": "Parâmetro noticia_id inválido."}, status=400)
-
-    autor = (request.POST.get("autor") or "").strip()
-    texto = (request.POST.get("texto") or "").strip()
-
-    if not autor or not texto:
-        return JsonResponse({"ok": False, "error": "Autor e texto são obrigatórios."}, status=400)
-
-    noticia = get_object_or_404(Noticia, pk=noticia_id)
-    comentario = Comentario.objects.create(noticia=noticia, autor=autor, texto=texto)
-
-    return JsonResponse(
-        {
-            "ok": True,
-            "comentario": {
-                "id": comentario.id,
-                "autor": comentario.autor,
-                "texto": comentario.texto,
-                "data_criacao": comentario.data_criacao.strftime("%Y-%m-%d %H:%M:%S"),
-            },
-        }
-    )

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Categorias - JC Online{% endblock %}
+
+{% block extra_head %}
+<style>
+  main.container {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .categoria-secao {
+    margin-bottom: 2.5rem; /* Espaço entre as seções de categoria */
+  }
+  .categoria-titulo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 700;
+    border-bottom: 2px solid #0d6efd;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  .noticia-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    margin-bottom: 1.5rem;
+    height: calc(100% - 1.5rem); /* Garante que os cards na mesma linha tenham a mesma altura */
+  }
+  .noticia-card-body {
+    padding: 1rem 1.25rem;
+  }
+  .noticia-card-titulo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #212529;
+    text-decoration: none;
+    display: block; /* Garante que o link ocupe a largura toda */
+  }
+  .noticia-card-titulo:hover {
+    color: #0d6efd;
+  }
+  .noticia-card-texto {
+    color: #6c757d;
+    font-size: 0.95rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container py-4">
+
+  {% for item in dados_home %}
+    <section class="categoria-secao">
+      <h2 class="categoria-titulo">{{ item.categoria.nome }}</h2>
+      
+      <div class="row">
+        {% for noticia in item.noticias %}
+          <div class="col-md-6">
+            <div class="card noticia-card">
+              <div class="card-body noticia-card-body">
+                <a href="{% url 'noticia_detalhe' noticia.categoria.slug noticia.slug %}" class="noticia-card-titulo">
+                  {{ noticia.titulo }}
+                </a>
+                <p class="noticia-card-texto mt-2">
+                  {{ noticia.conteudo|truncatewords:25 }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% empty %}
+    <div class="text-center py-5">
+        <h3 class="text-muted">Ainda não há notícias publicadas.</h3>
+        <p class="text-muted">Volte mais tarde para conferir as novidades!</p>
+    </div>
+  {% endfor %}
+
+</main>
+{% endblock %}

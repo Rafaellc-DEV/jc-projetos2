@@ -5,313 +5,148 @@
 
 {% block extra_head %}
 <style>
-  /* Font and color scheme inspired by El Mundo/Estadão */
-  body { font-family: Arial, Helvetica, sans-serif; color: #333; background-color: #f8f8f8; }
-  h1, .card-title { font-family: Georgia, 'Times New Roman', Times, serif; color: #000; }
-  .lead { font-size: 1.1rem; color: #555; }
-
-  /* Container styling */
-  main.container { max-width: 1200px; padding: 0 15px; margin: 0 auto; }
-
-  /* News section */
-  .news-container { max-width: 800px; margin: 0 auto; padding: 10px 0; }
-
-  /* Card styling */
-  .card { border: none; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
-  .ph-foto {
-    width: 100%; aspect-ratio: 16/9; background: #f1f1f1;
-    border-radius: 8px 8px 0 0; display: grid; place-items: center;
-    color: #666; font-weight: 600; letter-spacing: .2px; user-select: none;
+  :root {
+    --headline: #000;
+    --text: #555;
+    --muted: #999;
+    --brand: #003087;
+    --chip-bg: #E4F2EE;
+    --chip-tx: #00796B;
+    --accent: #d14b42; /* Cor da bolinha (vermelho) */
   }
-  .card-body { padding: 15px; }
-  .card-title { font-size: 1.25rem; margin-bottom: 10px; }
-  .card-text { font-size: .9rem; color: #666; }
-  .btn-primary { background-color: #003087; border-color: #003087; font-size: .85rem; }
-  .btn-outline-secondary { font-size: .85rem; }
 
-  /* Ads */
-  .ad-top {
-    width: 100%; max-width: 970px; height: 250px;
-    background: url('https://picsum.photos/970/250') no-repeat center/cover;
-    margin: 0 auto 10px; display: none;
+  main.container {
+    max-width: 980px;
+    margin: 0 auto;
   }
-  .ad-vertical {
-    width: 160px; height: 600px;
-    background: url('https://picsum.photos/300/600') no-repeat center/cover;
-    position: sticky; top: 20px; margin: 0 15px;
-  }
-  .ad-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 
-  /* News item */
-  .news-item { font-family: Arial, Helvetica, sans-serif; color: #000; }
-  .news-item h1 { font-family: Georgia, 'Times New Roman', Times, serif; font-size: 2rem; margin: 0; line-height: 1.2; color: #000; text-align: left; }
-  .news-item p { font-size: .9rem; color: #555; margin: 5px 0; line-height: 1.5; text-align: left; }
-  .news-item .highlight { font-size: .9rem; margin: 5px 0; }
-  .news-item .highlight::before { content: "•"; color: #FF6600; font-weight: bold; margin-right: 5px; }
-
-  .news-item .label-container { display: flex; align-items: center; margin-bottom: 30px; }
-  .news-item .label {
-    background-color: #E4F2EE; color: #00796B; font-size: 12px; font-weight: bold; text-transform: uppercase;
-    padding: 6px 12px; border-radius: 12px; display: flex; align-items: center; gap: 8px;
+  .categoria-bloco {
+      margin-bottom: 3rem; /* Espaçamento entre os blocos de categoria */
   }
-  .news-item .share-icon { width: 16px; height: 16px; color: #A0A0A0; font-size: 14px; }
 
-  .news-item .bullets-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+  .lead {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
 
-  /* Responsive */
-  @media (max-width: 991px) {
-    .ad-vertical { display: none; }
-    .ad-top { display: block; height: 100px; background: url('https://picsum.photos/300/100') no-repeat center/cover; }
-    .news-container { max-width: 100%; }
-    .ad-container { flex-direction: column; gap: 0; }
-    .news-item h1 { font-size: 1.5rem; }
-    .news-item p { font-size: .85rem; }
-    .news-item .bullets-container { grid-template-columns: 1fr; }
+  .lead__body {
+    padding: 22px 26px;
   }
-  @media (max-width: 576px) {
-    .card-title { font-size: 1.1rem; }
-    .card-text { font-size: .85rem; }
-    .ad-top { height: 90px; background: url('https://picsum.photos/300/90') no-repeat center/cover; }
-    .news-item h1 { font-size: 1.2rem; }
-    .news-item p { font-size: .8rem; }
-    .news-item .bullets-container { grid-template-columns: 1fr; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    color: var(--chip-tx);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
   }
-  @media (min-width: 992px) {
-    .ad-top { display: none; }
-    .news-container { padding-top: 0; }
+
+  .lead__title {
+    font: 700 2.1rem/1.2 Georgia, "Times New Roman", serif;
+    color: var(--headline);
+    margin: 12px 0 8px;
+  }
+
+  .lead__deck {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Estilo das notícias relacionadas */
+  .related {
+    margin-top: 24px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+  }
+
+  .related__label {
+    font-size: .8rem;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 12px;
+    font-weight: 320;
+  }
+
+  .related__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .related__item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .related__dot {
+    color: var(--accent); /* Usa a cor da bolinha */
+    font-weight: 800;
+    line-height: 1.6; /* Alinha a bolinha com o texto */
+  }
+
+  .related__link {
+    color: #111;
+    text-decoration: none;
+    font: 600 1rem/1.6 Georgia, "Times New Roman", serif;
+  }
+
+  .related__link:hover {
+    text-decoration: underline;
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<main class="container">
-  <!-- Top ad banner (mobile only) -->
-  <div class="ad-top d-block d-lg-none"></div>
+<main class="container py-4">
 
-  <div class="ad-container">
-    <!-- Left vertical ad (desktop) -->
-    <div class="ad-vertical d-none d-lg-block"></div>
+  {% for item in dados_home %}
+    <section class="categoria-bloco">
+        <div class="lead">
+            <div class="lead__body">
+            
+            <span class="chip">
+                {{ item.categoria.nome }}
+            </span>
+            
+            <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}" class="text-decoration-none">
+                <h1 class="lead__title">{{ item.destaque.titulo }}</h1>
+            </a>
 
-    <!-- News content -->
-    <div class="news-container">
-      <div class="text-center py-2">
-        <h1 class="mb-2">Bem-vindo ao JC Online</h1>
-        <p class="lead">Aqui você encontra as principais notícias de Pernambuco e do Brasil.</p>
-      </div>
+            <p class="lead__deck">{{ item.destaque.conteudo|truncatewords:40 }}</p>
 
-      <hr class="my-2">
-
-      <div class="row">
-        <!-- Notícia 1 -->
-        <div class="col-12">
-          <div class="card shadow-sm news-item">
-            <div class="ph-foto">Foto notícia 1</div>
-            <div class="card-body">
-              <div class="label-container">
-                <div class="label">
-                  LUTA POR DEMOCRACIA
-                  <span class="share-icon">↗</span>
-                </div>
-              </div>
-              <h1>PF diz que vai investigar relação do grupo JF, dono da JBS, com lobista que vendeu decisões do STJ</h1>
-              <p>Diálogos e transações detectados na investigação mostram que empresa contratou esposa de lobista; JBS diz que pagamentos são referentes a honorários e que o escritório não presta mais serviços à empresa</p>
-              <div class="bullets-container">
-                <p class="highlight">Lobista criou falsos contatos em seu celular com nomes atribuídos a servidores do STJ, diz PF</p>
-                <p class="highlight">PF pede para Zanin aprofundar investigação sobre filha de ministro do STJ e assessores</p>
-                <p class="highlight">Delegado da PF pede para sair de investigação de venda de sentenças após entregar relatório do caso</p>
-                <p class="highlight">Escritório da filha de Noronha, do STJ, recebeu R$ 300 mil de empresa investigada pela PF</p>
-              </div>
-              <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button"
-                      class="btn btn-outline-secondary btn-sm ms-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalComentario"
-                      data-noticia-id="1"
-                      data-noticia-titulo="Notícia 1">
-                Comentar
-              </button>
+            {% if item.relacionadas %}
+            <div class="related">
+                <div class="related__label">Mais sobre {{ item.categoria.nome }}</div>
+                <ul class="related__list">
+                {% for n in item.relacionadas %}
+                <li class="related__item">
+                    <span class="related__dot">•</span>
+                    <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}" class="related__link">{{ n.titulo }}</a>
+                </li>
+                {% endfor %}
+                </ul>
             </div>
-          </div>
-        </div>
-
-        <!-- Notícia 2 -->
-        <div class="col-12">
-          <div class="card shadow-sm news-item">
-            <div class="ph-foto">Foto notícia 2</div>
-            <div class="card-body">
-              <div class="label-container">
-                <div class="label">
-                  Paralisação
-                  <span class="share-icon">↗</span>
-                </div>
-              </div>
-              <h1>Trabalhadores da Compesa aprovam greve por tempo indeterminado a partir de segunda-feira (13); veja reivindicações</h1>
-              <p>De acordo com o Sindicato dos Urbanitários de Pernambuco, unidades operacionais serão paralisadas e cargos gerenciais serão entregues</p>
-              <div class="bullets-container">
-                <p class="highlight">Após assembleias realizadas no Recife, em Caruaru e Petrolina, os trabalhadores da Companhia Pernambucana de Saneamento (Compesa) aprovaram a deflagração de greve por tempo indeterminado.</p>
-                <p class="highlight">A partir da próxima segunda-feira (13), as unidades operacionais serão paralisadas e os cargos gerenciais serão entregues. Além disso, haverá mobilização em frente à Sede Administrativa da Compesa.</p>
-                <p class="highlight">De acordo com o diretor financeiro e ex-presidente do Sindurb-PE, José Barbosa Filho, um dos principais receios da categoria é com a concessão parcial dos serviços de abastecimento .</p>
-                <p class="highlight">Além disso, ele destaca que a empresa propôs um acordo de dois anos oferecendo 100% da inflação. A classe reivindica ganho real de 3%.</p>
-              </div>
-              <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button"
-                      class="btn btn-outline-secondary btn-sm ms-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalComentario"
-                      data-noticia-id="2"
-                      data-noticia-titulo="Notícia 2">
-                Comentar
-              </button>
+            {% endif %}
             </div>
-          </div>
         </div>
-
-        <!-- Notícia 3 -->
-        <div class="col-12">
-          <div class="card shadow-sm news-item">
-            <div class="ph-foto">Foto notícia 3</div>
-            <div class="card-body">
-              <div class="label-container">
-                <div class="label">
-                  Vestibular Tradicional
-                  <span class="share-icon">↗</span>
-                </div>
-              </div>
-              <h1>Fits e Unit abrem processo seletivo para ingresso em 2026 e reforçam tradição e ensino de excelência</h1>
-              <p>As duas instituições do Grupo Tiradentes lançam processos seletivos para 2026, consolidando a qualidade com o Ensino Superior e a tradição de 64 anos</p>
-              <div class="bullets-container">
-                <p class="highlight">O Centro Universitário Tiradentes (Unit-PE), integrante do Grupo Tiradentes, abre as inscrições para o Vestibular Tradicional, com início das aulas previsto para o primeiro semestre de 2026.</p>
-                <p class="highlight">A Instituição é reconhecida pelo Ministério da Educação (MEC) como o segundo mais bem avaliado centro universitário de Pernambuco e reforça a maestria no Ensino Superior em seus 64 anos de história.</p>
-                <p class="highlight">Como mais um exemplo dessa tradição, o Grupo Tiradentes é destaque no Ranking Universitário da Folha de São Paulo de 2024: a Universidade Tiradentes, localizada em Sergipe, foi classificada entre as 13 melhores faculdades particulares do Brasil.</p>
-                <p class="highlight">Como consequência da alta excelência, o processo seletivo para entrar em uma das unidades do Grupo é historicamente concorrido.</p>
-              </div>
-              <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button"
-                      class="btn btn-outline-secondary btn-sm ms-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalComentario"
-                      data-noticia-id="3"
-                      data-noticia-titulo="Notícia 3">
-                Comentar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notícia 4 -->
-        <div class="col-12">
-          <div class="card shadow-sm news-item">
-            <div class="ph-foto">Foto notícia 4</div>
-            <div class="card-body">
-              <div class="label-container">
-                <div class="label">
-                  TENSÃO ENTRE POTÊNCIAS
-                  <span class="share-icon">↗</span>
-                </div>
-              </div>
-              <h1>Trump anuncia tarifa adicional de 100% para produtos da China, a partir do dia 1º, e reacende guerra comercial</h1>
-              <p>Presidente dos Estados Unidos disse, para justificar a medida, que Pequim 'assumiu uma posição extraordinariamente agressiva'</p>
-              <div class="bullets-container">
-                <p class="highlight">Ações das Sete Magníficas tombam depois de ameaças de Trump à China</p>
-                <p class="highlight">The New York Times: Qual foi o gatilho para Trump anunciar 100% de taxa adicional para a China</p>
-                <p class="highlight">Trump anuncia tarifa extra de 100% à China: qual o impacto para o mercado?</p>
-                <p class="highlight">Dólar fecha no maior nível desde agosto após Trump ameaçar China com novas tarifas</p>
-              </div>
-              <a href="#" class="btn btn-primary btn-sm">Ler mais</a>
-              <button type="button"
-                      class="btn btn-outline-secondary btn-sm ms-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalComentario"
-                      data-noticia-id="4"
-                      data-noticia-titulo="Notícia 4">
-                Comentar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    </section>
+  {% empty %}
+    <div class="text-center py-5">
+        <h3 class="text-muted">Ainda não há notícias publicadas.</h3>
     </div>
+  {% endfor %} {# <-- CORRIGIDO AQUI #}
 
-    <!-- Right vertical ad (desktop) -->
-    <div class="ad-vertical d-none d-lg-block"></div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="modalComentario" tabindex="-1" aria-labelledby="modalComentarioLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalComentarioLabel">Deixar um Comentário em "<span id="noticiaTituloModal"></span>"</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3 text-center">
-            <button id="btnCurtir" class="btn btn-outline-danger">❤️ Curtiu? Deixe seu Like!</button>
-          </div>
-          <hr>
-          <form id="formComentario" method="POST" data-url="{% url 'adicionar_comentario_ajax' %}">
-            {% csrf_token %}
-            <div id="formFieldsContainer">
-              <div class="mb-3">
-                <label for="id_autor" class="form-label">Seu Nome:</label>
-                <input type="text" class="form-control" id="id_autor" name="autor" required>
-              </div>
-              <div class="mb-3">
-                <label for="id_texto" class="form-label">Comentário:</label>
-                <textarea class="form-control" id="id_texto" name="texto" rows="3" required></textarea>
-              </div>
-            </div>
-            <input type="hidden" id="noticia_id" name="noticia_id" value="">
-            <button type="submit" class="btn btn-success mt-3">Enviar Comentário</button>
-          </form>
-          <div id="mensagemSucesso" class="alert alert-success mt-3" style="display:none;">Enviado com sucesso!</div>
-        </div>
-      </div>
-    </div>
-  </div>
 </main>
-
-<script>
-$(function() {
-  $('#modalComentario').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var noticiaId = button.data('noticia-id');
-    var noticiaTitulo = button.data('noticia-titulo');
-    $('#noticia_id').val(noticiaId);
-    $('#noticiaTituloModal').text(noticiaTitulo);
-    $('#formComentario').show();
-    $('#mensagemSucesso').hide();
-    $('#btnCurtir').prop('disabled', false).text('❤️ Curtiu? Deixe seu Like!');
-  });
-
-  $('#btnCurtir').on('click', function() {
-    $(this).prop('disabled', true).text('❤️ Você curtiu!');
-  });
-
-  $('#formComentario').on('submit', function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var url = form.data('url');
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: form.serialize(),
-      success: function(response) {
-        if (response.sucesso) {
-          form[0].reset();
-          form.hide();
-          $('#mensagemSucesso').text(response.mensagem || 'Enviado com sucesso!').show();
-          setTimeout(function(){ $('#modalComentario').modal('hide'); }, 3000);
-        } else {
-          alert('Erro ao enviar: ' + (response.erros || 'tente novamente.'));
-        }
-      },
-      error: function(xhr) {
-        console.error(xhr.responseText);
-        alert('Ocorreu um erro na comunicação com o servidor.');
-      }
-    });
-  });
-});
-</script>
 {% endblock %}

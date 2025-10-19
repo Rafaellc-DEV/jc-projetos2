@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 
@@ -9,7 +10,8 @@ urlpatterns = [
     path("register/", views.register_view, name="register"),
     path("premium/", views.conteudo_premium, name="conteudo_premium"),
     
-    # Rotas adicionais
-    path("noticia/<int:pk>/", views.noticia_detalhe, name="noticia_detalhe"),
+    # Rota de detalhe da notícia atualizada
+    path("<slug:categoria_slug>/<slug:noticia_slug>/", views.noticia_detalhe, name="noticia_detalhe"),
+    
     path("comentar/ajax/", views.adicionar_comentario_ajax, name="adicionar_comentario_ajax"),
 ]
