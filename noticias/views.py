@@ -58,8 +58,24 @@ def search(request):
 # Notícias e comentários
 # ----------------------
 def noticia_detalhe(request, categoria_slug, noticia_slug):
+    # Pega a notícia principal que o usuário está lendo
     noticia = get_object_or_404(Noticia, categoria__slug=categoria_slug, slug=noticia_slug)
-    return render(request, "noticia_detalhe.html", {"noticia": noticia})
+    
+    # Busca outras notícias da mesma categoria para a seção "Leia Mais"
+    noticias_relacionadas = None
+    if noticia.categoria:
+        noticias_relacionadas = Noticia.objects.filter(
+            categoria=noticia.categoria
+        ).exclude(
+            pk=noticia.pk  # Exclui a própria notícia da lista
+        ).order_by('-data_publicacao')[:4] # Pega as 4 mais recentes
+
+    context = {
+        'noticia': noticia,
+        'noticias_relacionadas': noticias_relacionadas # Envia para o template
+    }
+    
+    return render(request, "noticia_detalhe.html", context)
 
 
 @require_POST
@@ -95,15 +111,21 @@ def adicionar_comentario_ajax(request):
 # ----------------------
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
+        email = request.POST.get("email", "").strip()
         password = request.POST.get("password", "")
-        user = authenticate(request, username=username, password=password)
+        
+        if not email or not password:
+            messages.error(request, "Por favor, preencha e-mail e senha.")
+            return render(request, "registration/login.html")
+
+        user = authenticate(request, username=email, password=password)
+
         if user is not None:
             login(request, user)
             messages.success(request, "Login realizado com sucesso.")
             next_url = request.POST.get("next") or request.GET.get("next") or "home"
             return redirect(next_url)
-        messages.error(request, "Usuário ou senha inválidos.")
+        messages.error(request, "E-mail ou senha inválidos.")
     return render(request, "registration/login.html")
 
 
@@ -115,20 +137,30 @@ def logout_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        username = request.POST.get("username", "").strip()
+        email = request.POST.get("email", "").strip()
+        first_name = request.POST.get("first_name", "").strip()
+        last_name = request.POST.get("last_name", "").strip()
         password = request.POST.get("password", "")
         password2 = request.POST.get("password2", "")
-        if not username or not password:
-            messages.error(request, "Preencha usuário e senha.")
+
+        if not email or not password:
+            messages.error(request, "E-mail e senha são obrigatórios.")
         elif password != password2:
             messages.error(request, "As senhas não conferem.")
-        elif User.objects.filter(username=username).exists():
-            messages.error(request, "Este usuário já existe.")
+        elif User.objects.filter(username=email).exists():
+            messages.error(request, "Este e-mail já está em uso.")
         else:
-            user = User.objects.create_user(username=username, password=password)
-            messages.success(request, "Cadastro realizado. Faça login.")
+            User.objects.create_user(
+                username=email, 
+                email=email, 
+                password=password, 
+                first_name=first_name, 
+                last_name=last_name
+            )
+            messages.success(request, "Cadastro realizado com sucesso! Faça seu login.")
             return redirect("login")
-    return render(request, "registration/register.html")
+
+    return render(request, "registration/register.html", request.POST)
 
 
 # ----------------------
