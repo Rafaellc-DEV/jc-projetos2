@@ -5,181 +5,122 @@
 
 {% block extra_head %}
 <style>
-    /* Estilos Gerais */
-    .noticia-container {
-        max-width: 960px;
-        margin: 40px auto;
-    }
+    .noticia-container { max-width: 960px; margin: 40px auto; }
     .categoria-tag {
-        font-family: Arial, sans-serif;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        color: #a92c2c;
-        text-decoration: none;
-        padding-bottom: 5px;
+        font-family: Arial, sans-serif; font-weight: 700; text-transform: uppercase;
+        font-size: 0.9rem; color: #a92c2c; text-decoration: none; padding-bottom: 5px;
         border-bottom: 3px solid #a92c2c;
     }
-    .categoria-tag:hover {
-        color: #8b2323;
-    }
+    .categoria-tag:hover { color: #8b2323; }
 
-    /* Cabeçalho da Notícia */
-    .header-noticia {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-    .header-media img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-    }
-    .header-texto .display-4 {
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        font-weight: 700;
-        font-size: 2.4rem;
-    }
+    .header-noticia { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
+    .header-media img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .header-texto .display-4 { font-family: Georgia, serif; font-weight: 700; font-size: 2.4rem; }
     @media (min-width: 768px) {
-        .header-noticia {
-            flex-direction: row;
-            align-items: flex-start;
-        }
+        .header-noticia { flex-direction: row; align-items: flex-start; }
         .header-media { flex: 0 0 40%; }
         .header-texto { flex: 1; }
     }
 
-    /* Ícones de Interação Abaixo da Imagem */
-    .icon-bar {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        margin-top: 0.75rem;
-    }
-    .icon-link {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #555;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: color 0.2s;
-    }
-    .icon-link:hover {
-        color: #0d6efd;
-    }
-    .icon-link i {
-        font-size: 1.1rem;
-    }
+    .icon-bar { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.75rem; }
+    .icon-link { display: flex; align-items: center; gap: 0.5rem; text-decoration: none;
+        color: #555; font-weight: 600; font-size: 0.9rem; transition: color 0.2s; }
+    .icon-link:hover { color: #0d6efd; }
+    .icon-link i { font-size: 1.1rem; }
 
-    /* Conteúdo Principal e Outras Seções */
-    .conteudo-principal {
-        line-height: 1.8;
-        font-size: 1.15rem;
-        color: #333;
-    }
+    .conteudo-principal { line-height: 1.8; font-size: 1.15rem; color: #333; }
     .interaction-bar {
-        background-color: #f8f9fa;
-        border-radius: 12px;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-    }
-     @media (min-width: 768px) {
-        .interaction-bar {
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-        }
-    }
-    .btn-like, .btn-comentar {
-        font-weight: bold;
-    }
-    .leia-mais-secao {
-        border-top: 1px solid #eee;
-        padding-top: 2.5rem;
-    }
-    .leia-mais-titulo {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-family: Georgia, 'Times New Roman', serif;
-        font-weight: 700;
-        font-size: 1.5rem;
-        color: #333;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
-    }
-    .leia-mais-titulo::before {
-        content: '';
-        display: block;
-        width: 50px;
-        height: 5px;
-        background-color: #a92c2c;
-    }
-    .leia-mais-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        background-color: #f8f9fa; border-radius: 12px; padding: 1.5rem;
+        display: flex; flex-direction: column; gap: 1.5rem; text-align: center;
     }
     @media (min-width: 768px) {
-        .leia-mais-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+        .interaction-bar { flex-direction: row; justify-content: space-around; align-items: center; }
     }
+    .btn-like, .btn-comentar { font-weight: bold; }
+    .leia-mais-secao { border-top: 1px solid #eee; padding-top: 2.5rem; }
+    .leia-mais-titulo {
+        display: flex; align-items: center; gap: 15px; font-family: Georgia, serif;
+        font-weight: 700; font-size: 1.5rem; color: #333; text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+    .leia-mais-titulo::before { content: ''; display: block; width: 50px; height: 5px; background-color: #a92c2c; }
+    .leia-mais-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 768px) { .leia-mais-grid { grid-template-columns: repeat(2, 1fr); } }
     .leia-mais-card {
-        background-color: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        text-decoration: none;
-        color: #212529;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background-color: #fff; border-radius: 8px; overflow: hidden; text-decoration: none;
+        color: #212529; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .leia-mais-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-    }
+    .leia-mais-card:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
     .leia-mais-card .img-placeholder {
+        width: 100%; aspect-ratio: 16/9; background-color: #f0f0f0;
+        display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.9rem;
+    }
+    .leia-mais-card .card-body { padding: 1rem; }
+    .leia-mais-card .card-title { font-family: Georgia, serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .leia-mais-card .card-category { font-size: 0.8rem; font-weight: 700; color: #a92c2c; text-transform: uppercase; }
+
+    .area-comentarios { border-top: 1px solid #eee; padding-top: 2.5rem; }
+    .area-comentarios h3 { border-left: 5px solid #0d6efd; padding-left: 10px; }
+    .comentario-item { border-left: 3px solid #ccc; position: relative; }
+    .btn-delete {
+        position: absolute; top: 10px; right: 10px; font-size: 0.8rem;
+        padding: 0.25rem 0.5rem; z-index: 10;
+    }
+
+    /* BOTÃO DE LOGIN */
+    .btn-login-comentar {
+        display: block;
         width: 100%;
-        aspect-ratio: 16/9;
-        background-color: #f0f0f0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #aaa;
-        font-size: 0.9rem;
+        max-width: 300px;
+        margin: 1.5rem auto;
+        text-align: center;
+        padding: 0.75rem;
+        font-weight: bold;
+        border-radius: 50px;
+        background-color: #0d6efd;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.2s;
     }
-    .leia-mais-card .card-body {
-        padding: 1rem;
+    .btn-login-comentar:hover {
+        background-color: #0b5ed7;
+        color: white;
     }
-    .leia-mais-card .card-title {
-        font-family: Georgia, 'Times New Roman', serif;
+
+    /* MODAL DE CONFIRMAÇÃO */
+    .modal-confirm .modal-content {
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        padding: 1.5rem;
+    }
+    .modal-confirm .modal-title {
         font-weight: 700;
+        color: #dc3545;
+    }
+    .modal-confirm .modal-body {
+        padding: 1rem 1.5rem;
         font-size: 1.1rem;
-        margin-bottom: 0.25rem;
     }
-    .leia-mais-card .card-category {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #a92c2c;
-        text-transform: uppercase;
+    .modal-confirm .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        border-radius: 50px;
+        padding: 0.5rem 1.5rem;
     }
-    .area-comentarios {
-        border-top: 1px solid #eee;
-        padding-top: 2.5rem;
+    .modal-confirm .btn-secondary {
+        border-radius: 50px;
+        padding: 0.5rem 1.5rem;
     }
-    .area-comentarios h3 {
-        border-left: 5px solid #0d6efd;
-        padding-left: 10px;
-    }
-    .comentario-item {
-        border-left: 3px solid #ccc;
+    .deleting-text {
+        color: #dc3545;
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-top: 10px;
     }
 </style>
 {% endblock %}
@@ -195,7 +136,6 @@
     {% endif %}
 
     <article class="noticia-corpo">
-        
         <div class="header-noticia">
             <div class="header-media">
                 {% if noticia.imagem %}
@@ -207,33 +147,18 @@
                 {% endif %}
 
                 <div class="icon-bar">
-                    <a href="#" class="icon-link">
-                        <i class="bi bi-heart"></i>
-                        <span>Curtir</span>
-                    </a>
-                    <a href="#area-comentarios" class="icon-link">
-                        <i class="bi bi-chat-dots"></i>
-                        <span>Comentar</span>
-                    </a>
-                    <a href="#" class="icon-link">
-                        <i class="bi bi-share"></i>
-                        <span>Compartilhar</span>
-                    </a>
+                    <a href="#" class="icon-link"><i class="bi bi-heart"></i><span>Curtir</span></a>
+                    <a href="#area-comentarios" class="icon-link"><i class="bi bi-chat-dots"></i><span>Comentar</span></a>
+                    <a href="#" class="icon-link"><i class="bi bi-share"></i><span>Compartilhar</span></a>
                 </div>
-
             </div>
 
             <div class="header-texto">
                 <h1 class="display-4 mb-3">{{ noticia.titulo }}</h1>
-                
                 {% if noticia.autor %}
-                <p class="text-muted mb-2">
-                    Por <span class="fw-bold">{{ noticia.autor.get_full_name|default:noticia.autor.username }}</span>
-                </p>
+                <p class="text-muted mb-2">Por <span class="fw-bold">{{ noticia.autor.get_full_name|default:noticia.autor.username }}</span></p>
                 {% endif %}
-                <p class="text-muted">
-                    Publicado em {{ noticia.data_publicacao|date:"d/m/Y \à\s H:i" }}
-                </p>
+                <p class="text-muted">Publicado em {{ noticia.data_publicacao|date:"d/m/Y \à\s H:i" }}</p>
             </div>
         </div>
         
@@ -247,15 +172,11 @@
     <section class="interaction-bar my-5 shadow-sm">
         <div class="like-area">
             <p class="mb-2 small text-muted">Gostou desta notícia?</p>
-            <button type="button" class="btn btn-outline-danger btn-like rounded-pill px-4">
-                🤍 Curtir (0)
-            </button>
+            <button type="button" class="btn btn-outline-danger btn-like rounded-pill px-4">Curtir (0)</button>
         </div>
         <div class="comment-call">
-            <p class="mb-2 small text-muted">Participe da conversa!</p>
-             <a href="#area-comentarios" class="btn btn-primary btn-comentar rounded-pill px-4">
-                Deixar um Comentário
-            </a>
+            <p class="d-none d-md-block mb-2 small text-muted">Participe da conversa!</p>
+            <a href="#area-comentarios" class="btn btn-primary btn-comentar rounded-pill px-4">Deixar um Comentário</a>
         </div>
     </section>
 
@@ -265,9 +186,7 @@
         <div class="leia-mais-grid">
             {% for n in noticias_relacionadas %}
                 <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}" class="leia-mais-card">
-                    <div class="img-placeholder">
-                        <span>Imagem</span>
-                    </div>
+                    <div class="img-placeholder"><span>Imagem</span></div>
                     <div class="card-body">
                         <div class="card-category">{{ n.categoria.nome }}</div>
                         <h4 class="card-title">{{ n.titulo }}</h4>
@@ -279,88 +198,198 @@
     {% endif %}
 
     <section id="area-comentarios" class="pt-4">
-        <h3 class="mb-4 text-dark">Comentários ({{ noticia.comentarios.count }})</h3>
+        <h3 class="mb-4 text-dark">
+            Comentários (<span id="comments-count">{{ noticia.comentarios.count }}</span>)
+        </h3>
+
+        <!-- BOTÃO DE LOGIN (SÓ DESLOGADO) -->
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-login-comentar">
+            Faça login para comentar
+        </a>
+        {% endif %}
+
+        <!-- FORMULÁRIO (SÓ LOGADO) -->
+        {% if user.is_authenticated %}
         <div class="card p-4 mb-5 shadow-sm bg-light">
             <h5 class="card-title mb-3">Sua opinião é importante</h5>
-            <form id="comment-form" method="post" action="{% url 'adicionar_comentario_ajax' %}">
+            <form id="comment-form">
                 {% csrf_token %}
-                <input type="hidden" name="noticia_id" value="{{ noticia.pk }}">
-                <div class="mb-3">
-                    <label for="id_autor" class="form-label small text-muted">Seu Nome</label>
-                    <input type="text" id="id_autor" name="autor" class="form-control" required>
-                </div>
                 <div class="mb-3">
                     <label for="id_texto" class="form-label small text-muted">Seu Comentário</label>
-                    <textarea id="id_texto" name="texto" class="form-control" rows="3" required></textarea>
+                    <textarea id="id_texto" name="texto" class="form-control" rows="3" placeholder="Escreva aqui..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Enviar Comentário</button>
             </form>
         </div>
+        {% endif %}
+
+        <!-- LISTA DE COMENTÁRIOS -->
         <div id="comments-list">
-            {% for comentario in noticia.comentarios.all %}
-                <div class="card mb-3 comentario-item border-light-subtle">
-                    <div class="card-body">
-                        <h6 class="card-title mb-1 text-primary">{{ comentario.autor }}</h6>
+            {% for comentario in noticia.comentarios.all|dictsortreversed:"data_criacao" %}
+                <div class="card mb-3 comentario-item border-light-subtle" data-comentario-id="{{ comentario.id }}">
+                    <div class="card-body position-relative">
+                        <h6 class="card-title mb-1 text-primary">
+                            {{ comentario.usuario.get_full_name|default:comentario.usuario.username }}
+                        </h6>
                         <p class="card-subtitle mb-2 text-muted small">
                             {{ comentario.data_criacao|date:"d/m/Y \à\s H:i" }}
                         </p>
                         <p class="card-text">{{ comentario.texto|linebreaks }}</p>
+
+                        {% if user.is_authenticated and user.id == comentario.usuario.id %}
+                        <button class="btn btn-sm btn-danger btn-delete" onclick="confirmarExclusao({{ comentario.id }})">
+                            Apagar
+                        </button>
+                        {% endif %}
                     </div>
                 </div>
             {% empty %}
-                <p class="text-muted" id="sem-comentarios">Ainda não há comentários. Seja o primeiro a comentar!</p>
+                <p class="text-muted" id="sem-comentarios">Ainda não há comentários. Seja o primeiro!</p>
             {% endfor %}
         </div>
     </section>
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO -->
+<div class="modal fade modal-confirm" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tem certeza?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja <strong>excluir este comentário</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete-btn">Sim, excluir</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
 
 {% block extra_js %}
 <script>
+{% if user.is_authenticated %}
 document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('comment-form');
-  if (!form) return;
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const url = form.getAttribute('action');
-    const formData = new FormData(form);
-    fetch(url, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-        const commentsList = document.getElementById('comments-list');
-        const noCommentsMsg = document.getElementById('sem-comentarios');
-        const newCommentCard = document.createElement('div');
-        newCommentCard.className = 'card mb-3 comentario-item border-light-subtle';
-        const date = new Date(data.comentario.data_criacao).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).replace(',', ' às');
-        newCommentCard.innerHTML = `
-            <div class="card-body">
-                <h6 class="card-title mb-1 text-primary">${data.comentario.autor}</h6>
-                <p class="card-subtitle mb-2 text-muted small">${date}</p>
-                <p class="card-text">${data.comentario.texto.replace(/\n/g, '<br>')}</p>
-            </div>
-        `;
-        commentsList.insertBefore(newCommentCard, commentsList.firstChild);
-        if (noCommentsMsg) {
-          noCommentsMsg.remove();
-        }
-        form.reset();
-      } else {
-        alert(data.error || 'Ocorreu um erro ao enviar o comentário.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Falha na comunicação com o servidor.');
+    const form = document.getElementById('comment-form');
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const noticiaId = {{ noticia.pk }};
+    const countSpan = document.getElementById('comments-count');
+    const list = document.getElementById('comments-list');
+    let comentarioIdToDelete = null;
+
+    // ENVIAR COMENTÁRIO
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const texto = document.getElementById('id_texto').value.trim();
+            if (texto.length < 3) {
+                alert('Mínimo 3 caracteres.');
+                return;
+            }
+
+            fetch(`/api/noticias/${noticiaId}/comentarios/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                credentials: 'include',
+                body: JSON.stringify({ texto: texto })
+            })
+            .then(r => r.json().then(data => ({ ok: r.ok, data })))
+            .then(({ ok, data }) => {
+                if (ok && data.ok) {
+                    const div = document.createElement('div');
+                    div.className = 'card mb-3 comentario-item border-light-subtle';
+                    div.dataset.comentarioId = data.comentario.id;
+
+                    const date = new Date(data.comentario.data_criacao)
+                        .toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })
+                        .replace(',', ' às');
+
+                    div.innerHTML = `
+                        <div class="card-body position-relative">
+                            <h6 class="card-title mb-1 text-primary">${data.comentario.autor}</h6>
+                            <p class="card-subtitle mb-2 text-muted small">${date}</p>
+                            <p class="card-text">${data.comentario.texto.replace(/\n/g, '<br>')}</p>
+                            <button class="btn btn-sm btn-danger btn-delete position-absolute" style="top:10px;right:10px;" onclick="confirmarExclusao(${data.comentario.id})">Apagar</button>
+                        </div>
+                    `;
+
+                    const no = document.getElementById('sem-comentarios');
+                    if (no) no.remove();
+
+                    list.insertBefore(div, list.firstChild);
+                    countSpan.textContent = parseInt(countSpan.textContent) + 1;
+                    document.getElementById('id_texto').value = '';
+                } else {
+                    alert(data.error || 'Erro.');
+                }
+            })
+            .catch(() => alert('Erro de rede.'));
+        });
+    }
+
+    // ABRIR MODAL
+    window.confirmarExclusao = function(id) {
+        comentarioIdToDelete = id;
+        const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        modal.show();
+    };
+
+    // CONFIRMAR EXCLUSÃO
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        const card = document.querySelector(`[data-comentario-id="${comentarioIdToDelete}"]`);
+        const btn = card.querySelector('.btn-delete');
+
+        // Mostra "Excluindo..."
+        btn.innerHTML = 'Excluindo...';
+        btn.disabled = true;
+
+        fetch(`/api/noticias/${noticiaId}/comentarios/delete/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            credentials: 'include',
+            body: JSON.stringify({ comentario_id: comentarioIdToDelete })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.ok) {
+                setTimeout(() => {
+                    card.remove();
+                    const c = parseInt(countSpan.textContent);
+                    countSpan.textContent = c - 1;
+                    if (c - 1 === 0) {
+                        const p = document.createElement('p');
+                        p.id = 'sem-comentarios';
+                        p.className = 'text-muted';
+                        p.textContent = 'Ainda não há comentários. Seja o primeiro!';
+                        list.appendChild(p);
+                    }
+                    bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+                }, 1000);
+            } else {
+                btn.innerHTML = 'Apagar';
+                btn.disabled = false;
+                alert('Erro ao excluir.');
+            }
+        })
+        .catch(() => {
+            btn.innerHTML = 'Apagar';
+            btn.disabled = false;
+            alert('Falha na conexão.');
+        });
     });
-  });
 });
+{% endif %}
 </script>
-{% endblock extra_js %}
+{% endblock %}

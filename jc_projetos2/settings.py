@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
     # Projeto
     'noticias',
@@ -92,3 +93,16 @@ AUTH_USER_MODEL = 'noticias.CustomUser'
 # Auth redirects
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
+
+
+# Segurança para sessões e CSRF
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}

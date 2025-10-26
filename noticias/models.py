@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 
 # ==========================
@@ -62,6 +63,7 @@ class Categoria(models.Model):
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
 
+
 # ==========================
 # Modelo de Notícia
 # ==========================
@@ -75,10 +77,10 @@ class Noticia(models.Model):
     # --- NOVO CAMPO DE AUTOR ADICIONADO ---
     autor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL, # Se o autor for deletado, a notícia não será.
-        null=True, # Permite que o campo seja nulo no banco de dados.
-        blank=True, # Permite que o campo seja vazio no admin.
-        related_name='noticias_escritas' # Nome para a relação inversa.
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='noticias_escritas'
     )
     # ------------------------------------
 
@@ -96,46 +98,20 @@ class Noticia(models.Model):
 
 
 # ==========================
-# Modelo de Comentário
+# Modelo Comentario (COM FUNÇÃO DE APAGAR)
 # ==========================
 class Comentario(models.Model):
-    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name='comentarios')
-    autor = models.CharField(max_length=80)
+    noticia = models.ForeignKey('Noticia', on_delete=models.CASCADE, related_name='comentarios')
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     texto = models.TextField()
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Comentário"
-        verbose_name_plural = "Comentários"
-        ordering = ['data_criacao']
+        ordering = ['-data_criacao']
 
     def __str__(self):
-        return f'Comentário de {self.autor} em {self.noticia.titulo[:30]}...'
+        return f'Comentário de {self.usuario.get_username()} em {self.noticia.titulo[:30]}'
 
-
-# ==========================
-# Modelo PreferenciasFeed
-# ==========================
-class PreferenciasFeed(models.Model):
-    usuario = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='preferencias_feed'
-    )
-    categorias = models.ManyToManyField(
-        Categoria,
-        related_name='preferencias_usuarios',
-        blank=True
-    )
-    ordem_categorias = models.JSONField(
-        default=dict,
-        blank=True,
-        help_text="Ordem de prioridade das categorias em formato JSON, ex: {'categoria_id': ordem}"
-    )
-
-    def __str__(self):
-        return f"Preferências de {self.usuario.username}"
-
-    class Meta:
-        verbose_name = "Preferência de Feed"
-        verbose_name_plural = "Preferências de Feed"
+    # FUNÇÃO PARA VERIFICAR SE O USUÁRIO PODE APAGAR
+    def pode_apagar(self, user):
+        return self.usuario == user

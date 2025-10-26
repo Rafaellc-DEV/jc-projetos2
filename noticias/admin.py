@@ -23,12 +23,9 @@ class NoticiaAdmin(admin.ModelAdmin):
 # 2. Registro do Comentário (Sem alterações)
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin):
-    # O que aparece na lista do painel
-    list_display = ('autor', 'noticia', 'data_criacao')
-    # Filtro rápido
-    list_filter = ('data_criacao', 'noticia')
-    # Permite buscar por autor ou texto
-    search_fields = ('autor', 'texto')
+    list_display = ['usuario', 'noticia', 'texto', 'data_criacao']  # CORRIGIDO
+    list_filter = ['data_criacao', 'noticia']
+    search_fields = ['texto', 'usuario__username']
 
 # 3. Registro da Categoria (Sem alterações)
 @admin.register(Categoria)
