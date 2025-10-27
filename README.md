@@ -419,7 +419,31 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
   <summary>🚀 Entrega 3</summary>
   <br/>
 
-  ---
+<p align="center">
+  <a href="https://trello.com/b/FPQBhOen/equipe-2-desafio-jc-online">
+    <img src="https://img.shields.io/badge/Trello-FF9F1A?style=for-the-badge&logo=Trello&logoColor=white" alt="Trello"/></a>
+  <a href="https://www.canva.com/design/DAGzjAnYGoQ/pjgqU4m0RzsDCLpylTslIg/edit?utm_content=DAGzjAnYGoQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+    <img src="https://img.shields.io/badge/Diagrama de atividades-a7532c?style=for-the-badge&logo=Canva&logoColor=white" alt="Diagrama"/></a>
+  <a href="https://rafaeldev.pythonanywhere.com/">
+    <img src="https://img.shields.io/badge/Site_Online-34D058?style=for-the-badge&logo=python&logoColor=white"/></a>
+  <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
+    <img src="https://img.shields.io/badge/Screencast-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+</p>
+
+---
+
+![Issues](prints/entrega03_issues_open.png)
+
+---
+
+![Issues](prints/entrega03_issues_closed.png)
+
+---
+
+![Issues](prints/entrega03_quadro.png)
+
+---
+
   ## Ⓜ️ Metodologia e Processo de Colaboração
 
   A equipe reconhece os benefícios da **Programação em Par**, mas, devido à dificuldade em conciliar os horários de cada integrante, adotamos um modelo de trabalho que priorizou a flexibilidade e a responsabilidade individual.
@@ -433,6 +457,8 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
   * **Qualidade e Correção Coletiva:** A garantia de qualidade foi tratada como uma responsabilidade do grupo. Ao identificar um bug ou um problema, o membro da equipe o relatava imediatamente para que o time pudesse discutir e encontrar a melhor solução em conjunto.
 
   Essa abordagem nos permitiu avançar de forma eficiente, respeitando a autonomia de cada desenvolvedor e utilizando a comunicação em grupo como nosso principal mecanismo para garantir a integridade do projeto.
+
+  
 
 </details>
 
