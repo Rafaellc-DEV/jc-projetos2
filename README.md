@@ -33,10 +33,10 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 </a>
   <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
     <img src="https://img.shields.io/badge/Screencast Figma-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+  <a href="https://youtu.be/jtHMVjp_xo8">
+    <img src="https://img.shields.io/badge/Screencast Site-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
   
 </div>
-
-
 
 
 ## 🚀 Funcionalidades 
@@ -426,7 +426,7 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
     <img src="https://img.shields.io/badge/Diagrama de atividades-a7532c?style=for-the-badge&logo=Canva&logoColor=white" alt="Diagrama"/></a>
   <a href="https://rafaeldev.pythonanywhere.com/">
     <img src="https://img.shields.io/badge/Site_Online-34D058?style=for-the-badge&logo=python&logoColor=white"/></a>
-  <a href="https://youtu.be/IrzoyKmpHWQ?feature=shared">
+  <a href="https://youtu.be/jtHMVjp_xo8">
     <img src="https://img.shields.io/badge/Screencast-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
 </p>
 
