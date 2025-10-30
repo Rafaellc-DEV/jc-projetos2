@@ -444,19 +444,18 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
 
 ---
 
-  ## Ⓜ️ Metodologia e Processo de Colaboração
+## Programação em Par
 
-  A equipe reconhece os benefícios da **Programação em Par**, mas, devido à dificuldade em conciliar os horários de cada integrante, adotamos um modelo de trabalho que priorizou a flexibilidade e a responsabilidade individual.
+---
 
-  Nosso processo de desenvolvimento foi estruturado da seguinte forma:
+![Issues](prints/programacao_par.png)
 
-  * **Desenvolvimento Focado em Tarefas:** Utilizamos o Jira para dividir o projeto em *tasks* bem definidas. Cada membro da equipe ficou responsável por implementar suas tarefas de ponta a ponta, o que permitiu um trabalho focado e maior agilidade nas entregas.
+---
+Utilizamos a programação em par, e aqui está um relaório de uma delas:
 
-  * **Controle de Versão com Git:** O Git foi a ferramenta central para integrar o trabalho de todos. Cada desenvolvedor realizava seus *commits* à medida que progredia em suas tarefas, mantendo o repositório sempre atualizado.
-
-  * **Qualidade e Correção Coletiva:** A garantia de qualidade foi tratada como uma responsabilidade do grupo. Ao identificar um bug ou um problema, o membro da equipe o relatava imediatamente para que o time pudesse discutir e encontrar a melhor solução em conjunto.
-
-  Essa abordagem nos permitiu avançar de forma eficiente, respeitando a autonomia de cada desenvolvedor e utilizando a comunicação em grupo como nosso principal mecanismo para garantir a integridade do projeto.
+Fábio e Rafael realizaram uma sessão de programação em par.
+O objetivo foi corrigir o Bug #6, que afetava o cadastro de novos usuários.
+Com o trabalho conjunto, conseguiram resolver a falha com sucesso.
 
   
 
