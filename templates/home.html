@@ -5,14 +5,19 @@
 
 {% block extra_head %}
 <style>
+  /* As variáveis --bg, --text, --card-bg, --muted, --accent, --shadow 
+    agora vêm do 'base.html'
+  */
+
   :root {
-    --headline: #000;
-    --text: #555;
-    --muted: #999;
+    /* Estas variáveis locais foram atualizadas para usar as globais */
+    --headline: var(--text);
+    --text: var(--text);
+    --muted-color: var(--muted); /* Renomeado para evitar conflito com --muted */
     --brand: #003087;
     --chip-bg: #E4F2EE;
     --chip-tx: #00796B;
-    --accent: #d14b42; /* Cor da bolinha (vermelho) */
+    /* --accent: var(--accent); -- já está global */
   }
 
   main.container {
@@ -22,10 +27,11 @@
 
   /* --- Bloco "Herói" (o primeiro) --- */
   .lead {
-    background: #fff;
+    background: var(--card-bg); /* Alterado */
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    box-shadow: var(--shadow); /* Alterado */
+    border: 1px solid var(--muted); /* Adicionado */
     margin-bottom: 2rem;
   }
 
@@ -55,7 +61,9 @@
   .destaque-placeholder {
       width: 100%;
       aspect-ratio: 16 / 10;
-      background-color: #f0f0f0;
+      background-color: var(--muted); /* Alterado */
+      color: var(--text); /* Alterado */
+      opacity: 0.7;
       border-radius: 8px;
   }
 
@@ -78,7 +86,7 @@
 
   .related {
     margin-top: 24px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--muted); /* Alterado */
     padding-top: 20px;
   }
 
@@ -110,7 +118,7 @@
   }
 
   .related__link {
-    color: #111;
+    color: var(--text); /* Alterado */
     text-decoration: none;
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -123,7 +131,7 @@
   /* --- NOVO: Seção Secundária (Grade) --- */
   .section-divider {
     margin: 2rem 0;
-    border-top: 4px solid #eee;
+    border-top: 4px solid var(--muted); /* Alterado */
   }
   
   .secondary-title {
@@ -135,13 +143,19 @@
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
     display: inline-block;
+    color: var(--text); /* Adicionado */
   }
   
   .news-card {
     margin-bottom: 1.8rem;
     text-decoration: none;
     display: block;
-    color: #212529;
+    color: var(--text); /* Alterado */
+    background-color: var(--card-bg); /* Adicionado */
+    border: 1px solid var(--muted); /* Adicionado */
+    border-radius: 8px; /* Adicionado */
+    overflow: hidden; /* Adicionado */
+    box-shadow: var(--shadow); /* Adicionado */
   }
   
   .news-card:hover .news-card-title {
@@ -152,20 +166,24 @@
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
+    /* margin-bottom: 0.75rem; -- Removido, a imagem agora cola no topo */
   }
 
   .news-card-placeholder {
     width: 100%;
     aspect-ratio: 16 / 10;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
+    background-color: var(--muted); /* Alterado */
+    color: var(--text); /* Alterado */
+    opacity: 0.7;
+    /* margin-bottom: 0.75rem; -- Removido */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #aaa;
+  }
+
+  /* Adicionado um wrapper para o texto do card */
+  .news-card-body {
+    padding: 0.75rem 1rem 1rem;
   }
   
   .news-card-title {
@@ -255,8 +273,9 @@
                         {% else %}
                         <div class="news-card-placeholder"><span>Sem imagem</span></div>
                         {% endif %}
-                        <span class="news-card-category">{{ item.categoria.nome }}</span>
-                        <h3 class="news-card-title">{{ item.destaque.titulo }}</h3>
+                        <div class="news-card-body"> <span class="news-card-category">{{ item.categoria.nome }}</span>
+                          <h3 class="news-card-title">{{ item.destaque.titulo }}</h3>
+                        </div>
                     </a>
                 </div>
 
@@ -269,8 +288,9 @@
                         {% else %}
                         <div class="news-card-placeholder"><span>Sem imagem</span></div>
                         {% endif %}
-                        <span class="news-card-category">{{ n.categoria.nome }}</span>
-                        <h3 class="news-card-title">{{ n.titulo }}</h3>
+                        <div class="news-card-body"> <span class="news-card-category">{{ n.categoria.nome }}</span>
+                          <h3 class="news-card-title">{{ n.titulo }}</h3>
+                        </div>
                     </a>
                 </div>
                 {% endwith %}
@@ -285,8 +305,9 @@
                         {% else %}
                         <div class="news-card-placeholder"><span>Sem imagem</span></div>
                         {% endif %}
-                        <span class="news-card-category">{{ n.categoria.nome }}</span>
-                        <h3 class="news-card-title">{{ n.titulo }}</h3>
+                        <div class="news-card-body"> <span class="news-card-category">{{ n.categoria.nome }}</span>
+                          <h3 class="news-card-title">{{ n.titulo }}</h3>
+                        </div>
                     </a>
                 </div>
                 {% endwith %}

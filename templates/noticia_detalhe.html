@@ -5,6 +5,10 @@
 
 {% block extra_head %}
 <style>
+    /* As variáveis (--bg, --text, --card-bg, --muted, --accent, --shadow) 
+      são herdadas do base.html
+    */
+
     .noticia-container { max-width: 960px; margin: 40px auto; }
 
     .categoria-tag {
@@ -26,6 +30,7 @@
         font-family: Georgia, serif;
         font-weight: 700;
         font-size: 2.4rem;
+        color: var(--text); /* Adicionado */
     }
 
     @media (min-width: 768px) {
@@ -38,16 +43,18 @@
     .icon-bar { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.75rem; }
     .icon-link {
         display: flex; align-items: center; gap: 0.5rem;
-        text-decoration: none; color: #555; font-weight: 600;
-        font-size: 0.9rem; transition: color 0.2s;
+        text-decoration: none; color: var(--text); /* Alterado */
+        font-weight: 600; font-size: 0.9rem; transition: color 0.2s;
+        opacity: 0.8; /* Adicionado */
     }
     .icon-link:hover { color: #0d6efd; }
     .icon-link i { font-size: 1.1rem; }
 
-    .conteudo-principal { line-height: 1.8; font-size: 1.15rem; color: #333; }
+    .conteudo-principal { line-height: 1.8; font-size: 1.15rem; color: var(--text); } /* Alterado */
 
     .interaction-bar {
-        background-color: #f8f9fa;
+        background-color: var(--card-bg); /* Alterado */
+        border: 1px solid var(--muted); /* Adicionado */
         border-radius: 12px;
         padding: 1.5rem;
         display: flex;
@@ -61,11 +68,12 @@
 
     .btn-like, .btn-comentar { font-weight: bold; }
 
-    .leia-mais-secao { border-top: 1px solid #eee; padding-top: 2.5rem; }
+    .leia-mais-secao { border-top: 1px solid var(--muted); padding-top: 2.5rem; } /* Alterado */
     .leia-mais-titulo {
         display: flex; align-items: center; gap: 15px;
         font-family: Georgia, serif; font-weight: 700;
-        font-size: 1.5rem; color: #333; text-transform: uppercase;
+        font-size: 1.5rem; color: var(--text); /* Alterado */
+        text-transform: uppercase;
         margin-bottom: 2rem;
     }
     .leia-mais-titulo::before {
@@ -83,12 +91,13 @@
     }
 
     .leia-mais-card {
-        background-color: #fff;
+        background-color: var(--card-bg); /* Alterado */
         border-radius: 8px;
         overflow: hidden;
         text-decoration: none;
-        color: #212529;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        color: var(--text); /* Alterado */
+        box-shadow: var(--shadow); /* Alterado */
+        border: 1px solid var(--muted); /* Adicionado */
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .leia-mais-card:hover {
@@ -98,9 +107,11 @@
     .leia-mais-card .img-placeholder {
         width: 100%;
         height: 180px;
-        background-color: #f0f0f0;
+        background-color: var(--muted); /* Alterado */
         display: flex; align-items: center; justify-content: center;
-        color: #aaa; font-size: 0.9rem;
+        color: var(--text); /* Alterado */
+        opacity: 0.7; /* Adicionado */
+        font-size: 0.9rem;
     }
 
     .leia-mais-card .card-body { padding: 1rem; }
@@ -117,8 +128,12 @@
         text-transform: uppercase;
     }
 
-    .area-comentarios { border-top: 1px solid #eee; padding-top: 2.5rem; }
-    .area-comentarios h3 { border-left: 5px solid #0d6efd; padding-left: 10px; }
+    .area-comentarios { border-top: 1px solid var(--muted); padding-top: 2.5rem; } /* Alterado */
+    .area-comentarios h3 { 
+        border-left: 5px solid #0d6efd; 
+        padding-left: 10px; 
+        color: var(--text); /* Adicionado */
+    }
 
     .comentario-item { border-left: 3px solid #ccc; position: relative; }
     .btn-delete {
@@ -145,11 +160,46 @@
     }
     .btn-login-comentar:hover { background-color: #0b5ed7; color: white; }
 
+    /* ================================================= */
+    /* REGRAS GLOBAIS PARA TEMA ESCURO (Adicionadas)    */
+    /* ================================================= */
+
+    /* Corrige Cards, Modals e Formulários */
+    .card {
+        background-color: var(--card-bg);
+        border-color: var(--muted);
+        color: var(--text);
+    }
+    
+    .form-control {
+        background-color: var(--bg);
+        color: var(--text);
+        border-color: var(--muted);
+    }
+    .form-control:focus {
+        background-color: var(--bg);
+        color: var(--text);
+        border-color: #0d6efd; /* Manter o foco azul */
+        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    }
+    
+    /* Placeholders dos formulários */
+    .form-control::placeholder {
+        color: var(--text);
+        opacity: 0.5;
+    }
+
+    .modal-content {
+        background-color: var(--card-bg);
+        color: var(--text);
+        border-color: var(--muted);
+    }
+
     .modal-confirm .modal-content {
         border-radius: 12px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    .modal-confirm .modal-header { border-bottom: none; padding: 1.5rem; }
+    .modal-confirm .modal-header { border-bottom: 1px solid var(--muted); padding: 1.5rem; } /* Alterado */
     .modal-confirm .modal-title { font-weight: 700; color: #dc3545; }
     .modal-confirm .modal-body { padding: 1rem 1.5rem; font-size: 1.1rem; }
     .modal-confirm .btn-danger {
@@ -179,7 +229,7 @@
                 {% if noticia.imagem %}
                     <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
                 {% else %}
-                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:100%;height:400px;">
+                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width:100%;height:400px; background-color: var(--muted) !important;">
                         <span class="text-muted">Sem imagem</span>
                     </div>
                 {% endif %}
@@ -200,9 +250,7 @@
             </div>
         </div>
 
-        <hr>
-
-        <div class="conteudo-principal lead mb-5 mt-4">
+        <hr style="border-color: var(--muted);"> <div class="conteudo-principal lead mb-5 mt-4">
             {{ noticia.conteudo|linebreaks }}
         </div>
     </article>
@@ -240,7 +288,7 @@
     {% endif %}
 
     <section id="area-comentarios" class="pt-4">
-        <h3 class="mb-4 text-dark">Comentários (<span id="comments-count">{{ noticia.comentarios.count }}</span>)</h3>
+        <h3 class="mb-4">Comentários (<span id="comments-count">{{ noticia.comentarios.count }}</span>)</h3>
 
         {% if not user.is_authenticated %}
         <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-login-comentar">
@@ -249,7 +297,7 @@
         {% endif %}
 
         {% if user.is_authenticated %}
-        <div class="card p-4 mb-5 shadow-sm bg-light">
+        <div class="card p-4 mb-5 shadow-sm">
             <h5 class="card-title mb-3">Sua opinião é importante</h5>
             <form id="comment-form">
                 {% csrf_token %}
@@ -264,7 +312,7 @@
 
         <div id="comments-list">
             {% for comentario in noticia.comentarios.all|dictsortreversed:"data_criacao" %}
-            <div class="card mb-3 comentario-item border-light-subtle" data-comentario-id="{{ comentario.id }}">
+            <div class="card mb-3 comentario-item" data-comentario-id="{{ comentario.id }}">
                 <div class="card-body position-relative">
                     <h6 class="card-title mb-1 text-primary">{{ comentario.usuario.get_full_name|default:comentario.usuario.username }}</h6>
                     <p class="card-subtitle mb-2 text-muted small">{{ comentario.data_criacao|date:"d/m/Y \à\s H:i" }}</p>
@@ -282,7 +330,6 @@
     </section>
 </div>
 
-<!-- MODAL EXCLUSÃO -->
 <div class="modal fade modal-confirm" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -329,7 +376,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.ok) {
                     const div = document.createElement('div');
-                    div.className = 'card mb-3 comentario-item border-light-subtle';
+                    // As classes .card e .comentario-item vão herdar o estilo escuro
+                    div.className = 'card mb-3 comentario-item';
                     div.dataset.comentarioId = data.comentario.id;
                     div.innerHTML = `
                         <div class="card-body position-relative">
