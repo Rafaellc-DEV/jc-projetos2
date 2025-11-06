@@ -74,14 +74,12 @@ O objetivo é oferecer **acessibilidade, personalização e engajamento** dos us
 | Nome                                      | Funções | Email                              | Disciplina         |
 |-------------------------------------------|---------|------------------------------------|--------------------|
 | Claudemir Adriano de Albuquerque Silva    | Dev Backend | [caas@cesar.school](mailto:caas@cesar.school) | Projetos 2 + FDS |
-| Danilo Campelo                            | Dev Backend | [dsc4@cesar.school](mailto:dsc4@cesar.school) | Projetos 2 + FDS |
 | Fábio                                     | Dev Backend | [fhdlla@cesar.school](mailto:fhdlla@cesar.school) | Projetos 2 + FDS |
 | Felipe Borba De Carvalho                  | Dev Frontend + Designer | [fbc2@cesar.school](mailto:fbc2@cesar.school) | Projetos 2 + FDS |
 | Francisco Rodrigues de Oliveira Junior    | PO (Product Owner)| [froj@cesar.school](mailto:froj@cesar.school) | Projetos 2 + FDS |
 | Lucas Chaves                              | Scrum Master | [lca3@cesar.school](mailto:lca3@cesar.school) | Projetos 2 + FDS |
 | Pedro Gabriel Paes da Justa Silva         | Dev Frontend + Designer | [pgpjs@cesar.school](mailto:pgpjs@cesar.school) | Projetos 2 + FDS |
-| Rafael Lyra Costa                         | DEV Backend + QA Testes| [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
-| João Lucas Severiano                      | Dev Frontend + Designer | [jlsss@cesar.school](mailto:jlsss@cesar.school) | Projetos 2 + FDS |
+| Rafael Lyra Costa                         | DEV Backend + DevOps | [rlc3@cesar.school](mailto:rlc3@cesar.school) | FDS              |
 
 ---
 
@@ -339,13 +337,12 @@ Antes de começar, certifique-se de que você tem o seguinte instalado:
 | Nome                                   | Função                     |
 |----------------------------------------|-----------------------------|
 | Claudemir Adriano de Albuquerque Silva | Dev Backend                |
-| Danilo Campelo                         | Dev Backend                |
 | Fábio                                  | Dev Backend                |
 | Felipe Borba De Carvalho               | Dev Frontend + Designer    |
 | Francisco Rodrigues de Oliveira Junior | PO (Product Owner)         |
 | Lucas Chaves                           | Scrum Master               |
 | Pedro Gabriel Paes da Justa Silva      | Dev Frontend + Designer    |
-| Rafael Lyra Costa                      | Dev Backend + QA Testes    |
+| Rafael Lyra Costa                      | Dev Backend +  DevOps      |
 
 ---
 
