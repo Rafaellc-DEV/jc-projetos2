@@ -1,11 +1,12 @@
+# noticias/admin.py
 from django.contrib import admin
 from .models import Noticia, Comentario, Categoria
 
 # 1. Registro da Notícia (COM AS ATUALIZAÇÕES PARA O AUTOR)
 @admin.register(Noticia)
 class NoticiaAdmin(admin.ModelAdmin):
-    # Adicionado 'autor' para aparecer na lista
-    list_display = ('titulo', 'autor', 'categoria', 'data_publicacao')
+    # Adicionado 'autor' e 'imagem' para aparecer na lista
+    list_display = ('titulo', 'autor', 'categoria', 'data_publicacao', 'imagem')
     # Adicionado filtro por categoria e autor
     list_filter = ('categoria', 'autor')
     # Adiciona a barra de pesquisa

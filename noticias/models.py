@@ -1,3 +1,4 @@
+# noticias/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -81,6 +82,14 @@ class Noticia(models.Model):
         null=True,
         blank=True,
         related_name='noticias_escritas'
+    )
+    
+    # --- NOVO CAMPO DE IMAGEM ADICIONADO ---
+    imagem = models.ImageField(
+        upload_to='noticias_imagens/', 
+        blank=True, 
+        null=True,
+        verbose_name="Imagem de Destaque"
     )
     # ------------------------------------
 
