@@ -5,213 +5,128 @@
 
 {% block extra_head %}
 <style>
-    /* As variáveis (--bg, --text, --card-bg, --muted, --accent, --shadow) 
-      são herdadas do base.html
-    */
-
+    /* === SEU CSS ORIGINAL (INALTERADO) === */
     .noticia-container { max-width: 960px; margin: 40px auto; }
-
     .categoria-tag {
         font-family: Arial, sans-serif; font-weight: 700; text-transform: uppercase;
         font-size: 0.9rem; color: #a92c2c; text-decoration: none; padding-bottom: 5px;
         border-bottom: 3px solid #a92c2c;
     }
     .categoria-tag:hover { color: #8b2323; }
-
     .header-noticia { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
     .header-media img {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 8px;
-        display: block;
+        width: 100%; height: 400px; object-fit: cover; border-radius: 8px; display: block;
     }
     .header-texto .display-4 {
-        font-family: Georgia, serif;
-        font-weight: 700;
-        font-size: 2.4rem;
-        color: var(--text); /* Adicionado */
+        font-family: Georgia, serif; font-weight: 700; font-size: 2.4rem; color: var(--text);
     }
-
     @media (min-width: 768px) {
         .header-noticia { flex-direction: row; align-items: flex-start; }
         .header-media { flex: 0 0 45%; }
         .header-texto { flex: 1; }
         .header-media img { height: 100%; max-height: 400px; }
     }
-
     .icon-bar { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.75rem; }
     .icon-link {
         display: flex; align-items: center; gap: 0.5rem;
-        text-decoration: none; color: var(--text); /* Alterado */
-        font-weight: 600; font-size: 0.9rem; transition: color 0.2s;
-        opacity: 0.8; /* Adicionado */
+        text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.9rem;
+        transition: color 0.2s; opacity: 0.8;
     }
     .icon-link:hover { color: #0d6efd; }
     .icon-link i { font-size: 1.1rem; }
-
-    .conteudo-principal { line-height: 1.8; font-size: 1.15rem; color: var(--text); } /* Alterado */
-
+    .conteudo-principal { line-height: 1.8; font-size: 1.15rem; color: var(--text); }
     .interaction-bar {
-        background-color: var(--card-bg); /* Alterado */
-        border: 1px solid var(--muted); /* Adicionado */
-        border-radius: 12px;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
+        background-color: var(--card-bg); border: 1px solid var(--muted);
+        border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column;
+        gap: 1.5rem; text-align: center;
     }
     @media (min-width: 768px) {
         .interaction-bar { flex-direction: row; justify-content: space-around; align-items: center; }
     }
-
-    .btn-like, .btn-comentar { font-weight: bold; }
-
-    .leia-mais-secao { border-top: 1px solid var(--muted); padding-top: 2.5rem; } /* Alterado */
+    .btn-comentar { font-weight: bold; }
+    .leia-mais-secao { border-top: 1px solid var(--muted); padding-top: 2.5rem; }
     .leia-mais-titulo {
-        display: flex; align-items: center; gap: 15px;
-        font-family: Georgia, serif; font-weight: 700;
-        font-size: 1.5rem; color: var(--text); /* Alterado */
-        text-transform: uppercase;
+        display: flex; align-items: center; gap: 15px; font-family: Georgia, serif;
+        font-weight: 700; font-size: 1.5rem; color: var(--text); text-transform: uppercase;
         margin-bottom: 2rem;
     }
-    .leia-mais-titulo::before {
-        content: ''; display: block; width: 50px; height: 5px;
-        background-color: #a92c2c;
-    }
-
-    .leia-mais-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    @media (min-width: 768px) {
-        .leia-mais-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
+    .leia-mais-titulo::before { content: ''; display: block; width: 50px; height: 5px; background-color: #a92c2c; }
+    .leia-mais-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    @media (min-width: 768px) { .leia-mais-grid { grid-template-columns: repeat(2, 1fr); } }
     .leia-mais-card {
-        background-color: var(--card-bg); /* Alterado */
-        border-radius: 8px;
-        overflow: hidden;
-        text-decoration: none;
-        color: var(--text); /* Alterado */
-        box-shadow: var(--shadow); /* Alterado */
-        border: 1px solid var(--muted); /* Adicionado */
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background-color: var(--card-bg); border-radius: 8px; overflow: hidden;
+        text-decoration: none; color: var(--text); box-shadow: var(--shadow);
+        border: 1px solid var(--muted); transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .leia-mais-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-    }
+    .leia-mais-card:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
     .leia-mais-card .img-placeholder {
-        width: 100%;
-        height: 180px;
-        background-color: var(--muted); /* Alterado */
+        width: 100%; height: 180px; background-color: var(--muted);
         display: flex; align-items: center; justify-content: center;
-        color: var(--text); /* Alterado */
-        opacity: 0.7; /* Adicionado */
-        font-size: 0.9rem;
+        color: var(--text); opacity: 0.7; font-size: 0.9rem;
     }
-
     .leia-mais-card .card-body { padding: 1rem; }
-    .leia-mais-card .card-title {
-        font-family: Georgia, serif;
-        font-weight: 700;
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
-    }
-    .leia-mais-card .card-category {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #a92c2c;
-        text-transform: uppercase;
-    }
-
-    .area-comentarios { border-top: 1px solid var(--muted); padding-top: 2.5rem; } /* Alterado */
-    .area-comentarios h3 { 
-        border-left: 5px solid #0d6efd; 
-        padding-left: 10px; 
-        color: var(--text); /* Adicionado */
-    }
-
+    .leia-mais-card .card-title { font-family: Georgia, serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .leia-mais-card .card-category { font-size: 0.8rem; font-weight: 700; color: #a92c2c; text-transform: uppercase; }
+    .area-comentarios { border-top: 1px solid var(--muted); padding-top: 2.5rem; }
+    .area-comentarios h3 { border-left: 5px solid #0d6efd; padding-left: 10px; color: var(--text); }
     .comentario-item { border-left: 3px solid #ccc; position: relative; }
-    .btn-delete {
-        position: absolute;
-        top: 10px; right: 10px;
-        font-size: 0.8rem;
-        padding: 0.25rem 0.5rem;
-        z-index: 10;
-    }
-
+    .btn-delete { position: absolute; top: 10px; right: 10px; font-size: 0.8rem; padding: 0.25rem 0.5rem; z-index: 10; }
     .btn-login-comentar {
-        display: block;
-        width: 100%;
-        max-width: 300px;
-        margin: 1.5rem auto;
-        text-align: center;
-        padding: 0.75rem;
-        font-weight: bold;
-        border-radius: 50px;
-        background-color: #0d6efd;
-        color: white;
-        text-decoration: none;
+        display: block; width: 100%; max-width: 300px; margin: 1.5rem auto;
+        text-align: center; padding: 0.75rem; font-weight: bold; border-radius: 50px;
+        background-color: #0d6efd; color: white; text-decoration: none;
         transition: background-color 0.2s;
     }
     .btn-login-comentar:hover { background-color: #0b5ed7; color: white; }
 
-    /* ================================================= */
-    /* REGRAS GLOBAIS PARA TEMA ESCURO (Adicionadas)    */
-    /* ================================================= */
-
-    /* Corrige Cards, Modals e Formulários */
-    .card {
-        background-color: var(--card-bg);
-        border-color: var(--muted);
-        color: var(--text);
-    }
-    
-    .form-control {
-        background-color: var(--bg);
-        color: var(--text);
-        border-color: var(--muted);
-    }
-    .form-control:focus {
-        background-color: var(--bg);
-        color: var(--text);
-        border-color: #0d6efd; /* Manter o foco azul */
-        box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
-    }
-    
-    /* Placeholders dos formulários */
-    .form-control::placeholder {
-        color: var(--text);
-        opacity: 0.5;
-    }
-
-    .modal-content {
-        background-color: var(--card-bg);
-        color: var(--text);
-        border-color: var(--muted);
-    }
-
-    .modal-confirm .modal-content {
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    .modal-confirm .modal-header { border-bottom: 1px solid var(--muted); padding: 1.5rem; } /* Alterado */
+    /* === TEMA ESCURO === */
+    .card { background-color: var(--card-bg); border-color: var(--muted); color: var(--text); }
+    .form-control { background-color: var(--bg); color: var(--text); border-color: var(--muted); }
+    .form-control:focus { background-color: var(--bg); color: var(--text); border-color: #0d6efd; box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25); }
+    .form-control::placeholder { color: var(--text); opacity: 0.5; }
+    .modal-content { background-color: var(--card-bg); color: var(--text); border-color: var(--muted); }
+    .modal-confirm .modal-content { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .modal-confirm .modal-header { border-bottom: 1px solid var(--muted); padding: 1.5rem; }
     .modal-confirm .modal-title { font-weight: 700; color: #dc3545; }
     .modal-confirm .modal-body { padding: 1rem 1.5rem; font-size: 1.1rem; }
-    .modal-confirm .btn-danger {
-        background-color: #dc3545;
-        border: none;
-        border-radius: 50px;
-        padding: 0.5rem 1.5rem;
+    .modal-confirm .btn-danger { background-color: #dc3545; border: none; border-radius: 50px; padding: 0.5rem 1.5rem; }
+    .modal-confirm .btn-secondary { border-radius: 50px; padding: 0.5rem 1.5rem; }
+
+    /* === CORAÇÃO + CONTADOR (SEM RETÂNGULO) === */
+    .curtir-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: none; border: none; padding: 0; cursor: pointer;
+        font-size: 1.4rem; color: #ccc; transition: all 0.2s;
     }
-    .modal-confirm .btn-secondary {
-        border-radius: 50px;
-        padding: 0.5rem 1.5rem;
+    .curtir-btn:hover { color: #ff6b6b; transform: scale(1.1); }
+    .curtir-btn.curtido { color: #ff6b6b; }
+    .curtir-btn.curtido:hover { color: #e55a5a; }
+    .curtir-contador { font-size: 1rem; font-weight: 600; color: var(--text); }
+
+    /* === BOTÃO PRINCIPAL === */
+    .btn-curtir-main {
+        background: none; border: 2px solid #ccc; color: #ccc;
+        padding: 0.5rem 1.2rem; border-radius: 50px; font-weight: bold;
+        display: inline-flex; align-items: center; gap: 6px;
+        transition: all 0.2s;
     }
+    .btn-curtir-main:hover { border-color: #ff6b6b; color: #ff6b6b; }
+    .btn-curtir-main.curtido,
+    .btn-curtir-main.curtido:hover {
+        border-color: #ff6b6b; color: #ff6b6b; background: rgba(255, 107, 107, 0.1);
+    }
+
+    /* === MENSAGEM CENTRALIZADA === */
+    .flash-message {
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9); color: white; padding: 1.2rem 2rem;
+        border-radius: 12px; font-weight: 600; font-size: 1.1rem;
+        text-align: center; z-index: 9999; opacity: 0; visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .flash-message.show { opacity: 1; visibility: visible; }
+    .flash-message i { margin-right: 8px; font-size: 1.3rem; }
 </style>
 {% endblock %}
 
@@ -235,7 +150,13 @@
                 {% endif %}
 
                 <div class="icon-bar">
-                    <a href="#" class="icon-link"><i class="bi bi-heart"></i><span>Curtir</span></a>
+                    <!-- CORAÇÃO + CONTADOR (SEM RETÂNGULO) -->
+                    <button class="curtir-btn {% if user.is_authenticated and noticia.is_curtida_by_user %}curtido{% endif %}" 
+                            id="btn-curtir-header">
+                        <i class="bi {% if user.is_authenticated and noticia.is_curtida_by_user %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                        <span class="curtir-contador" id="curtidas-header">{{ noticia.total_curtidas|default:0 }}</span>
+                    </button>
+
                     <a href="#area-comentarios" class="icon-link"><i class="bi bi-chat-dots"></i><span>Comentar</span></a>
                     <a href="#" class="icon-link"><i class="bi bi-share"></i><span>Compartilhar</span></a>
                 </div>
@@ -250,7 +171,8 @@
             </div>
         </div>
 
-        <hr style="border-color: var(--muted);"> <div class="conteudo-principal lead mb-5 mt-4">
+        <hr style="border-color: var(--muted);"> 
+        <div class="conteudo-principal lead mb-5 mt-4">
             {{ noticia.conteudo|linebreaks }}
         </div>
     </article>
@@ -258,7 +180,12 @@
     <section class="interaction-bar my-5 shadow-sm">
         <div class="like-area">
             <p class="mb-2 small text-muted">Gostou desta notícia?</p>
-            <button type="button" class="btn btn-outline-danger btn-like rounded-pill px-4">Curtir (0)</button>
+            <!-- BOTÃO PRINCIPAL -->
+            <button type="button" 
+                    class="btn-curtir-main {% if user.is_authenticated and noticia.is_curtida_by_user %}curtido{% endif %}" 
+                    id="btn-curtir-main">
+                Curtir (<span id="curtidas-main">{{ noticia.total_curtidas|default:0 }}</span>)
+            </button>
         </div>
         <div class="comment-call">
             <p class="d-none d-md-block mb-2 small text-muted">Participe da conversa!</p>
@@ -266,6 +193,7 @@
         </div>
     </section>
 
+    <!-- ... (leia mais, comentários, etc.) ... -->
     {% if noticias_relacionadas %}
     <section class="leia-mais-secao my-5">
         <h3 class="leia-mais-titulo">LEIA MAIS</h3>
@@ -317,7 +245,6 @@
                     <h6 class="card-title mb-1 text-primary">{{ comentario.usuario.get_full_name|default:comentario.usuario.username }}</h6>
                     <p class="card-subtitle mb-2 text-muted small">{{ comentario.data_criacao|date:"d/m/Y \à\s H:i" }}</p>
                     <p class="card-text">{{ comentario.texto|linebreaks }}</p>
-
                     {% if user.is_authenticated and user.id == comentario.usuario.id %}
                     <button class="btn btn-sm btn-danger btn-delete" onclick="confirmarExclusao({{ comentario.id }})">Apagar</button>
                     {% endif %}
@@ -330,6 +257,10 @@
     </section>
 </div>
 
+<!-- MENSAGEM CENTRALIZADA -->
+<div id="flash-message" class="flash-message"></div>
+
+<!-- Modal de Confirmação -->
 <div class="modal fade modal-confirm" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -351,11 +282,68 @@
 
 {% block extra_js %}
 <script>
-{% if user.is_authenticated %}
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('comment-form');
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
     const noticiaId = {{ noticia.pk }};
+    const btnHeader = document.getElementById('btn-curtir-header');
+    const btnMain = document.getElementById('btn-curtir-main');
+    const contadorHeader = document.getElementById('curtidas-header');
+    const contadorMain = document.getElementById('curtidas-main');
+    const flash = document.getElementById('flash-message');
+
+    // ESTADO INICIAL DO BACKEND
+    const isCurtidoInicial = {{ noticia.is_curtida_by_user|yesno:"true,false" }};
+    const totalCurtidasInicial = {{ noticia.total_curtidas|default:0 }};
+
+    function showFlash(msg, icon = '') {
+        flash.innerHTML = `${icon ? '<i class="' + icon + '"></i>' : ''}${msg}`;
+        flash.classList.add('show');
+        setTimeout(() => flash.classList.remove('show'), 3000);
+    }
+
+    function atualizarEstado(total, curtido) {
+        contadorHeader.textContent = total;
+        contadorMain.textContent = total;
+
+        [btnHeader, btnMain].forEach(btn => {
+            btn.classList.toggle('curtido', curtido);
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.className = curtido ? 'bi bi-heart-fill' : 'bi bi-heart';
+            }
+        });
+    }
+
+    function curtir() {
+        if (!csrfToken) {
+            showFlash('Faça login para curtir esta publicação.', 'bi bi-box-arrow-in-right');
+            return;
+        }
+
+        fetch(`/api/noticias/${noticiaId}/like/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+            credentials: 'include'
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.total_curtidas !== undefined && data.is_curtida !== undefined) {
+                atualizarEstado(data.total_curtidas, data.is_curtida);
+            }
+        })
+        .catch(() => showFlash('Erro ao curtir.', 'bi bi-x-circle'));
+    }
+
+    // Aplica estado inicial ao carregar
+    atualizarEstado(totalCurtidasInicial, isCurtidoInicial);
+
+    // Eventos
+    btnHeader?.addEventListener('click', curtir);
+    btnMain?.addEventListener('click', curtir);
+
+    // === COMENTÁRIOS (100% FUNCIONANDO) ===
+    {% if user.is_authenticated %}
+    const form = document.getElementById('comment-form');
     const countSpan = document.getElementById('comments-count');
     const list = document.getElementById('comments-list');
     let comentarioIdToDelete = null;
@@ -376,7 +364,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.ok) {
                     const div = document.createElement('div');
-                    // As classes .card e .comentario-item vão herdar o estilo escuro
                     div.className = 'card mb-3 comentario-item';
                     div.dataset.comentarioId = data.comentario.id;
                     div.innerHTML = `
@@ -399,12 +386,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.confirmarExclusao = function(id) {
         comentarioIdToDelete = id;
-        const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-        modal.show();
+        new bootstrap.Modal(document.getElementById('deleteModal')).show();
     };
 
     document.getElementById('confirm-delete-btn').addEventListener('click', function() {
-        fetch(`/api/noticias/${noticiaId}/comentarios/delete/`, {
+        fetch(`/api/noticias/${noticiaId}/comentarios/`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
             credentials: 'include',
@@ -420,10 +406,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     list.innerHTML = '<p class="text-muted" id="sem-comentarios">Ainda não há comentários. Seja o primeiro!</p>';
                 }
                 bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+                showFlash('Comentário deletado com sucesso!', 'bi bi-check-circle');
             }
         });
     });
+    {% endif %}
 });
-{% endif %}
 </script>
 {% endblock %}

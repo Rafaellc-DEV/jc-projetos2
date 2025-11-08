@@ -9,9 +9,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 # DRF
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
-from .models import Noticia, Comentario, Categoria
-from .serializers import ComentarioSerializer
+from rest_framework import status, permissions, viewsets
+from rest_framework.permissions import IsAuthenticated
+from .models import Noticia, Comentario, Categoria, Curtida
+from .serializers import ComentarioSerializer, NoticiaSerializer
 
 User = get_user_model()
 
@@ -131,23 +132,26 @@ def conteudo_premium(request):
 
 
 # ----------------------
-# API: Comentários (DRF) - POST, GET, DELETE
+# API: Notícia (Listar com curtidas)
+# ----------------------
+class NoticiaViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Noticia.objects.all().order_by('-data_publicacao')
+    serializer_class = NoticiaSerializer
+
+
+# ----------------------
+# API: Comentários (POST, GET, DELETE)
 # ----------------------
 class CriarComentarioView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, id_noticia):
-        # Busca a notícia
         noticia = get_object_or_404(Noticia, id=id_noticia)
-
-        # Cria o serializer com os dados do POST
         serializer = ComentarioSerializer(data=request.data, context={'request': request})
         
         if serializer.is_valid():
-            # Salva com a notícia
-            serializer.save(noticia=noticia)
-            comentario = serializer.instance  # Pega o comentário salvo
-            
+            serializer.save(noticia=noticia, usuario=request.user)
+            comentario = serializer.instance
             return Response({
                 "ok": True,
                 "comentario": {
@@ -165,7 +169,6 @@ class CriarComentarioView(APIView):
     def get(self, request, id_noticia):
         noticia = get_object_or_404(Noticia, id=id_noticia)
         comentarios = noticia.comentarios.all().order_by('-data_criacao')
-        
         serializer = ComentarioSerializer(comentarios, many=True, context={'request': request})
         return Response({"ok": True, "comentarios": serializer.data})
 
@@ -183,4 +186,53 @@ class CriarComentarioView(APIView):
             return Response({"ok": False, "error": "Você não pode apagar este comentário."}, status=403)
 
         comentario.delete()
-        return Response({"ok": True, "message": "Comentário apagado com sucesso!"}, status=200)
+        return Response({"ok": True, "message": "Comentário excluído."}, status=200)
+
+
+# ----------------------
+# API: Curtir / Descurtir (Toggle)
+# ----------------------
+class LikeNoticiaView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, noticia_id):
+        try:
+            noticia = get_object_or_404(Noticia, id=noticia_id)
+            user = request.user
+
+            curtida = Curtida.objects.filter(usuario=user, noticia=noticia).first()
+            if curtida:
+                curtida.delete()
+                is_curtida = False
+                mensagem = "Curtida removida!"
+            else:
+                Curtida.objects.create(usuario=user, noticia=noticia)
+                is_curtida = True
+                mensagem = "Curtida adicionada!"
+
+            serializer = NoticiaSerializer(noticia, context={'request': request})
+            return Response({
+                'total_curtidas': serializer.data['total_curtidas'],
+                'is_curtida': is_curtida,
+                'mensagem': mensagem
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({'erro': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, noticia_id):
+        try:
+            noticia = get_object_or_404(Noticia, id=noticia_id)
+            user = request.user
+            curtida = Curtida.objects.filter(usuario=user, noticia=noticia).first()
+            if curtida:
+                curtida.delete()
+                serializer = NoticiaSerializer(noticia, context={'request': request})
+                return Response({
+                    'total_curtidas': serializer.data['total_curtidas'],
+                    'is_curtida': False,
+                    'mensagem': 'Curtida removida!'
+                }, status=status.HTTP_200_OK)
+            return Response({'mensagem': 'Você não curtiu esta notícia.'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'erro': str(e)}, status=status.HTTP_400_BAD_REQUEST)

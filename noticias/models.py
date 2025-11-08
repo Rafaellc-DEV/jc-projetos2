@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.utils.text import slugify
-from django.contrib.auth.models import User
 
 
 # ==========================
@@ -91,7 +90,6 @@ class Noticia(models.Model):
         null=True,
         verbose_name="Imagem de Destaque"
     )
-    # ------------------------------------
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -104,6 +102,44 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    # Método para contar curtidas
+    def total_curtidas(self):
+        return self.curtidas.count()
+
+    # Método para verificar se o usuário curtiu
+    def is_curtida_by_user(self, user):
+        if user.is_authenticated:
+            return self.curtidas.filter(usuario=user).exists()
+        return False
+
+
+# ==========================
+# Modelo Curtida (NOVO)
+# ==========================
+class Curtida(models.Model):
+    id = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='curtidas'
+    )
+    noticia = models.ForeignKey(
+        'Noticia',
+        on_delete=models.CASCADE,
+        related_name='curtidas'
+    )
+    data_curtida = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('usuario', 'noticia')
+        indexes = [
+            models.Index(fields=['noticia']),
+            models.Index(fields=['usuario']),
+        ]
+
+    def __str__(self):
+        return f"{self.usuario.username} curtiu {self.noticia.titulo}"
 
 
 # ==========================
