@@ -13,12 +13,13 @@ class CustomUser(AbstractUser):
         ("FREE", "Free"),
         ("ASSINANTE", "Assinante"),
     )
-
     user_type = models.CharField(
         max_length=20,
         choices=USER_TYPES,
         default="FREE",
     )
+    # NOVO CAMPO: Checa se o usuário já viu a tela de personalização
+    viu_personalizacao = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.username} ({self.user_type})"
@@ -50,6 +51,13 @@ class AccessLog(models.Model):
 class Categoria(models.Model):
     nome = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
+    
+    # --- NOVO CAMPO (REQUEST 1) ---
+    # Define a ordem de prioridade no admin (0 = topo)
+    ordem = models.IntegerField(
+        default=99,
+        help_text="Defina a ordem de prioridade (0, 1, 2...). Categorias com números menores aparecem primeiro."
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -62,6 +70,8 @@ class Categoria(models.Model):
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias'
+        # --- NOVA ORDENAÇÃO (REQUEST 1) ---
+        ordering = ['ordem', 'nome']
 
 
 # ==========================
@@ -69,12 +79,13 @@ class Categoria(models.Model):
 # ==========================
 class Noticia(models.Model):
     titulo = models.CharField(max_length=200)
+    subtitulo = models.TextField(
+        blank=True, null=True, verbose_name="Sub-título"
+    )
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     conteudo = models.TextField()
     data_publicacao = models.DateTimeField(auto_now_add=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, related_name='noticias')
-    
-    # --- NOVO CAMPO DE AUTOR ADICIONADO ---
     autor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -82,13 +93,19 @@ class Noticia(models.Model):
         blank=True,
         related_name='noticias_escritas'
     )
-    
-    # --- NOVO CAMPO DE IMAGEM ADICIONADO ---
     imagem = models.ImageField(
         upload_to='noticias_imagens/', 
         blank=True, 
         null=True,
         verbose_name="Imagem de Destaque"
+    )
+
+    # --- NOVO CAMPO ADICIONADO ---
+    imagem_credito = models.CharField(
+        max_length=150, 
+        blank=True, 
+        null=True, 
+        verbose_name="Crédito da Imagem"
     )
 
     def save(self, *args, **kwargs):
@@ -103,11 +120,9 @@ class Noticia(models.Model):
     def __str__(self):
         return self.titulo
 
-    # Método para contar curtidas
     def total_curtidas(self):
         return self.curtidas.count()
 
-    # Método para verificar se o usuário curtiu
     def is_curtida_by_user(self, user):
         if user.is_authenticated:
             return self.curtidas.filter(usuario=user).exists()
@@ -115,7 +130,7 @@ class Noticia(models.Model):
 
 
 # ==========================
-# Modelo Curtida (NOVO)
+# Modelo Curtida
 # ==========================
 class Curtida(models.Model):
     id = models.AutoField(primary_key=True)
@@ -143,7 +158,7 @@ class Curtida(models.Model):
 
 
 # ==========================
-# Modelo Comentario (COM FUNÇÃO DE APAGAR)
+# Modelo Comentario
 # ==========================
 class Comentario(models.Model):
     noticia = models.ForeignKey('Noticia', on_delete=models.CASCADE, related_name='comentarios')
@@ -157,6 +172,32 @@ class Comentario(models.Model):
     def __str__(self):
         return f'Comentário de {self.usuario.get_username()} em {self.noticia.titulo[:30]}'
 
-    # FUNÇÃO PARA VERIFICAR SE O USUÁRIO PODE APAGAR
     def pode_apagar(self, user):
         return self.usuario == user
+
+
+# ==========================
+# NOVO MODELO (REQUEST 2)
+# ==========================
+class PreferenciasFeed(models.Model):
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='preferencias_feed'
+    )
+    # Salva uma lista de slugs de categoria na ordem preferida
+    # Ex: ["politica", "esportes", "mundo"]
+    categorias_ordenadas = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Lista de slugs de categoria na ordem de preferência do usuário."
+    )
+    # Define se o feed personalizado está ativo ou não
+    personalizacao_ativa = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Preferências de {self.usuario.username}"
+
+    class Meta:
+        verbose_name = "Preferência de Feed"
+        verbose_name_plural = "Preferências de Feed"

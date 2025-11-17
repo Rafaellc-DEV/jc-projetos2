@@ -5,8 +5,8 @@ from .models import Noticia, Comentario, Categoria
 # 1. Registro da Notícia (COM AS ATUALIZAÇÕES PARA O AUTOR)
 @admin.register(Noticia)
 class NoticiaAdmin(admin.ModelAdmin):
-    # Adicionado 'autor' e 'imagem' para aparecer na lista
-    list_display = ('titulo', 'autor', 'categoria', 'data_publicacao', 'imagem')
+    # Adicionado 'autor', 'imagem' e 'imagem_credito' para aparecer na lista
+    list_display = ('titulo', 'autor', 'categoria', 'data_publicacao', 'imagem', 'imagem_credito')
     # Adicionado filtro por categoria e autor
     list_filter = ('categoria', 'autor')
     # Adiciona a barra de pesquisa

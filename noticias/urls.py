@@ -7,7 +7,7 @@ from . import views
 # Router para DRF ViewSets
 # ----------------------
 router = DefaultRouter()
-router.register(r'api/noticias', views.NoticiaViewSet, basename='noticia')  # GET list + detail com curtidas
+router.register(r'api/noticias', views.NoticiaViewSet, basename='noticia')
 
 urlpatterns = [
     # ----------------------
@@ -19,6 +19,12 @@ urlpatterns = [
     path("logout/", views.logout_view, name="logout"),
     path("register/", views.register_view, name="register"),
     path("premium/", views.conteudo_premium, name="conteudo_premium"),
+    
+    # --- ESTE É O PATH QUE ESTAVA FALTANDO ---
+    path("personalizar-feed/", views.personalizar_feed_view, name="personalizar_feed"),
+    
+    # --- URL da Categoria (DEVE VIR ANTES da notícia) ---
+    path("categoria/<slug:categoria_slug>/", views.categoria_detalhe, name="categoria_detalhe"),
     
     path("<slug:categoria_slug>/<slug:noticia_slug>/", views.noticia_detalhe, name="noticia_detalhe"),
     
