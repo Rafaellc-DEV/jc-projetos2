@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Personalizar seu Feed{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    display: inline-block;
+  }
+  .sortable-list {
+    list-style: none;
+    padding: 0;
+    border: 1px solid var(--muted);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    min-height: 50px; /* Para não colapsar se estiver vazia */
+  }
+  .sortable-item {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--muted);
+    cursor: grab;
+    user-select: none;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .sortable-item:last-child {
+    border-bottom: none;
+  }
+  .sortable-item .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sortable-item i {
+    font-size: 1.2rem;
+    opacity: 0.5;
+  }
+  /* Botão de remover (TASK 2) */
+  .remove-btn {
+    cursor: pointer;
+    color: var(--accent);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .remove-btn:hover {
+    opacity: 1;
+  }
+  
+  /* Estilo para o item sendo arrastado */
+  .dragging {
+    opacity: 0.5;
+    background: var(--muted);
+  }
+  
+  /* Placeholder para lista vazia */
+  #available-list-placeholder {
+    display: none; /* Oculto por padrão */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 700px;">
+  <h1 class="page-title">Personalizar seu Feed</h1>
+  
+  {% if not request.user.viu_personalizacao %}
+  <div class="alert alert-info" role="alert">
+    <strong>Bem-vindo(a), {{ request.user.first_name|default:request.user.username }}!</strong>
+    <br>Arraste as editorias para definir a ordem que você prefere ver na página inicial, ou clique no (x) para remover as que não lhe interessam.
+  </div>
+  {% endif %}
+
+  <p class="lead text-muted">Arraste e solte as editorias para reordenar seu feed. As editorias no topo aparecerão primeiro.</p>
+
+  <form method="POST" id="personalize-form">
+    {% csrf_token %}
+    
+    <input type="hidden" name="ordem_categorias" id="ordem_categorias">
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <ul class="sortable-list" id="sortable-list">
+          {% for categoria in categorias_usuario %}
+            <li class="sortable-item" data-slug="{{ categoria.slug }}" data-nome="{{ categoria.nome }}" draggable="true">
+              <span>{{ categoria.nome }}</span>
+              <div class="controls">
+                <i class="bi bi-x-lg remove-btn" onclick="removeCategoria(this)"></i>
+                <i class="bi bi-grip-vertical"></i>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <div class="form-check form-switch fs-6">
+          <input class="form-check-input" type="checkbox" role="switch" id="personalizacao_ativa" 
+                 name="personalizacao_ativa" {% if preferencias.personalizacao_ativa %}checked{% endif %}>
+          <label class="form-check-label" for="personalizacao_ativa">Ativar feed personalizado</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Preferências</button>
+      </div>
+    </div>
+  </form>
+
+  <h4 class="mt-5">Editorias Disponíveis</h4>
+  <p class="text-muted">Editorias que não estão na sua lista de personalização:</p>
+  <ul class="list-group" id="available-list">
+    <li class="list-group-item text-muted" id="available-list-placeholder">
+      Você adicionou todas as editorias ao seu feed.
+    </li>
+    {% for categoria in categorias_disponiveis %}
+      <li class="list-group-item d-flex justify-content-between align-items-center" data-slug="{{ categoria.slug }}" data-nome="{{ categoria.nome }}">
+        {{ categoria.nome }}
+        <a href="#" class="btn btn-sm btn-outline-success" onclick="addCategoria(this)">Adicionar ao Feed</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sortableList = document.getElementById('sortable-list');
+    const availableList = document.getElementById('available-list');
+    const availablePlaceholder = document.getElementById('available-list-placeholder');
+    const form = document.getElementById('personalize-form');
+    const hiddenInput = document.getElementById('ordem_categorias');
+
+    let draggedItem = null;
+
+    function checkAvailablePlaceholder() {
+        const items = availableList.querySelectorAll('li:not(#available-list-placeholder)');
+        availablePlaceholder.style.display = items.length === 0 ? 'block' : 'none';
+    }
+
+    function initializeDragEvents(item) {
+        item.addEventListener('dragstart', (e) => {
+            draggedItem = e.target;
+            setTimeout(() => e.target.classList.add('dragging'), 0);
+        });
+
+        item.addEventListener('dragend', (e) => {
+            if (draggedItem) {
+              draggedItem.classList.remove('dragging');
+            }
+            draggedItem = null;
+        });
+    }
+
+    sortableList.querySelectorAll('.sortable-item').forEach(initializeDragEvents);
+
+    sortableList.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(sortableList, e.clientY);
+      if (draggedItem && draggedItem.closest('ul') === sortableList) { // Só permite reordenar itens da mesma lista
+        if (afterElement == null) {
+          sortableList.appendChild(draggedItem);
+        } else {
+          sortableList.insertBefore(draggedItem, afterElement);
+        }
+      }
+    });
+
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.sortable-item:not(.dragging)')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    form.addEventListener('submit', (e) => {
+      const items = sortableList.querySelectorAll('.sortable-item');
+      const slugOrder = Array.from(items).map(item => item.dataset.slug);
+      hiddenInput.value = JSON.stringify(slugOrder);
+    });
+
+    // --- NOVA FUNÇÃO DE REMOVER (TASK 2) ---
+    window.removeCategoria = function(buttonElement) {
+      event.preventDefault();
+      const itemToRemove = buttonElement.closest('li');
+      const slug = itemToRemove.dataset.slug;
+      const nome = itemToRemove.dataset.nome;
+
+      // 1. Criar novo item para a lista de disponíveis
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-center';
+      li.dataset.slug = slug;
+      li.dataset.nome = nome;
+      li.innerHTML = `${nome} <a href="#" class="btn btn-sm btn-outline-success" onclick="addCategoria(this)">Adicionar ao Feed</a>`;
+      
+      // 2. Adicionar na lista de disponíveis
+      availableList.appendChild(li);
+
+      // 3. Remover da lista principal
+      itemToRemove.remove();
+      
+      checkAvailablePlaceholder();
+    }
+
+    // --- FUNÇÃO DE ADICIONAR (ATUALIZADA) ---
+    window.addCategoria = function(buttonElement) {
+      event.preventDefault();
+      const itemToAdd = buttonElement.closest('li');
+      const slug = itemToAdd.dataset.slug;
+      const nome = itemToAdd.dataset.nome;
+
+      // 1. Criar novo item para a lista principal
+      const li = document.createElement('li');
+      li.className = 'sortable-item';
+      li.dataset.slug = slug;
+      li.dataset.nome = nome;
+      li.setAttribute('draggable', 'true');
+      li.innerHTML = `
+        <span>${nome}</span>
+        <div class="controls">
+          <i class="bi bi-x-lg remove-btn" onclick="removeCategoria(this)"></i>
+          <i class="bi bi-grip-vertical"></i>
+        </div>`;
+      
+      // 2. Adicionar listener de drag
+      initializeDragEvents(li);
+      
+      // 3. Adicionar na lista principal
+      sortableList.appendChild(li);
+      
+      // 4. Remover da lista de disponíveis
+      itemToAdd.remove();
+
+      checkAvailablePlaceholder();
+    }
+    
+    // Checagem inicial do placeholder
+    checkAvailablePlaceholder();
+  });
+</script>
+{% endblock %}

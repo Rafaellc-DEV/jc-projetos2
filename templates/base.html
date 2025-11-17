@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Open+Sans:wght@700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_head %}{% endblock %}
@@ -17,54 +18,117 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-  <header class="topbar">
-    <button class="hamburger" aria-label="Abrir menu"
-            data-bs-toggle="offcanvas" data-bs-target="#mainMenu" aria-controls="mainMenu">
-      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+<div id="main-header-wrapper">
 
-    <a href="{% url 'home' %}" class="brand">
-      <img src="{% static 'img/logo.png' %}" alt="Logo JC Online" class="brand-logo" loading="lazy">
-    </a>
+  <header class="topbar">
+    
+    <div class="header-left-side">
+      <a href="#" class="jornal-digital-link d-none d-lg-flex" 
+         data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ver o Jornal Digital">
+        <i class="bi bi-journal-text"></i>
+        <span>Jornal Digital</span>
+      </a>
+      <button class="hamburger d-lg-none" aria-label="Abrir menu"
+              data-bs-toggle="offcanvas" data-bs-target="#mainMenu" aria-controls="mainMenu">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="brand-wrapper">
+      <a href="{% url 'home' %}" class="brand">
+        <img src="{% static 'img/logo.png' %}" alt="Logo JC Online" class="brand-logo" loading="lazy">
+      </a>
+    </div>
 
     <div class="right-side">
-      <form class="search" role="search" method="get" action="{% url 'search' %}">
-        <input type="search" name="q" placeholder="Faça sua pesquisa" aria-label="Buscar" />
-        <button type="submit" class="search-icon" aria-label="Buscar">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="M21 21l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </form>
+      
+      <div class="header-row-top">
+        <form class="search d-none d-lg-flex" role="search" method="get" action="{% url 'search' %}">
+          <input type="search" name="q" placeholder="Faça sua pesquisa" aria-label="Buscar" />
+          <button type="submit" class="search-icon" aria-label="Buscar"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Buscar">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M21 21l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </form>
 
-      <button type="button" class="btn profile-link" id="theme-toggle" aria-label="Alternar tema" style="width: 42px; height: 42px; padding: 6px; display: grid; place-items: center;">
-        <i class="bi" id="theme-toggle-icon"></i> </button>
-      {% if request.user.is_authenticated %}
-        <div class="dropdown">
-          <a class="profile-link d-flex align-items-center" href="#" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle me-2" style="font-size:1.3rem;"></i>
-            <span class="text-truncate" style="max-width: 160px;">
-              {{ request.user.first_name|default:request.user.username }}
-            </span>
-            <i class="bi bi-caret-down ms-1"></i>
+        {% if request.user.is_authenticated %}
+          <div class="dropdown">
+            <a class="profile-link d-flex align-items-center" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false" title="Meu Perfil">
+              <i class="bi bi-person-circle me-2" style="font-size:1.1rem;"></i>
+              <span class="text-truncate" style="max-width: 160px; font-size: 0.9rem;">
+                {{ request.user.first_name|default:request.user.username }}
+              </span>
+              <i class="bi bi-caret-down ms-1"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{% url 'personalizar_feed' %}">Personalizar Feed</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <a href="{% url 'login' %}" class="profile-link d-flex align-items-center"
+             data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Entrar ou Criar Conta">
+            <span class="me-2 fw-semibold" style="font-size: 0.85rem;">Entrar</span>
+            <i class="bi bi-person-circle" style="font-size:1.1rem;"></i>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
-          </ul>
-        </div>
-      {% else %}
-        <a href="{% url 'login' %}" class="profile-link d-flex align-items-center">
-          <span class="me-2 fw-semibold">Entrar</span>
-          <i class="bi bi-person-circle" style="font-size:1.3rem;"></i>
+        {% endif %}
+      </div>
+
+      <div class="header-row-bottom d-none d-lg-flex">
+        
+        <a href="#" class="ac-button newsletter-btn"
+           data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Assinar Newsletter">
+          <i class="bi bi-envelope-paper"></i>
+          <span>Newsletter</span>
         </a>
-      {% endif %}
+        
+        <div class="accessibility-controls">
+          <button id="sepia-toggle" class="ac-button" aria-label="Modo Leitura"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Modo Leitura (Sépia)">
+              <i class="bi bi-book"></i>
+          </button>
+          <button id="contrast-toggle" class="ac-button" aria-label="Alternar Contraste"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Alto Contraste">
+              <i class="bi bi-circle-half"></i>
+          </button>
+          <button id="font-decrease" class="ac-button" aria-label="Diminuir Fonte"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Diminuir Fonte">A-</button>
+          <button id="font-increase" class="ac-button" aria-label="Aumentar Fonte"
+                  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Aumentar Fonte">A+</button>
+        </div>
+        <button type="button" class="ac-button" id="theme-toggle" aria-label="Alternar tema"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Alternar Tema Claro/Escuro">
+          <i class="bi" id="theme-toggle-icon"></i>
+        </button>
+      </div>
+
     </div>
   </header>
+
+  <nav class="main-navbar d-none d-lg-block">
+    <div class="container d-flex justify-content-center flex-wrap">
+      <a class="nav-link" href="{% url 'home' %}">Últimas</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'pernambuco' %}">Pernambuco</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'politica' %}">Política</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'economia' %}">Economia</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'cultura' %}">Cultura</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'brasil' %}">Brasil</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'mundo' %}">Mundo</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'saude-e-bem-estar' %}">Saúde</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'esportes' %}">Esportes</a>
+      <a class="nav-link" href="{% url 'categoria_detalhe' 'social1' %}">Social1</a>
+    </div>
+  </nav>
+
+</div> 
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="mainMenu" aria-labelledby="mainMenuLabel">
     <div class="offcanvas-header">
@@ -73,9 +137,19 @@
     </div>
     <div class="offcanvas-body">
       <nav class="list-group">
-        <a class="list-group-item list-group-item-action" href="{% url 'home' %}">Início</a>
-        <a class="list-group-item list-group-item-action" href="#">Notícias</a>
-        <a class="list-group-item list-group-item-action" href="#">Categorias</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'home' %}">Últimas</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'pernambuco' %}">Pernambuco</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'politica' %}">Política</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'economia' %}">Economia</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'cultura' %}">Cultura</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'brasil' %}">Brasil</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'mundo' %}">Mundo</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'saude-e-bem-estar' %}">Saúde e Bem-Estar</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'esportes' %}">Esportes</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'social1' %}">Social1</a>
+        <a class="list-group-item list-group-item-action" href="{% url 'categoria_detalhe' 'interior' %}">Interior</a>
+        
+        <hr>
         {% if request.user.is_authenticated %}
           <a class="list-group-item list-group-item-action" href="{% url 'logout' %}">Sair</a>
         {% else %}
@@ -101,247 +175,624 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="bg-light border-top py-3 mt-auto footer"> <div class="container text-center text-muted small">
-      © {% now "Y" %} JC Online — Todos os direitos reservados
+  <footer class="fat-footer mt-auto">
+    <div class="container">
+      <div class="row footer-top-links">
+        <div class="col-md-3 footer-col">
+          <h5>Editorias</h5>
+          <a href="{% url 'categoria_detalhe' 'politica' %}">Política</a>
+          <a href="{% url 'categoria_detalhe' 'economia' %}">Economia</a>
+          <a href="{% url 'categoria_detalhe' 'brasil' %}">Brasil</a>
+          <a href="{% url 'categoria_detalhe' 'mundo' %}">Mundo</a>
+          <a href="{% url 'categoria_detalhe' 'pernambuco' %}">Pernambuco</a>
+          <a href="{% url 'categoria_detalhe' 'cultura' %}">Cultura</a>
+        </div>
+        <div class="col-md-3 footer-col">
+          <h5>Mais Conteúdo</h5>
+          <a href="{% url 'categoria_detalhe' 'esportes' %}">Esportes</a>
+          <a href="{% url 'categoria_detalhe' 'saude-e-bem-estar' %}">Saúde e Bem-Estar</a>
+          <a href="{% url 'categoria_detalhe' 'social1' %}">Social1</a>
+          <a href="#">Opinião</a>
+          <a href="#">Colunas</a>
+          <a href="{% url 'home' %}">Últimas Notícias</a>
+        </div>
+        <div class="col-md-3 footer-col">
+          <h5>Institucional</h5>
+          <a href="#">Sobre o JC</a>
+          <a href="#">Fale Conosco</a>
+          <a href="#">Expediente</a>
+          <a href="#">Trabalhe Conosco</a>
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+        <div class="col-md-3 footer-col">
+          <h5>Serviços</h5>
+          <a href="#">Assine o JC</a>
+          <a href="#">Promoções</a>
+          <a href="#">Publicidade Legal</a>
+          <a href="#">Anuncie Conosco</a>
+          <h5>Redes Sociais</h5>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Youtube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© {% now "Y" %} JC Online — Todos os direitos reservados</p>
+        <p>Rua da Moeda, nº 66, Bairro do Recife, Recife-PE - CEP 50030-040</p>
+      </div>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+  <script src="{% static 'js/app.js' %}"></script>
+  
+  {% block extra_js %}
+  
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const alerts = document.querySelectorAll(".alert");
-      alerts.forEach(function(alert) {
-        setTimeout(() => {
-          alert.style.transition = "opacity 0.5s ease";
-          alert.style.opacity = "0";
-          setTimeout(() => alert.remove(), 500);
-        }, 3000);
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+      let lastScrollTop = 0;
+      const headerWrapper = document.getElementById('main-header-wrapper');
+      const headerHeight = headerWrapper.offsetHeight;
+
+      window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > headerHeight){
+          headerWrapper.classList.add('header-hidden');
+        } else {
+          headerWrapper.classList.remove('header-hidden');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      }, false);
     });
   </script>
 
-  <script src="{% static 'js/app.js' %}"></script>
-  {% block extra_js %}{% endblock %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const docHtml = document.documentElement;
+      const contrastToggle = document.getElementById('contrast-toggle');
+      const fontDecrease = document.getElementById('font-decrease');
+      const fontIncrease = document.getElementById('font-increase');
+      const sepiaToggle = document.getElementById('sepia-toggle');
+      const fontSizes = ['fs-small', 'fs-normal', 'fs-large'];
+
+      function applyPreferences() {
+        const contrast = localStorage.getItem('contrast');
+        const fontSize = localStorage.getItem('fontSize');
+        const sepia = localStorage.getItem('readingMode');
+
+        if (contrast === 'high') {
+          docHtml.classList.add('high-contrast');
+        }
+        if (sepia === 'on') {
+          docHtml.classList.add('reading-mode');
+        }
+        if (fontSize) {
+          docHtml.classList.add(fontSize);
+        } else {
+          docHtml.classList.add('fs-normal');
+        }
+      }
+
+      contrastToggle.addEventListener('click', () => {
+        docHtml.classList.toggle('high-contrast');
+        docHtml.classList.remove('reading-mode'); // Desativa modo leitura
+        if (docHtml.classList.contains('high-contrast')) {
+          localStorage.setItem('contrast', 'high');
+          localStorage.removeItem('readingMode');
+        } else {
+          localStorage.removeItem('contrast');
+        }
+      });
+      
+      sepiaToggle.addEventListener('click', () => {
+        docHtml.classList.toggle('reading-mode');
+        docHtml.classList.remove('high-contrast'); // Desativa contraste
+        if (docHtml.classList.contains('reading-mode')) {
+          localStorage.setItem('readingMode', 'on');
+          localStorage.removeItem('contrast');
+        } else {
+          localStorage.removeItem('readingMode');
+        }
+      });
+
+      function getCurrentFontSizeIndex() {
+        for (let i = 0; i < fontSizes.length; i++) {
+          if (docHtml.classList.contains(fontSizes[i])) {
+            return i;
+          }
+        }
+        return 1; 
+      }
+
+      fontIncrease.addEventListener('click', () => {
+        let currentIndex = getCurrentFontSizeIndex();
+        if (currentIndex < fontSizes.length - 1) {
+          docHtml.classList.remove(fontSizes[currentIndex]);
+          let newClass = fontSizes[currentIndex + 1];
+          docHtml.classList.add(newClass);
+          localStorage.setItem('fontSize', newClass);
+        }
+      });
+
+      fontDecrease.addEventListener('click', () => {
+        let currentIndex = getCurrentFontSizeIndex();
+        if (currentIndex > 0) {
+          docHtml.classList.remove(fontSizes[currentIndex]);
+          let newClass = fontSizes[currentIndex - 1];
+          docHtml.classList.add(newClass);
+          localStorage.setItem('fontSize', newClass);
+        }
+      });
+
+      applyPreferences();
+    });
+  </script>
+
+  <script>
+    async function shareNews(event, title, url) {
+      event.preventDefault(); 
+      const shareData = {
+        title: title,
+        text: `Confira esta notícia: ${title}`,
+        url: url
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(url);
+          alert('Link copiado para a área de transferência!');
+        } else {
+          alert('Não foi possível compartilhar. Copie o link manualmente.');
+        }
+      } catch (err) {
+        console.error('Erro ao compartilhar:', err);
+      }
+    }
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
+  {% endblock %}
+
 
   <style>
     :root {
-      /* --- VARIÁVEIS DO TEMA CLARO (DEFAULT) --- */
       --bg: #fff;
       --text: #111;
       --muted: #eaeaea;
       --accent: #d14b42;
       --card-bg: #fff;
       --shadow: 0 1px 3px rgba(0, 0, 0, .06);
+      --footer-bg: #f8f9fa;
+      --footer-text: #6c757d;
+      --footer-title: #343a40;
+      /* Cores do Modo Leitura */
+      --sepia-bg: #fbf0d9;
+      --sepia-text: #5b4636;
     }
 
     [data-theme="dark"] {
-      /* --- VARIÁVEIS DO TEMA ESCURO (Adicionadas) --- */
       --bg: #121212;
       --text: #eee;
       --muted: #333;
       --accent: #d14b42; 
       --card-bg: #1e1e1e;
       --shadow: 0 1px 3px rgba(255, 255, 255, .06);
+      --footer-bg: #1e1e1e;
+      --footer-text: #adb5bd;
+      --footer-title: #f8f9fa;
     }
     
-    /* ======================================================== */
-    /* CORREÇÃO GLOBAL PARA O .text-muted (Adicionada)        */
-    /* ======================================================== */
     [data-theme="dark"] .text-muted {
         color: var(--text) !important;
-        opacity: 0.65; /* Fica cinzento-claro */
+        opacity: 0.65;
     }
     [data-theme="light"] .text-muted {
-        color: #6c757d !important; /* Mantém a cor original do Bootstrap no modo claro */
+        color: #6c757d !important;
     }
-    /* ======================================================== */
-
 
     body {
       font-family: 'Roboto', sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      transition: background-color 0.2s ease, color 0.2s ease; /* Transição suave */
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    
+    html.fs-small { font-size: 14px; }
+    html.fs-normal { font-size: 16px; }
+    html.fs-large { font-size: 18px; }
+
+    /* TASK 1: MODO LEITURA (SÉPIA) */
+    html.reading-mode {
+      --bg: var(--sepia-bg) !important;
+      --text: var(--sepia-text) !important;
+      --card-bg: var(--sepia-bg) !important;
+      --muted: #dcd0b9 !important;
+      --accent: #d14b42 !important;
+      --footer-bg: #e6dccb !important;
+      --footer-text: var(--sepia-text) !important;
+      --footer-title: #4a382b !important;
+    }
+    html.reading-mode .profile-link,
+    html.reading-mode .ac-button {
+      background: var(--sepia-bg) !important;
+      border-color: #dcd0b9 !important;
+      color: var(--sepia-text) !important;
+    }
+    html.reading-mode .profile-link:hover,
+    html.reading-mode .ac-button:hover {
+      background: #dcd0b9 !important;
+    }
+    html.reading-mode .main-navbar {
+      background-color: var(--sepia-bg) !important;
+      border-bottom-color: #dcd0b9 !important;
+    }
+    html.reading-mode .topbar {
+      background-color: var(--sepia-bg) !important;
+      border-bottom-color: #dcd0b9 !important;
+    }
+    html.reading-mode img {
+      filter: sepia(0.3) contrast(0.9) brightness(1.05);
+    }
+    html.reading-mode .brand-logo {
+      filter: none;
+    }
+    /* FIM MODO LEITURA */
+
+    /* Estilos de Acessibilidade (Alto Contraste) */
+    html.high-contrast {
+      --bg: #000 !important;
+      --text: #fff !important;
+      --card-bg: #000 !important;
+      --muted: #444 !important;
+      --accent: #FFFF00 !important;
+      --footer-bg: #000 !important;
+      --footer-text: #fff !important;
+      --footer-title: #FFFF00 !important;
+    }
+    html.high-contrast a, 
+    html.high-contrast .btn,
+    html.high-contrast .profile-link {
+      color: var(--text) !important;
+      background: none !important;
+      border-color: var(--text) !important;
+    }
+    html.high-contrast a:hover,
+    html.high-contrast .btn:hover {
+      color: var(--accent) !important;
+      border-color: var(--accent) !important;
+    }
+    html.high-contrast .category-tag,
+    html.high-contrast .share-button {
+      background: none !important;
+      color: var(--accent) !important;
+      border: 1px solid var(--accent);
+    }
+    html.high-contrast .main-navbar {
+      border-bottom-color: var(--text) !important;
+    }
+    html.high-contrast .main-navbar .nav-link:hover {
+       border-bottom-color: var(--accent) !important;
+    }
+    html.high-contrast img, 
+    html.high-contrast video {
+        filter: grayscale(100%) contrast(175%);
+    }
+    html.high-contrast .brand-logo, 
+    html.high-contrast #theme-toggle-icon {
+        filter: none !important;
     }
 
-    /* TOPO */
+    /* === MUDANÇAS NO HEADER === */
+    #main-header-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 1010;
+      transition: top 0.3s ease;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    #main-header-wrapper.header-hidden { top: -150px; }
+
     .topbar {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 16px;
-      padding: 8px 24px;
-      background: var(--card-bg); /* Use var */
-      color: var(--text);        /* Use var */
-      box-shadow: var(--shadow);  /* Use var */
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--muted); /* Borda sutil */
+      padding: 1px 24px;
+      background: var(--card-bg);
+      color: var(--text);
+      border-bottom: 1px solid var(--muted);
     }
-
-    .hamburger {
+    
+    .header-left-side {
       justify-self: start;
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
+      display: flex;
+      align-items: center;
+    }
+    .jornal-digital-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .jornal-digital-link i {
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .jornal-digital-link:hover {
+      color: var(--accent);
+    }
+    .hamburger {
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       background: transparent;
       border: 1px solid var(--muted);
-      color: var(--text); /* Adicionado */
-      transition: background 0.2s;
+      color: var(--text);
     }
+    .hamburger:hover { background: var(--muted); }
 
-    .hamburger:hover {
-      background: var(--muted); /* Use var */
-    }
-
-    .brand {
+    .brand-wrapper {
       justify-self: center;
     }
-
     .brand-logo {
-      width: 160px;
+      width: 120px;
       height: auto;
     }
 
     .right-side {
       justify-self: end;
       display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .header-row-top, .header-row-bottom {
+      display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 8px;
     }
 
-    /* BUSCA */
     .search {
       position: relative;
       display: flex;
       align-items: center;
-      min-width: 200px;
-      max-width: 340px;
+      min-width: 180px;
+      max-width: 280px;
       border: 1px solid var(--muted);
       border-radius: 999px;
-      padding: 6px 48px 6px 16px;
+      padding: 2px 34px 2px 12px;
+      height: 28px;
     }
-
     .search input {
       border: 0;
       outline: 0;
       width: 100%;
-      background-color: transparent; /* Adicionado */
-      color: var(--text);            /* Adicionado */
+      background-color: transparent;
+      color: var(--text);
+      font-size: 0.8rem;
     }
-
     .search-icon {
       position: absolute;
-      right: 12px;
+      right: 6px;
       display: grid;
       place-items: center;
-      width: 34px;
-      height: 34px;
+      width: 20px;
+      height: 20px;
       border: 0;
       background: transparent;
       color: var(--accent);
       cursor: pointer;
     }
+    .search-icon svg { width: 16px; height: 16px; }
 
-    /* PERFIL */
     .profile-link {
-      padding: 6px 14px;
+      padding: 4px 10px;
       border: 1px solid var(--muted);
       border-radius: 999px;
       text-decoration: none;
       color: var(--text);
-      background: var(--card-bg); /* Use var */
+      background: var(--card-bg);
       transition: background 0.2s;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .profile-link:hover { background: var(--muted); }
+
+    .accessibility-controls {
+      display: flex;
+      gap: 4px;
+    }
+    .ac-button {
+      background: transparent;
+      border: 1px solid var(--muted);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.75rem;
+      height: 24px;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 0 8px; 
+    }
+    .ac-button:hover {
+        background: var(--muted);
+    }
+    .accessibility-controls .ac-button {
+      width: 32px;
+    }
+    
+    button#theme-toggle.ac-button {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      padding: 0;
     }
 
-    .profile-link:hover {
-      background: var(--muted); /* Use var */
+    /* Estilo do Botão Newsletter */
+    .newsletter-btn {
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .newsletter-btn i {
+      font-size: 0.9rem;
     }
 
-    /* DROPDOWN (Adicionado) */
     .dropdown-menu {
         background-color: var(--card-bg);
         border: 1px solid var(--muted);
     }
-    .dropdown-item {
-        color: var(--text);
-    }
+    .dropdown-item { color: var(--text); font-size: 0.9rem; }
     .dropdown-item:hover {
         background-color: var(--muted);
         color: var(--text);
     }
 
-    /* ======================================================== */
-    /* CORREÇÃO DO MENU LATERAL                   */
-    /* ======================================================== */
-    
     .offcanvas {
-      background: var(--card-bg); /* CORRIGIDO: Define o fundo do menu */
-      color: var(--text);       /* CORRIGIDO: Define a cor do texto */
+      background: var(--card-bg);
+      color: var(--text);
       border-right: 1px solid var(--muted);
     }
-
-    .offcanvas-header {
-      border-bottom: 1px solid var(--muted);
-    }
-    
-    .offcanvas-title {
-      font-weight: 600;
-      color: var(--text); /* CORRIGIDO: Garante que o título "Menu" tenha a cor certa */
-    }
-
-    /* CORRIGIDO: Botão 'X' para fechar o menu no modo escuro */
+    .offcanvas-header { border-bottom: 1px solid var(--muted); }
+    .offcanvas-title { font-weight: 600; color: var(--text); }
     [data-theme="dark"] .offcanvas .btn-close {
         filter: invert(1) grayscale(100) brightness(200%);
     }
-
-    .offcanvas-body {
-      padding-top: 0;
-    }
-
     .offcanvas .list-group-item {
       border: none;
       padding: 12px 16px;
       border-radius: 8px;
       margin-bottom: 6px;
-      color: var(--text); /* CORRIGIDO: Cor do texto do item */
-      background-color: transparent; /* CORRIGIDO: Remove o fundo branco do item */
+      color: var(--text);
+      background-color: transparent;
       font-weight: 500;
       transition: background 0.2s, color 0.2s;
     }
-
     .offcanvas .list-group-item:hover {
       background: var(--accent);
-      color: #fff; /* O texto fica branco no hover */
+      color: #fff;
     }
     
-    /* ======================================================== */
-    /* FIM DA CORREÇÃO DO MENU                 */
-    /* ======================================================== */
-    
-    
-    /* RODAPÉ (Adicionado) */
-    .footer {
-        background-color: var(--card-bg);
-        border-top: 1px solid var(--muted);
+    .main-navbar {
+      width: 100%;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--muted);
+      padding: 0;
+    }
+    .main-navbar .nav-link {
+      color: var(--text);
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      border-bottom: 3px solid transparent;
+    }
+    .main-navbar .nav-link:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    [data-theme="dark"] .main-navbar {
+      background-color: var(--card-bg);
+      border-bottom-color: var(--muted);
+    }
+    [data-theme="dark"] .main-navbar .nav-link {
+      color: var(--text);
+    }
+    [data-theme="dark"] .main-navbar .nav-link:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
+    .fat-footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 3rem 0 1rem 0;
+      border-top: 1px solid var(--muted);
+    }
+    .footer-top-links {
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 2rem;
+      margin-bottom: 1rem;
+    }
+    .footer-col h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--footer-title);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .footer-col a {
+      display: block;
+      text-decoration: none;
+      color: var(--footer-text);
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .social-icons a {
+      font-size: 1.2rem;
+      color: var(--footer-title);
+    }
+    .social-icons a:hover {
+      color: var(--accent);
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .footer-bottom p {
+      margin-bottom: 0.25rem;
+    }
 
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .search {
+    @media (max-width: 991px) {
+      .topbar {
+        grid-template-columns: auto 1fr;
+      }
+      .brand-wrapper {
         display: none;
       }
-      .brand-logo {
-        width: 140px;
+      .right-side {
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
       }
-      .hamburger {
-        width: 40px;
-        height: 40px;
+      .header-row-bottom {
+        display: none !important;
       }
     }
   </style>

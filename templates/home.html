@@ -5,324 +5,529 @@
 
 {% block extra_head %}
 <style>
-  /* As variáveis --bg, --text, --card-bg, --muted, --accent, --shadow 
-    agora vêm do 'base.html'
-  */
-
-  :root {
-    /* Estas variáveis locais foram atualizadas para usar as globais */
-    --headline: var(--text);
-    --text: var(--text);
-    --muted-color: var(--muted); /* Renomeado para evitar conflito com --muted */
-    --brand: #003087;
-    --chip-bg: #E4F2EE;
-    --chip-tx: #00796B;
-    /* --accent: var(--accent); -- já está global */
+  /* === CRÉDITOS DA IMAGEM === */
+  .image-credit-container {
+    position: relative;
   }
-
-  main.container {
-    max-width: 980px;
-    margin: 0 auto;
-  }
-
-  /* --- Bloco "Herói" (o primeiro) --- */
-  .lead {
-    background: var(--card-bg); /* Alterado */
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow); /* Alterado */
-    border: 1px solid var(--muted); /* Adicionado */
-    margin-bottom: 2rem;
-  }
-
-  .lead__body {
-    padding: 22px 26px;
-  }
-
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: var(--chip-bg);
-    color: var(--chip-tx);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-  
-  .destaque-img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      border-radius: 8px;
-  }
-  .destaque-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      background-color: var(--muted); /* Alterado */
-      color: var(--text); /* Alterado */
-      opacity: 0.7;
-      border-radius: 8px;
-  }
-
-  .lead__title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 2.4rem; 
-    line-height: 1.2;
-    color: var(--headline);
-    margin: 0 0 8px;
-  }
-
-  .lead__deck {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    color: var(--text);
-    font-size: 1.1rem; 
-    line-height: 1.6;
-  }
-
-  .related {
-    margin-top: 24px;
-    border-top: 1px solid var(--muted); /* Alterado */
-    padding-top: 20px;
-  }
-
-  .related__label {
-    font-size: .8rem;
-    color: var(--brand);
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    margin-bottom: 12px;
-    font-weight: 320;
-  }
-
-  .related__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .related__item {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
-  .related__dot {
-    color: var(--accent);
-    font-weight: 800;
-    line-height: 1.6;
-  }
-
-  .related__link {
-    color: var(--text); /* Alterado */
-    text-decoration: none;
-    font-family: 'Playfair Display', serif;
+  .image-credit {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    font-size: 0.65rem;
     font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.6;
+    border-radius: 3px;
+    z-index: 10;
   }
-  .related__link:hover { text-decoration: underline; }
 
-
-  /* --- NOVO: Seção Secundária (Grade) --- */
-  .section-divider {
-    margin: 2rem 0;
-    border-top: 4px solid var(--muted); /* Alterado */
+  /* === RÓTULO DA CATEGORIA === */
+  .category-tag-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
   }
-  
-  .secondary-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 500;
+  .category-tag {
+    background-color: rgba(209, 75, 66, 0.9);
+    color: #ffffff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2rem;
     text-transform: uppercase;
-    border-bottom: 3px solid var(--accent);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    display: inline-block;
-    color: var(--text); /* Adicionado */
+    letter-spacing: 0.5px;
+    white-space: nowrap;
   }
-  
-  .news-card {
-    margin-bottom: 1.8rem;
-    text-decoration: none;
-    display: block;
-    color: var(--text); /* Alterado */
-    background-color: var(--card-bg); /* Adicionado */
-    border: 1px solid var(--muted); /* Adicionado */
-    border-radius: 8px; /* Adicionado */
-    overflow: hidden; /* Adicionado */
-    box-shadow: var(--shadow); /* Adicionado */
-  }
-  
-  .news-card:hover .news-card-title {
-    color: var(--brand); /* Cor brand */
-  }
-
-  .news-card-img {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    /* margin-bottom: 0.75rem; -- Removido, a imagem agora cola no topo */
-  }
-
-  .news-card-placeholder {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    background-color: var(--muted); /* Alterado */
-    color: var(--text); /* Alterado */
-    opacity: 0.7;
-    /* margin-bottom: 0.75rem; -- Removido */
+  .share-button {
+    background-color: rgba(209, 75, 66, 0.9);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    margin-left: 0.4rem;
+    cursor: pointer;
+    font-size: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.2s ease;
   }
+  .share-button:hover { filter: brightness(0.85); }
 
-  /* Adicionado um wrapper para o texto do card */
-  .news-card-body {
-    padding: 0.75rem 1rem 1rem;
+  /* === SEÇÃO HERO === */
+  .module-hero-story { margin-bottom: 1.5rem; }
+  .module-hero-image img, .module-hero-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: var(--muted);
   }
-  
-  .news-card-title {
+  .module-hero-text a {
+    text-decoration: none;
+  }
+  .module-hero-text .module-hero-title {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 1.25rem;
-    line-height: 1.3;
-    margin-bottom: 0.25rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .module-hero-text .module-hero-title:hover { color: #0d6efd; }
+  .module-hero-deck {
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.8;
+    line-height: 1.5;
+    margin-top: 0.5rem;
   }
 
-  .news-card-category {
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.8rem;
+  /* === GRID 2x2 RELACIONADAS (COM BOTÃO DE COMPARTILHAR) === */
+  .related-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .related-item-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .related-item-grid a {
+    text-decoration: none;
+    flex-grow: 1; /* Faz o link do título ocupar o espaço */
+  }
+  .related-item-grid h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.4;
+    margin: 0;
+    padding-left: 10px;
+    position: relative;
+  }
+  .related-item-grid h5::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 100%;
+    background-color: var(--accent);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .related-item-grid a:hover h5 { text-decoration: underline; }
+  
+  /* Botão de compartilhar pequeno para o grid */
+  .share-button-small {
+    background-color: rgba(209, 75, 66, 0.9);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    flex-shrink: 0; /* Impede que o botão encolha */
+  }
+  .share-button-small:hover {
+    filter: brightness(0.85);
+  }
+  /* === FIM DAS MUDANÇAS NO GRID === */
+
+  /* Bloco de anúncio (simulação) */
+  .ad-block-main {
+    width: 100%;
+    padding: 2rem 1rem;
+    background-color: var(--muted);
+    color: var(--text);
+    opacity: 0.7;
+    text-align: center;
     font-weight: 700;
-    color: var(--accent);
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  /* --- Barra Lateral (Direita) --- */
+  .sidebar-wrapper {
+    position: sticky;
+    top: 85px; /* Altura do header ajustada */
+  }
+  .sidebar-module {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  .sidebar-module-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar-story-card {
+    text-decoration: none;
+    display: block;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .sidebar-story-card img, .sidebar-story-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .sidebar-story-card .sidebar-story-text { padding: 0; }
+  .sidebar-story-card h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  .sidebar-story-card p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+  .sidebar-story-card:hover h5 { color: #0d6efd; }
+
+  .sidebar-story-card .category-tag {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+  
+  .ad-block-sidebar {
+    width: 100%;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    color: var(--text);
+    opacity: 0.5;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.8rem;
     text-transform: uppercase;
+    border-top: 1px dashed var(--muted);
+    border-bottom: 1px dashed var(--muted);
+  }
+
+  .sidebar-list { list-style: none; padding-left: 0; }
+  .sidebar-list li {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--muted);
+  }
+  .sidebar-list li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .sidebar-list a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .sidebar-list a:hover { color: #0d6efd; }
+  .sidebar-list .badge { font-size: 0.8rem; }
+  
+  /* === CSS PARA VÍDEOS === */
+  .video-secao {
+      margin-top: 1.5rem;
+  }
+  .video-titulo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--text);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+  }
+  .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      background: var(--muted);
+  }
+  .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+  }
+
+  @media (max-width: 991px) {
+    .module-hero-text { margin-top: 1rem; }
+    .module-hero-text .module-hero-title { font-size: 1.5rem; }
+    .related-grid-2x2 { grid-template-columns: 1fr; }
+    .sidebar-wrapper {
+        position: static;
+        margin-top: 2rem;
+    }
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<main class="container py-4">
+<div class="row g-lg-4 g-xl-5">
 
-  {% if dados_home %}
+  <div class="col-lg-9">
     
-    {% with item=dados_home.0 %}
-    <section class="hero-section">
-        <div class="lead">
-            <div class="lead__body">
-            
-            <span class="chip mb-3 d-inline-block">
-                {{ item.categoria.nome }}
-            </span>
-            
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}">
-                        {% if item.destaque.imagem %}
-                            <img src="{{ item.destaque.imagem.url }}" alt="{{ item.destaque.titulo }}" class="destaque-img">
-                        {% else %}
-                            <div class="destaque-placeholder d-flex align-items-center justify-content-center">
-                                <span class="text-muted small">Sem imagem</span>
-                            </div>
-                        {% endif %}
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}" class="text-decoration-none">
-                        <h1 class="lead__title">{{ item.destaque.titulo }}</h1>
-                    </a>
-                    <p class="lead__deck">{{ item.destaque.conteudo|truncatewords:30 }}</p>
-                </div>
+    {% for item in dados_atuais %}
+    <section class="category-module mb-4">
+      <div class="category-tag-wrapper">
+        <span class="category-tag">{{ item.categoria.nome }}</span>
+        <button class="share-button" 
+                onclick="shareNews(event, '{{ item.destaque.titulo|addslashes }}', '{{ request.scheme }}://{{ request.get_host }}{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}')">
+            <i class="bi bi-share-fill"></i>
+        </button>
+      </div>
+      {% if item.destaque %}
+      <div class="module-hero-story">
+        <div class="row g-3">
+          <div class="col-md-7">
+            <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}" class="module-hero-image image-credit-container">
+              {% if item.destaque.imagem %}
+                  <img src="{{ item.destaque.imagem.url }}" alt="{{ item.destaque.titulo }}" class="img-fluid">
+                  {% if item.destaque.imagem_credito %}
+                    <span class="image-credit">{{ item.destaque.imagem_credito }}</span>
+                  {% endif %}
+              {% else %}
+                  <div class="module-hero-placeholder d-flex align-items-center justify-content-center">
+                      <span class="text-muted">Sem imagem</span>
+                  </div>
+              {% endif %}
+            </a>
+          </div>
+          <div class="col-md-5">
+            <div class="module-hero-text">
+              <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}">
+                <h3 class="module-hero-title">{{ item.destaque.titulo }}</h3>
+              </a>
+              <p class="module-hero-deck">
+                {{ item.destaque.subtitulo|default:'' }}
+              </p>
             </div>
-
-            {% if item.relacionadas %}
-            <div class="related">
-                <div class="related__label">Mais sobre {{ item.categoria.nome }}</div>
-                <ul class="related__list">
-                {% for n in item.relacionadas %}
-                <li class="related__item">
-                    <span class="related__dot">•</span>
-                    <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}" class="related__link">{{ n.titulo }}</a>
-                </li>
-                {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            </div>
+          </div>
         </div>
+      </div>
+      {% endif %}
+      {% if item.relacionadas %}
+      <div class="related-grid-2x2 mt-3">
+        {% for n in item.relacionadas %}
+        <div class="related-item-grid">
+          <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}">
+            <h5>
+              {{ n.titulo }}
+            </h5>
+          </a>
+          <button class="share-button-small" 
+                  onclick="shareNews(event, '{{ n.titulo|addslashes }}', '{{ request.scheme }}://{{ request.get_host }}{% url 'noticia_detalhe' n.categoria.slug n.slug %}')"
+                  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compartilhar">
+              <i class="bi bi-share-fill"></i>
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </section>
-    {% endwith %}
-
-    {% if dados_home|length > 1 %}
-    <hr class="section-divider">
+    {% endfor %}
     
-    <section class="secondary-section">
-        <h2 class="secondary-title">Mais Notícias</h2>
-        <div class="row">
-            
-            {% for item in dados_home|slice:"1:" %}
-                
-                <div class="col-md-4">
-                    <a href="{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}" class="news-card">
-                        {% if item.destaque.imagem %}
-                        <img src="{{ item.destaque.imagem.url }}" alt="{{ item.destaque.titulo }}" class="news-card-img">
-                        {% else %}
-                        <div class="news-card-placeholder"><span>Sem imagem</span></div>
-                        {% endif %}
-                        <div class="news-card-body"> <span class="news-card-category">{{ item.categoria.nome }}</span>
-                          <h3 class="news-card-title">{{ item.destaque.titulo }}</h3>
-                        </div>
-                    </a>
-                </div>
-
-                {% if item.relacionadas.0 %}
-                {% with n=item.relacionadas.0 %}
-                <div class="col-md-4">
-                    <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}" class="news-card">
-                        {% if n.imagem %}
-                        <img src="{{ n.imagem.url }}" alt="{{ n.titulo }}" class="news-card-img">
-                        {% else %}
-                        <div class="news-card-placeholder"><span>Sem imagem</span></div>
-                        {% endif %}
-                        <div class="news-card-body"> <span class="news-card-category">{{ n.categoria.nome }}</span>
-                          <h3 class="news-card-title">{{ n.titulo }}</h3>
-                        </div>
-                    </a>
-                </div>
-                {% endwith %}
-                {% endif %}
-                
-                {% if item.relacionadas.1 %}
-                {% with n=item.relacionadas.1 %}
-                <div class="col-md-4">
-                    <a href="{% url 'noticia_detalhe' n.categoria.slug n.slug %}" class="news-card">
-                    {% if n.imagem %}
-                        <img src="{{ n.imagem.url }}" alt="{{ n.titulo }}" class="news-card-img">
-                        {% else %}
-                        <div class="news-card-placeholder"><span>Sem imagem</span></div>
-                        {% endif %}
-                        <div class="news-card-body"> <span class="news-card-category">{{ n.categoria.nome }}</span>
-                          <h3 class="news-card-title">{{ n.titulo }}</h3>
-                        </div>
-                    </a>
-                </div>
-                {% endwith %}
-                {% endif %}
-
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-
-  {% else %}
-    <div class="text-center py-5">
-        <h3 class="text-muted">Ainda não há notícias publicadas.</h3>
+    <div class="ad-block-main my-3">
+      (Simulação de Anúncio 1)
     </div>
-  {% endif %}
+    
+    <section class="video-secao my-4">
+        <h3 class="video-titulo">VÍDEOS EM DESTAQUE</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/UZ4-406s-R8" title="Vídeo 1" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/Z1aH-x0i_go" title="Vídeo 2" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/K13z-vI53-k" title="Vídeo 3" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="ad-block-main my-3">
+      (Simulação de Anúncio 2)
+    </div>
 
-</main>
+    {% for item in dados_feed %}
+    <section class="category-module mb-4">
+      <div class="category-tag-wrapper">
+        <span class="category-tag">{{ item.categoria.nome }}</span>
+        <button class="share-button" 
+                onclick="shareNews(event, '{{ item.destaque.titulo|addslashes }}', '{{ request.scheme }}://{{ request.get_host }}{% if item.categoria.slug %}{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}{% endif %}')">
+            <i class="bi bi-share-fill"></i>
+        </button>
+      </div>
+      {% if item.destaque %}
+      <div class="module-hero-story">
+        <div class="row g-3">
+          <div class="col-md-7">
+            <a href="{% if item.categoria.slug %}{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}{% else %}{% url 'home' %}{% endif %}" class="module-hero-image image-credit-container">
+              {% if item.destaque.imagem %}
+                  <img src="{{ item.destaque.imagem.url }}" alt="{{ item.destaque.titulo }}" class="img-fluid">
+                  {% if item.destaque.imagem_credito %}
+                    <span class="image-credit">{{ item.destaque.imagem_credito }}</span>
+                  {% endif %}
+              {% else %}
+                  <div class="module-hero-placeholder d-flex align-items-center justify-content-center">
+                      <span class="text-muted">Sem imagem</span>
+                  </div>
+              {% endif %}
+            </a>
+          </div>
+          <div class="col-md-5">
+            <div class="module-hero-text">
+              <a href="{% if item.categoria.slug %}{% url 'noticia_detalhe' item.destaque.categoria.slug item.destaque.slug %}{% else %}{% url 'home' %}{% endif %}">
+                <h3 class="module-hero-title">{{ item.destaque.titulo }}</h3>
+              </a>
+              <p class="module-hero-deck">
+                {{ item.destaque.subtitulo|default:'' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if item.relacionadas %}
+      <div class="related-grid-2x2 mt-3">
+        {% for n in item.relacionadas %}
+        <div class="related-item-grid">
+          <a href="{% if n.categoria.slug %}{% url 'noticia_detalhe' n.categoria.slug n.slug %}{% else %}{% url 'home' %}{% endif %}">
+            <h5>
+              {{ n.titulo }}
+            </h5>
+          </a>
+          <button class="share-button-small" 
+                  onclick="shareNews(event, '{{ n.titulo|addslashes }}', '{{ request.scheme }}://{{ request.get_host }}{% if n.categoria.slug %}{% url 'noticia_detalhe' n.categoria.slug n.slug %}{% endif %}')"
+                  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Compartilhar">
+              <i class="bi bi-share-fill"></i>
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+
+    {% if not forloop.last %}
+    <div class="ad-block-main my-3">
+      (Simulação de Anúncio)
+    </div>
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <div class="col-lg-3">
+    <div class="sidebar-wrapper">
+
+      {% if sidebar_recentes %}
+      <aside class="sidebar-module">
+        <h3 class="sidebar-module-title">Em Alta</h3>
+        {% if sidebar_recentes.0 %}
+          <a href="{% url 'noticia_detalhe' sidebar_recentes.0.categoria.slug sidebar_recentes.0.slug %}" class="sidebar-story-card image-credit-container">
+            {% if sidebar_recentes.0.imagem %}
+                <img src="{{ sidebar_recentes.0.imagem.url }}" alt="{{ sidebar_recentes.0.titulo }}">
+                {% if sidebar_recentes.0.imagem_credito %}
+                  <span class="image-credit">{{ sidebar_recentes.0.imagem_credito }}</span>
+                {% endif %}
+            {% else %}
+                <div class="sidebar-story-placeholder"></div>
+            {% endif %}
+            <div class="sidebar-story-text">
+              <span class="category-tag">{{ sidebar_recentes.0.categoria.nome }}</span>
+              <h5>{{ sidebar_recentes.0.titulo }}</h5>
+              <p>{{ sidebar_recentes.0.subtitulo|default:''|truncatewords:15 }}</p>
+            </div>
+          </a>
+        {% endif %}
+
+        <div class="ad-block-sidebar"> (Publicidade) </div>
+
+        {% if sidebar_recentes.1 %}
+          <a href="{% url 'noticia_detalhe' sidebar_recentes.1.categoria.slug sidebar_recentes.1.slug %}" class="sidebar-story-card image-credit-container">
+            {% if sidebar_recentes.1.imagem %}
+                <img src="{{ sidebar_recentes.1.imagem.url }}" alt="{{ sidebar_recentes.1.titulo }}">
+                {% if sidebar_recentes.1.imagem_credito %}
+                  <span class="image-credit">{{ sidebar_recentes.1.imagem_credito }}</span>
+                {% endif %}
+            {% else %}
+                <div class="sidebar-story-placeholder"></div>
+            {% endif %}
+            <div class="sidebar-story-text">
+              <span class="category-tag">{{ sidebar_recentes.1.categoria.nome }}</span>
+              <h5>{{ sidebar_recentes.1.titulo }}</h5>
+              <p>{{ sidebar_recentes.1.subtitulo|default:''|truncatewords:15 }}</p>
+            </div>
+          </a>
+        {% endif %}
+        
+        {% if sidebar_recentes.2 %}
+          <a href="{% url 'noticia_detalhe' sidebar_recentes.2.categoria.slug sidebar_recentes.2.slug %}" class="sidebar-story-card image-credit-container">
+            {% if sidebar_recentes.2.imagem %}
+                <img src="{{ sidebar_recentes.2.imagem.url }}" alt="{{ sidebar_recentes.2.titulo }}">
+                {% if sidebar_recentes.2.imagem_credito %}
+                  <span class="image-credit">{{ sidebar_recentes.2.imagem_credito }}</span>
+                {% endif %}
+            {% else %}
+                <div class="sidebar-story-placeholder"></div>
+            {% endif %}
+            <div class="sidebar-story-text">
+              <span class="category-tag">{{ sidebar_recentes.2.categoria.nome }}</span>
+              <h5>{{ sidebar_recentes.2.titulo }}</h5>
+              <p>{{ sidebar_recentes.2.subtitulo|default:''|truncatewords:15 }}</p>
+            </div>
+          </a>
+        {% endif %}
+      </aside>
+      {% endif %}
+
+      <div class="ad-block-sidebar"> (Publicidade) </div>
+
+      {% if sidebar_curtidas %}
+      <aside class="sidebar-module">
+        <h3 class="sidebar-module-title">Mais Curtidas</h3>
+        <ul class="sidebar-list">
+          {% for noticia in sidebar_curtidas %}
+            <li class="d-flex justify-content-between align-items-center">
+              <a href="{% url 'noticia_detalhe' noticia.categoria.slug noticia.slug %}">
+                {{ noticia.titulo }}
+              </a>
+              <span class="badge bg-danger rounded-pill ms-2">
+                <i class="bi bi-heart-fill"></i> {{ noticia.num_curtidas }}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      </aside>
+      {% endif %}
+      
+    </div> </div> </div>
 {% endblock %}
