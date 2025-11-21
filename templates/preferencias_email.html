@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Preferências de Newsletter - JC Online{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 720px;">
+  <h1 class="mb-4">Preferências de Newsletter</h1>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <p class="text-muted mb-3">
+        Escolha com que frequência deseja receber um resumo das notícias no seu e-mail.
+      </p>
+
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- FREQUÊNCIA -->
+        <div class="mb-4">
+          <label class="form-label fw-bold">Frequência:</label>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="frequencia"
+                   id="freq_desligado" value="desligado" checked>
+            <label class="form-check-label" for="freq_desligado">Desligado</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="frequencia"
+                   id="freq_diario" value="diario">
+            <label class="form-check-label" for="freq_diario">Diário</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="frequencia"
+                   id="freq_semanal" value="semanal">
+            <label class="form-check-label" for="freq_semanal">Semanal</label>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- SEÇÃO DIÁRIO -->
+        <div id="secao-diario" class="mb-4" style="display: none;">
+          <h5>Se diário:</h5>
+          <p>Selecione em quais dias da semana você deseja receber a newsletter.</p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_segunda" name="dias_diarios" value="segunda">
+                <label class="form-check-label" for="dia_segunda">Segunda-feira</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_terca" name="dias_diarios" value="terca">
+                <label class="form-check-label" for="dia_terca">Terça-feira</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_quarta" name="dias_diarios" value="quarta">
+                <label class="form-check-label" for="dia_quarta">Quarta-feira</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_quinta" name="dias_diarios" value="quinta">
+                <label class="form-check-label" for="dia_quinta">Quinta-feira</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_sexta" name="dias_diarios" value="sexta">
+                <label class="form-check-label" for="dia_sexta">Sexta-feira</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_sabado" name="dias_diarios" value="sabado">
+                <label class="form-check-label" for="dia_sabado">Sábado</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                       id="dia_domingo" name="dias_diarios" value="domingo">
+                <label class="form-check-label" for="dia_domingo">Domingo</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEÇÃO SEMANAL -->
+        <div id="secao-semanal" class="mb-4" style="display: none;">
+          <h5>Se semanal:</h5>
+          <p>Escolha em qual dia da semana você quer receber o resumo.</p>
+
+          <select class="form-select" name="dia_semanal">
+            <option value="">-- Selecione o dia --</option>
+            <option value="segunda">Segunda-feira</option>
+            <option value="terca">Terça-feira</option>
+            <option value="quarta">Quarta-feira</option>
+            <option value="quinta">Quinta-feira</option>
+            <option value="sexta">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+            <option value="domingo">Domingo</option>
+          </select>
+        </div>
+
+        <!-- HORÁRIO (usado em ambos) -->
+        <div id="secao-horario" class="mb-4" style="display: none;">
+          <h5>Horário:</h5>
+          <p>Esse horário é usado tanto para o envio diário quanto semanal.</p>
+          <input type="time" name="horario_envio" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Salvar preferências
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function atualizarSecoesFrequencia() {
+    const freqSelecionada = document.querySelector('input[name="frequencia"]:checked')?.value;
+
+    const secaoDiario  = document.getElementById('secao-diario');
+    const secaoSemanal = document.getElementById('secao-semanal');
+    const secaoHorario = document.getElementById('secao-horario');
+
+    if (freqSelecionada === 'diario') {
+      secaoDiario.style.display  = 'block';
+      secaoSemanal.style.display = 'none';
+      secaoHorario.style.display = 'block';
+    } else if (freqSelecionada === 'semanal') {
+      secaoDiario.style.display  = 'none';
+      secaoSemanal.style.display = 'block';
+      secaoHorario.style.display = 'block';
+    } else {
+      // desligado
+      secaoDiario.style.display  = 'none';
+      secaoSemanal.style.display = 'none';
+      secaoHorario.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    atualizarSecoesFrequencia();
+
+    document.querySelectorAll('input[name="frequencia"]').forEach(function (radio) {
+      radio.addEventListener('change', atualizarSecoesFrequencia);
+    });
+  });
+</script>
+{% endblock %}

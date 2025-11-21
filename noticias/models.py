@@ -201,3 +201,47 @@ class PreferenciasFeed(models.Model):
     class Meta:
         verbose_name = "Preferência de Feed"
         verbose_name_plural = "Preferências de Feed"
+
+# ==========================
+# Histórico de Envios
+# ==========================
+class EmailSendLog(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='email_logs'
+    )
+    sent_at = models.DateTimeField(auto_now_add=True)
+    subject = models.CharField(max_length=255)
+    content_preview = models.TextField()
+
+    def __str__(self):
+        return f'Envio para {self.user.username} em {self.sent_at}'
+
+
+# ========================================================
+# Preferências de E-mail (O MODELO CORRETO para a view)
+# ========================================================
+class PreferenciaEmail(models.Model):
+    """
+    Armazena se o usuário quer receber emails e de quais categorias.
+    """
+    usuario = models.OneToOneField(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='preferencia_email' # O related_name deve ser único ou a view falhará
+    )
+    receber_emails = models.BooleanField(
+        default=True, 
+        verbose_name="Quero receber notícias por e-mail"
+    )
+    # Relacionamento ManyToMany com Categoria
+    categorias = models.ManyToManyField(
+        Categoria, 
+        blank=True, 
+        verbose_name="Categorias de interesse"
+    )
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Configuração de Email de {self.usuario.username}"

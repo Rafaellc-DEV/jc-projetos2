@@ -106,3 +106,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+
+# Durante o desenvolvimento: imprime o e-mail no terminal
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "lca3@cesar.school"  # troque para o seu e-mail
+EMAIL_HOST_PASSWORD = "jsmh ireb fnuz kujc" # coloque a SENHA DE APP
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

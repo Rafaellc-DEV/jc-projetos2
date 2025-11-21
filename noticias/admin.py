@@ -1,6 +1,6 @@
 # noticias/admin.py
 from django.contrib import admin
-from .models import Noticia, Comentario, Categoria
+from .models import Noticia, Comentario, Categoria, PreferenciaEmail, EmailSendLog
 
 # 1. Registro da Notícia (COM AS ATUALIZAÇÕES PARA O AUTOR)
 @admin.register(Noticia)
@@ -37,3 +37,26 @@ class CategoriaAdmin(admin.ModelAdmin):
     search_fields = ('nome',)
     # Preenche o slug automaticamente a partir do nome
     prepopulated_fields = {'slug': ('nome',)}
+
+# 4. Registro da Preferência de Email
+
+# ==========================
+# PreferenciaEmail Admin (CORREÇÃO AQUI)
+# ==========================
+@admin.register(PreferenciaEmail)
+class PreferenciaEmailAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'receber_emails', 'criado_em')
+    list_filter = ('receber_emails', 'categorias')
+    search_fields = ('usuario__username', 'usuario__email')
+    # Usa um widget horizontal para a seleção ManyToMany de Categorias
+    filter_horizontal = ('categorias',)
+
+    
+# 5. Registro do Histórico de Envio
+
+@admin.register(EmailSendLog)
+class EmailSendLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'subject', 'sent_at')
+    list_filter = ('sent_at',)
+    search_fields = ('user__username', 'subject', 'content_preview')
+    readonly_fields = ('user', 'sent_at', 'subject', 'content_preview')

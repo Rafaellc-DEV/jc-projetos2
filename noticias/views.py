@@ -1,4 +1,3 @@
-# noticias/views.py
 import json
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -12,7 +11,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Noticia, Comentario, Categoria, Curtida, PreferenciasFeed
+
+# --- IMPORTS CORRIGIDOS ---
+from .models import Noticia, Comentario, Categoria, Curtida, PreferenciasFeed, PreferenciaEmail
+from .forms import PreferenciaEmailForm, AtualizarEmailForm   # Importante: Importar o formulário
 from .serializers import ComentarioSerializer, NoticiaSerializer
 
 User = get_user_model()
@@ -84,7 +86,17 @@ def home(request):
 
     # Adiciona "Últimas Notícias" no final
     ultimas = Noticia.objects.exclude(categoria__slug="atuais").order_by('-data_publicacao')
-    if ultimas and not (request.user.is_authenticated and preferencias.personalizacao_ativa):
+    
+    # Verifica se preferencias existe antes de usar no if
+    user_pref_ativa = False
+    if request.user.is_authenticated:
+        try:
+            pref = PreferenciasFeed.objects.get(usuario=request.user)
+            user_pref_ativa = pref.personalizacao_ativa
+        except PreferenciasFeed.DoesNotExist:
+            pass
+
+    if ultimas and not user_pref_ativa:
         dados_feed.append({
             'categoria': {'nome': 'Últimas Notícias', 'slug': None},
             'destaque': ultimas.first(),
@@ -98,16 +110,12 @@ def home(request):
     sidebar_recentes = Noticia.objects.all().order_by('-data_publicacao')[:3]
 
     context = {
-        'dados_atuais': dados_atuais, # Novo
-        'dados_feed': dados_feed,     # Novo
+        'dados_atuais': dados_atuais,
+        'dados_feed': dados_feed,
         'sidebar_curtidas': sidebar_curtidas,
         'sidebar_recentes': sidebar_recentes,
     }
     return render(request, "home.html", context)
-
-
-# ... (O resto do seu views.py: personalizar_feed_view, categoria_detalhe, login_view, etc. permanece igual) ...
-# ... (Nenhuma outra view precisa ser alterada) ...
 
 @login_required
 def personalizar_feed_view(request):
@@ -135,6 +143,10 @@ def personalizar_feed_view(request):
         return redirect("personalizar_feed")
 
     slugs_usuario = preferencias.categorias_ordenadas
+    # Proteção contra lista vazia ou None
+    if not slugs_usuario:
+        slugs_usuario = []
+
     ordem_preservada = Case(*[When(slug=slug, then=Value(i)) for i, slug in enumerate(slugs_usuario)])
     
     categorias_usuario = Categoria.objects.filter(slug__in=slugs_usuario).order_by(ordem_preservada).distinct()
@@ -239,6 +251,10 @@ def conteudo_premium(request):
         return HttpResponseForbidden("Acesso restrito a assinantes.")
     return render(request, "premium.html")
 
+# ==========================
+# API VIEWSETS
+# ==========================
+
 class NoticiaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Noticia.objects.all().order_by('-data_publicacao')
     serializer_class = NoticiaSerializer
@@ -304,3 +320,47 @@ class LikeNoticiaView(APIView):
             return Response({'mensagem': 'Você não curtiu esta notícia.'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'erro': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+# ===============================
+# NOVO: View para Atualização de E-mail Principal
+# ===============================
+@login_required
+def atualizar_email_view(request):
+    """
+    Permite ao usuário autenticado alterar o seu endereço de e-mail principal.
+    """
+    if request.method == 'POST':
+        # Instancia o formulário com a requisição POST e a instância do usuário atual
+        form = AtualizarEmailForm(request.POST, instance=request.user)
+        if form.is_valid():
+            # A função form.save() irá salvar o novo email no objeto CustomUser (request.user)
+            form.save()
+            messages.success(request, "Seu endereço de e-mail foi atualizado com sucesso!")
+            return redirect('atualizar_email') # Redireciona para evitar reenvio
+        else:
+            # Se o formulário for inválido (ex: email já em uso)
+            messages.error(request, "Erro ao atualizar o e-mail. Verifique os dados.")
+    else:
+        # GET: Carrega o formulário com o e-mail atual do usuário
+        form = AtualizarEmailForm(instance=request.user)
+
+    return render(request, 'noticias/atualizar_email.html', {'form': form})
+
+@login_required
+def preferencias_email(request):
+    # Busca ou cria a preferência do usuário
+    preferencia, created = PreferenciaEmail.objects.get_or_create(usuario=request.user)
+
+    if request.method == 'POST':
+        # Usa o form para validar e salvar os dados
+        form = PreferenciaEmailForm(request.POST, instance=preferencia)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Preferências de e-mail atualizadas com sucesso!")
+            return redirect('preferencias_email')
+        else:
+            messages.error(request, "Erro ao salvar. Verifique os campos.")
+    else:
+        form = PreferenciaEmailForm(instance=preferencia)
+
+    return render(request, 'preferencias_email.html', {'form': form})
