@@ -461,6 +461,40 @@ Com o trabalho conjunto, conseguiram resolver a falha com sucesso.
 <details>
   <summary>🚀 Entrega 4</summary>
   <br/>
+
+<p align="center">
+  <a href="https://trello.com/b/FPQBhOen/equipe-2-desafio-jc-online">
+    <img src="https://img.shields.io/badge/Trello-FF9F1A?style=for-the-badge&logo=Trello&logoColor=white" alt="Trello"/></a>
+  <a href="https://www.figma.com/design/3VrvmwIAN8WB01nf0a7Zyz/Untitled?node-id=0-1&t=L9QFYe6fDEtr1nbI-1">
+    <img src="https://img.shields.io/badge/Figma-FF7262?style=for-the-badge&logo=figma&logoColor=white" alt="Protótipos"/></a>
+  <a href="https://rafaeldev.pythonanywhere.com/">
+    <img src="https://img.shields.io/badge/Site_Online-34D058?style=for-the-badge&logo=python&logoColor=white"/></a>
+  <a href="https://youtu.be/jtHMVjp_xo8">
+    <img src="https://img.shields.io/badge/Screencast-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+</p>
+
+---
+
+## Issues
+
+![Issues](prints/entrega04_issues_closed.png)
+
+---
+
+## Quadro
+
+---
+
+## Programação em Par
+
+---
+
+## 📘 Guia de Contribuição
+
+Para aprender como configurar o ambiente e contribuir com o projeto, consulte o arquivo:
+
+👉 [CONTRIBUTING.md](CONTRIBUTING.md)
+
 </details>
 
 ---
