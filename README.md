@@ -469,8 +469,10 @@ Com o trabalho conjunto, conseguiram resolver a falha com sucesso.
     <img src="https://img.shields.io/badge/Figma-FF7262?style=for-the-badge&logo=figma&logoColor=white" alt="Protótipos"/></a>
   <a href="https://rafaeldev.pythonanywhere.com/">
     <img src="https://img.shields.io/badge/Site_Online-34D058?style=for-the-badge&logo=python&logoColor=white"/></a>
-  <a href="https://youtu.be/jtHMVjp_xo8">
-    <img src="https://img.shields.io/badge/Screencast-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+  <a href="https://youtu.be/1QAYvRLuBTw">
+    <img src="https://img.shields.io/badge/Screencast Novas Hist.-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+  <a href="https://youtu.be/_GIRnmcdp_g">
+    <img src="https://img.shields.io/badge/Screencast Protótipo-b50404?style=for-the-badge&logo=youtube&logoColor=white"/></a>
 </p>
 
 ---
@@ -483,9 +485,23 @@ Com o trabalho conjunto, conseguiram resolver a falha com sucesso.
 
 ## Quadro
 
+![Quadro](prints/image.png)
+
 ---
+## Figma
+
+![Figma](prints/figma.png)
 
 ## Programação em Par
+
+![Program](prints/program_par_entrega4.jpg)
+
+A sessão anterior de programação em par, conduzida por Fábio e Rafael, resultou na correção bem-sucedida do Bug #6 que afetava o cadastro de novos usuários.
+
+Em um novo ciclo de trabalho, Lucas e Felipe assumiram a frente. Logo após a correção do Bug #6, eles identificaram o Bug #7, que se manifestava como uma falha na contagem de curtidas. A equipe concluiu que se tratava de uma regressão, causada pela alteração de uma variável de estado compartilhada durante a correção anterior.
+
+Utilizando novamente a programação em par, Lucas e Felipe conseguiram isolar rapidamente a causa e resolver o novo problema, garantindo a estabilidade das funcionalidades de Cadastro e Curtida
+
 
 ---
 
