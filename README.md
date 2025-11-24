@@ -485,7 +485,7 @@ Com o trabalho conjunto, conseguiram resolver a falha com sucesso.
 
 ## Quadro
 
-![Quadro](prints/image.png)
+![Quadro](prints/quadro.png)
 
 ---
 ## Figma
