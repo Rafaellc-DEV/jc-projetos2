@@ -31,8 +31,7 @@
             <tr>
               <td style="vertical-align:middle;">
                 <a href="{{ site_url }}" target="_blank">
-                  <!-- logo principal vinda do contexto -->
-                  <img src="{{ logo_url }}" alt="JC Online" width="160" style="display:block;">
+                  <img src="{{ logo_url }}" alt="JC Online" width="160">
                 </a>
               </td>
               <td align="right" class="hide-mobile" style="vertical-align:middle; font-size:14px; color:#888;">
@@ -43,12 +42,12 @@
         </td>
       </tr>
 
-      <!-- Hero (opcional) -->
+      <!-- Hero -->
       {% if hero_url %}
       <tr>
-        <td style="padding:0;">
+        <td>
           <a href="{{ site_url }}" target="_blank">
-            <img src="{{ hero_url }}" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
+            <img src="{{ hero_url }}" width="600" class="fluid-img" alt="JC Online">
           </a>
         </td>
       </tr>
@@ -57,123 +56,93 @@
       <!-- Conteúdo principal -->
       <tr>
         <td style="padding:24px;">
-          <h1 style="margin:0 0 12px 0; font-size:22px; color:#0b5bbf;">
+          <h1 style="font-size:22px; color:#0b5bbf;">
             Olá, {{ user.first_name|default:user.username }}! 👋
           </h1>
 
-          <p style="margin:0 0 16px 0; line-height:1.5; color:#444;">
-            Aqui estão as principais notícias selecionadas para você no JC Online.
+          <p style="line-height:1.5; color:#444;">
+            Aqui estão as principais notícias selecionadas para você hoje.
           </p>
 
-          <!-- Destaque principal -->
+
+          <!-- NOTÍCIA DESTAQUE -->
           {% if destaque %}
           <table width="100%" style="margin-top:16px; border:1px solid #eef2f6; border-radius:6px;">
             <tr>
               <td style="padding:16px;">
-                <h2 style="margin:0 0 8px 0; font-size:18px; color:#0b5bbf;">
+                <h2 style="font-size:18px; color:#0b5bbf; margin-bottom:6px;">
                   {{ destaque.titulo }}
                 </h2>
 
-                {% if destaque.subtitulo %}
-                  <p style="margin:0 0 10px 0; font-size:14px; color:#555; line-height:1.5;">
-                    {{ destaque.subtitulo }}
-                  </p>
-                {% else %}
-                  <p style="margin:0 0 10px 0; font-size:14px; color:#555; line-height:1.5;">
-                    {{ destaque.conteudo|truncatechars:200 }}
-                  </p>
-                {% endif %}
+                <p style="font-size:14px; color:#555; line-height:1.5;">
+                  {{ destaque.subtitulo|default:destaque.conteudo|truncatechars:200 }}
+                </p>
 
-                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=destaque.slug %}"
+                <a href="{{ site_url }}/{{ destaque.categoria.slug }}/{{ destaque.slug }}/"
                    target="_blank"
-                   style="display:inline-block; margin-top:8px; font-size:14px; color:#0b5bbf;">
-                  Clique aqui para saber mais →
+                   style="color:#0b5bbf; font-size:14px; display:inline-block; margin-top:8px;">
+                  Ler notícia completa →
                 </a>
               </td>
             </tr>
           </table>
           {% endif %}
 
-          <!-- Outras notícias -->
+          <!-- OUTRAS NOTÍCIAS -->
           {% if outras_noticias %}
-          <h3 style="margin:20px 0 8px 0; font-size:16px; color:#333;">
-            Mais notícias para você
-          </h3>
+          <h3 style="margin-top:24px; font-size:16px;">Mais notícias</h3>
 
-          <table width="100%" style="margin-top:8px;">
-            {% for noticia in outras_noticias %}
+          {% for noticia in outras_noticias %}
+          <table width="100%" style="border-bottom:1px solid #f0f2f4; padding:10px 0;">
             <tr>
-              <td style="padding:10px 0; border-bottom:1px solid #f0f2f4;">
-                <strong style="display:block; font-size:14px; margin-bottom:4px;">
-                  {{ noticia.titulo }}
-                </strong>
-                <span style="display:block; font-size:13px; color:#666; margin-bottom:4px;">
+              <td>
+                <strong style="font-size:14px;">{{ noticia.titulo }}</strong>
+                <p style="color:#666; font-size:13px; margin:4px 0;">
                   {{ noticia.subtitulo|default:noticia.conteudo|truncatechars:140 }}
-                </span>
-                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=noticia.slug %}"
+                </p>
+                <a href="{{ site_url }}/{{ noticia.categoria.slug }}/{{ noticia.slug }}/"
                    target="_blank"
-                   style="font-size:13px; color:#0b5bbf;">
-                  Clique aqui para saber mais →
+                   style="color:#0b5bbf; font-size:13px;">
+                  Ler mais →
                 </a>
               </td>
             </tr>
-            {% endfor %}
           </table>
+          {% endfor %}
+
           {% else %}
-          <p style="margin-top:16px; font-size:14px; color:#666;">
-            Hoje não encontramos novas notícias nas categorias que você escolheu.
+          <p style="margin-top:16px; color:#777;">
+            Não há novas notícias nas categorias que você escolheu.
           </p>
           {% endif %}
 
           <!-- CTA -->
-          <table width="100%" style="margin-top:20px;">
-            <tr>
-              <td align="center">
-                <a href="{{ site_url }}" target="_blank"
-                   style="background:#0b5bbf; color:#ffffff; padding:12px 22px; border-radius:6px; display:inline-block; font-weight:600; font-size:14px;">
-                  Acessar o JC Online
-                </a>
-              </td>
-            </tr>
-          </table>
+          <div style="text-align:center; margin-top:20px;">
+            <a href="{{ site_url }}" target="_blank"
+               style="background:#0b5bbf; color:#fff; padding:12px 22px; border-radius:6px; font-weight:600; font-size:14px; display:inline-block;">
+              Acessar o JC Online
+            </a>
+          </div>
         </td>
       </tr>
 
       <!-- Rodapé -->
       <tr>
-        <td style="padding:18px 24px; background:#fafafa; font-size:13px; color:#777;">
-          <table width="100%">
-            <tr>
-              <td style="vertical-align:middle;">
-                <strong>JC Online</strong><br>
-                Recife - PE<br>
-                <a href="mailto:contato@jc-online.example" style="color:#777;">contato@jc-online.example</a>
-              </td>
-              <td align="right" style="vertical-align:middle;">
-                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=F" alt="Facebook" width="24" style="display:inline-block;"></a>
-                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=T" alt="Twitter" width="24" style="display:inline-block;"></a>
-                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=I" alt="Instagram" width="24" style="display:inline-block;"></a>
-              </td>
-            </tr>
-          </table>
-
-          <hr style="border:none; border-top:1px solid #eee; margin:12px 0;">
-          <p style="margin:0; font-size:12px; color:#999;">
-            Você recebeu este e-mail porque está com a opção de receber notícias por e-mail ativada no JC Online.<br>
-            <a href="{{ preferences_link }}" style="color:#999;">Gerenciar preferências</a>
-          </p>
+        <td style="padding:20px; background:#fafafa; color:#777; font-size:13px;">
+          <strong>JC Online</strong><br>
+          Recife - PE<br>
+          <br>
+          <a href="{{ preferences_link }}" style="color:#999;">Gerenciar preferências</a>
         </td>
       </tr>
+
     </table>
 
-    <!-- Fallback texto simples -->
-    <table width="600" class="container" style="max-width:600px; margin:20px auto 0;">
-      <tr>
-        <td style="font-size:12px; color:#999;">
-          Caso o layout acima não carregue corretamente, acesse: {{ site_url }}
-        </td>
-      </tr>
-    </table>
+    <!-- Fallback -->
+    <p style="font-size:12px; color:#999; margin-top:10px;">
+      Caso o e-mail não carregue corretamente, acesse: {{ site_url }}
+    </p>
+
   </center>
 </body>
 </html>
