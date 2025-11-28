@@ -30,9 +30,9 @@
           <table width="100%">
             <tr>
               <td style="vertical-align:middle;">
-                <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
-                  <!-- logo principal -->
-                  <img src="logo.png" alt="JC Online" width="160" style="display:block;">
+                <a href="{{ site_url }}" target="_blank">
+                  <!-- logo principal vinda do contexto -->
+                  <img src="{{ logo_url }}" alt="JC Online" width="160" style="display:block;">
                 </a>
               </td>
               <td align="right" class="hide-mobile" style="vertical-align:middle; font-size:14px; color:#888;">
@@ -43,12 +43,12 @@
         </td>
       </tr>
 
-      <!-- Hero (usando logo como imagem principal também) -->
+      <!-- Hero (opcional) -->
       {% if hero_url %}
       <tr>
         <td style="padding:0;">
-          <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
-            <img src="logo.png" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
+          <a href="{{ site_url }}" target="_blank">
+            <img src="{{ hero_url }}" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
           </a>
         </td>
       </tr>
@@ -73,6 +73,7 @@
                 <h2 style="margin:0 0 8px 0; font-size:18px; color:#0b5bbf;">
                   {{ destaque.titulo }}
                 </h2>
+
                 {% if destaque.subtitulo %}
                   <p style="margin:0 0 10px 0; font-size:14px; color:#555; line-height:1.5;">
                     {{ destaque.subtitulo }}
@@ -83,10 +84,10 @@
                   </p>
                 {% endif %}
 
-                <a href="https://rafaeldev.pythonanywhere.com{% url 'detalhe_noticia' slug=destaque.slug %}"
+                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=destaque.slug %}"
                    target="_blank"
                    style="display:inline-block; margin-top:8px; font-size:14px; color:#0b5bbf;">
-                  Ler notícia completa →
+                  Clique aqui para saber mais →
                 </a>
               </td>
             </tr>
@@ -109,10 +110,10 @@
                 <span style="display:block; font-size:13px; color:#666; margin-bottom:4px;">
                   {{ noticia.subtitulo|default:noticia.conteudo|truncatechars:140 }}
                 </span>
-                <a href="https://rafaeldev.pythonanywhere.com{% url 'detalhe_noticia' slug=noticia.slug %}"
+                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=noticia.slug %}"
                    target="_blank"
                    style="font-size:13px; color:#0b5bbf;">
-                  Ler mais →
+                  Clique aqui para saber mais →
                 </a>
               </td>
             </tr>
@@ -128,7 +129,7 @@
           <table width="100%" style="margin-top:20px;">
             <tr>
               <td align="center">
-                <a href="https://rafaeldev.pythonanywhere.com" target="_blank"
+                <a href="{{ site_url }}" target="_blank"
                    style="background:#0b5bbf; color:#ffffff; padding:12px 22px; border-radius:6px; display:inline-block; font-weight:600; font-size:14px;">
                   Acessar o JC Online
                 </a>
@@ -169,7 +170,7 @@
     <table width="600" class="container" style="max-width:600px; margin:20px auto 0;">
       <tr>
         <td style="font-size:12px; color:#999;">
-          Caso o layout acima não carregue corretamente, acesse: https://rafaeldev.pythonanywhere.com
+          Caso o layout acima não carregue corretamente, acesse: {{ site_url }}
         </td>
       </tr>
     </table>
