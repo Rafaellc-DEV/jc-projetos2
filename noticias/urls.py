@@ -24,10 +24,10 @@ urlpatterns = [
     path("premium/", views.conteudo_premium, name="conteudo_premium"),
     path("personalizar-feed/", views.personalizar_feed_view, name="personalizar_feed"),
     
-    # --- PREFERÊNCIAS DE EMAIL (Já existia) ---
+    # Preferências de e-mail (NEWSLETTER)
     path("preferencias-email/", views.preferencias_email, name="preferencias_email"),
     
-    # --- NOVO: ATUALIZAÇÃO DO EMAIL PRINCIPAL ---
+    # Atualização do e-mail do usuário
     path("atualizar-email/", views.atualizar_email_view, name="atualizar_email"),
 
     # ----------------------
@@ -37,18 +37,18 @@ urlpatterns = [
     path("api/noticias/<int:noticia_id>/like/", views.LikeNoticiaView.as_view(), name="like-noticia"),
 
     # ----------------------
-    # Rotas Dinâmicas (Devem ficar por último para não conflitar)
+    # Rotas Dinâmicas IMPORTANTES
     # ----------------------
+    
     # URL da Categoria
     path("categoria/<slug:categoria_slug>/", views.categoria_detalhe, name="categoria_detalhe"),
-    # Detalhe da Notícia (Categoria / Slug da notícia)
+    
+    # Detalhe da Notícia
+    # ⚠️ Este é o nome certo para usar no reverse() e nos templates
     path("<slug:categoria_slug>/<slug:noticia_slug>/", views.noticia_detalhe, name="noticia_detalhe"),
 
     # ----------------------
-    # Inclui rotas do router (API Principal)
+    # Rotas da API REST
     # ----------------------
     path('', include(router.urls)),
-
-    # REMOVIDO: path("", include("noticias.urls")) 
-    # MOTIVO: Isso causava um loop infinito (RecursionError) pois o arquivo chamava a si mesmo.
 ]
