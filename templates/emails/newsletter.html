@@ -30,8 +30,8 @@
           <table width="100%">
             <tr>
               <td style="vertical-align:middle;">
-                <a href="{{ site_url }}" target="_blank">
-                  <img src="{{ logo_url }}" alt="JC Online" width="160" style="display:block;">
+                <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
+                  <img src="logo.png" alt="JC Online" width="160" style="display:block;">
                 </a>
               </td>
               <td align="right" class="hide-mobile" style="vertical-align:middle; font-size:14px; color:#888;">
@@ -47,7 +47,7 @@
       <tr>
         <td style="padding:0;">
           <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
-            <img src="{{ hero_url }}" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
+            <img src="logo.png" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
           </a>
         </td>
       </tr>
@@ -82,7 +82,7 @@
                   </p>
                 {% endif %}
 
-                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=destaque.slug %}"
+                <a href="https://rafaeldev.pythonanywhere.com{% url 'detalhe_noticia' slug=destaque.slug %}"
                    target="_blank"
                    style="display:inline-block; margin-top:8px; font-size:14px; color:#0b5bbf;">
                   Ler notícia completa →
@@ -108,7 +108,7 @@
                 <span style="display:block; font-size:13px; color:#666; margin-bottom:4px;">
                   {{ noticia.subtitulo|default:noticia.conteudo|truncatechars:140 }}
                 </span>
-                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=noticia.slug %}"
+                <a href="https://rafaeldev.pythonanywhere.com {% url 'detalhe_noticia' slug=noticia.slug %}"
                    target="_blank"
                    style="font-size:13px; color:#0b5bbf;">
                   Ler mais →
@@ -127,7 +127,7 @@
           <table width="100%" style="margin-top:20px;">
             <tr>
               <td align="center">
-                <a href="{{ site_url }}" target="_blank"
+                <a href="https://rafaeldev.pythonanywhere.com" target="_blank"
                    style="background:#0b5bbf; color:#ffffff; padding:12px 22px; border-radius:6px; display:inline-block; font-weight:600; font-size:14px;">
                   Acessar o JC Online
                 </a>
