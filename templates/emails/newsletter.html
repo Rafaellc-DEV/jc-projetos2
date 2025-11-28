@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>JC Online — Newsletter</title>
+  <style>
+    body { margin:0; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table { border-collapse:collapse; }
+    img { border:0; line-height:100%; text-decoration:none; display:block; -ms-interpolation-mode:bicubic; }
+    a { color:inherit; text-decoration:none; }
+    @media only screen and (max-width:600px) {
+      .container { width:100% !important; }
+      .stack { display:block !important; width:100% !important; }
+      .hide-mobile { display:none !important; }
+      .center { text-align:center !important; }
+      .fluid-img { width:100% !important; height:auto !important; }
+    }
+  </style>
+</head>
+<body style="background:#f4f6f8; font-family: Arial, Helvetica, sans-serif; color:#222; margin:0; padding:20px;">
+
+  <center style="width:100%; background:#f4f6f8;">
+    <table width="600" class="container" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:8px; overflow:hidden;">
+
+      <!-- Header -->
+      <tr>
+        <td style="padding:20px; background:#ffffff;">
+          <table width="100%">
+            <tr>
+              <td style="vertical-align:middle;">
+                <a href="{{ site_url }}" target="_blank">
+                  <img src="{{ logo_url }}" alt="JC Online" width="160" style="display:block;">
+                </a>
+              </td>
+              <td align="right" class="hide-mobile" style="vertical-align:middle; font-size:14px; color:#888;">
+                Newsletter JC Online
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Hero -->
+      {% if hero_url %}
+      <tr>
+        <td style="padding:0;">
+          <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
+            <img src="{{ hero_url }}" alt="JC Online" width="600" style="width:100%; max-width:600px; display:block;" class="fluid-img">
+          </a>
+        </td>
+      </tr>
+      {% endif %}
+
+      <!-- Conteúdo principal -->
+      <tr>
+        <td style="padding:24px;">
+          <h1 style="margin:0 0 12px 0; font-size:22px; color:#0b5bbf;">
+            Olá, {{ user.first_name|default:user.username }}! 👋
+          </h1>
+
+          <p style="margin:0 0 16px 0; line-height:1.5; color:#444;">
+            Aqui estão as principais notícias selecionadas para você no JC Online.
+          </p>
+
+          <!-- Destaque principal -->
+          {% if destaque %}
+          <table width="100%" style="margin-top:16px; border:1px solid #eef2f6; border-radius:6px;">
+            <tr>
+              <td style="padding:16px;">
+                <h2 style="margin:0 0 8px 0; font-size:18px; color:#0b5bbf;">
+                  {{ destaque.titulo }}
+                </h2>
+                {% if destaque.subtitulo %}
+                  <p style="margin:0 0 10px 0; font-size:14px; color:#555; line-height:1.5;">
+                    {{ destaque.subtitulo }}
+                  </p>
+                {% else %}
+                  <p style="margin:0 0 10px 0; font-size:14px; color:#555; line-height:1.5;">
+                    {{ destaque.conteudo|truncatechars:200 }}
+                  </p>
+                {% endif %}
+
+                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=destaque.slug %}"
+                   target="_blank"
+                   style="display:inline-block; margin-top:8px; font-size:14px; color:#0b5bbf;">
+                  Ler notícia completa →
+                </a>
+              </td>
+            </tr>
+          </table>
+          {% endif %}
+
+          <!-- Outras notícias -->
+          {% if outras_noticias %}
+          <h3 style="margin:20px 0 8px 0; font-size:16px; color:#333;">
+            Mais notícias para você
+          </h3>
+
+          <table width="100%" style="margin-top:8px;">
+            {% for noticia in outras_noticias %}
+            <tr>
+              <td style="padding:10px 0; border-bottom:1px solid #f0f2f4;">
+                <strong style="display:block; font-size:14px; margin-bottom:4px;">
+                  {{ noticia.titulo }}
+                </strong>
+                <span style="display:block; font-size:13px; color:#666; margin-bottom:4px;">
+                  {{ noticia.subtitulo|default:noticia.conteudo|truncatechars:140 }}
+                </span>
+                <a href="{{ site_url }}{% url 'detalhe_noticia' slug=noticia.slug %}"
+                   target="_blank"
+                   style="font-size:13px; color:#0b5bbf;">
+                  Ler mais →
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+          {% else %}
+          <p style="margin-top:16px; font-size:14px; color:#666;">
+            Hoje não encontramos novas notícias nas categorias que você escolheu.
+          </p>
+          {% endif %}
+
+          <!-- CTA -->
+          <table width="100%" style="margin-top:20px;">
+            <tr>
+              <td align="center">
+                <a href="{{ site_url }}" target="_blank"
+                   style="background:#0b5bbf; color:#ffffff; padding:12px 22px; border-radius:6px; display:inline-block; font-weight:600; font-size:14px;">
+                  Acessar o JC Online
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Rodapé -->
+      <tr>
+        <td style="padding:18px 24px; background:#fafafa; font-size:13px; color:#777;">
+          <table width="100%">
+            <tr>
+              <td style="vertical-align:middle;">
+                <strong>JC Online</strong><br>
+                Recife - PE<br>
+                <a href="mailto:contato@jc-online.example" style="color:#777;">contato@jc-online.example</a>
+              </td>
+              <td align="right" style="vertical-align:middle;">
+                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=F" alt="Facebook" width="24" style="display:inline-block;"></a>
+                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=T" alt="Twitter" width="24" style="display:inline-block;"></a>
+                <a href="#" target="_blank" style="margin-left:8px;"><img src="https://via.placeholder.com/24?text=I" alt="Instagram" width="24" style="display:inline-block;"></a>
+              </td>
+            </tr>
+          </table>
+
+          <hr style="border:none; border-top:1px solid #eee; margin:12px 0;">
+          <p style="margin:0; font-size:12px; color:#999;">
+            Você recebeu este e-mail porque está com a opção de receber notícias por e-mail ativada no JC Online.<br>
+            <a href="{{ preferences_link }}" style="color:#999;">Gerenciar preferências</a>
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <table width="600" class="container" style="max-width:600px; margin:20px auto 0;">
+      <tr>
+        <td style="font-size:12px; color:#999;">
+          Caso o layout acima não carregue corretamente, acesse: {{ site_url }}
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>
