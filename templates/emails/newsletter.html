@@ -31,6 +31,7 @@
             <tr>
               <td style="vertical-align:middle;">
                 <a href="https://rafaeldev.pythonanywhere.com" target="_blank">
+                  <!-- logo principal -->
                   <img src="logo.png" alt="JC Online" width="160" style="display:block;">
                 </a>
               </td>
@@ -42,7 +43,7 @@
         </td>
       </tr>
 
-      <!-- Hero -->
+      <!-- Hero (usando logo como imagem principal também) -->
       {% if hero_url %}
       <tr>
         <td style="padding:0;">
@@ -108,7 +109,7 @@
                 <span style="display:block; font-size:13px; color:#666; margin-bottom:4px;">
                   {{ noticia.subtitulo|default:noticia.conteudo|truncatechars:140 }}
                 </span>
-                <a href="https://rafaeldev.pythonanywhere.com {% url 'detalhe_noticia' slug=noticia.slug %}"
+                <a href="https://rafaeldev.pythonanywhere.com{% url 'detalhe_noticia' slug=noticia.slug %}"
                    target="_blank"
                    style="font-size:13px; color:#0b5bbf;">
                   Ler mais →
@@ -164,10 +165,11 @@
       </tr>
     </table>
 
+    <!-- Fallback texto simples -->
     <table width="600" class="container" style="max-width:600px; margin:20px auto 0;">
       <tr>
         <td style="font-size:12px; color:#999;">
-          Caso o layout acima não carregue corretamente, acesse: {{ site_url }}
+          Caso o layout acima não carregue corretamente, acesse: https://rafaeldev.pythonanywhere.com
         </td>
       </tr>
     </table>
