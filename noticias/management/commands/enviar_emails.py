@@ -21,53 +21,52 @@ class Command(BaseCommand):
         HERO_URL = LOGO_URL
         
         # ==============================================================================
-        # --- CÓDIGO DE MOCK/SIMULAÇÃO DE NOTÍCIAS PARA DEMONSTRAÇÃO ---
-        # Estes objetos substituem a consulta ao banco de dados 'Noticia.objects.filter()'.
+        # --- DADOS REAIS FORNECIDOS PELO USUÁRIO ---
         
         # Classe simples para simular o objeto Noticia (necessário para o template)
         class SimpleNews:
+            # Note que subtitulo e conteudo foram definidos aqui com valores mockados/padrão,
+            # pois eles não estão na URL, mas são necessários para preencher o template.
             def __init__(self, titulo, subtitulo, slug, categoria_slug, conteudo=""):
                 self.titulo = titulo
                 self.subtitulo = subtitulo
                 self.slug = slug
-                # Garante que 'conteudo' tem algo para o truncate no template e fallback de texto
                 self.conteudo = conteudo or subtitulo 
-                # Simula o objeto Categoria com o atributo slug
                 self.categoria = type('Categoria', (object,), {'slug': categoria_slug})()
                 
             def get_absolute_url(self):
-                # Simula a URL completa esperada pelo fallback de texto (necessário para o corpo de texto simples)
+                # Simula a URL completa esperada pelo fallback de texto
                 return f"/{self.categoria.slug}/{self.slug}/"
 
-        # Simulação das notícias que seriam obtidas do SITE_URL
+        # Simulação das notícias baseada nos links fornecidos, extraindo SLUG e CATEGORIA:
         mock_noticias_data = [
             SimpleNews(
-                "Lançamento Histórico: Satélite X no Espaço", 
-                "A Agência Espacial Brasileira lançou com sucesso o novo satélite de comunicações, superando expectativas.", 
-                "lancamento-satelite-x", 
-                "ciencia",
-                conteudo="Este é o conteúdo longo que seria truncado no e-mail. A missão visa melhorar a conectividade em áreas remotas do país."
+                "Alepe aprova projeto que incentiva energia solar em prédios públicos de Pernambuco", 
+                "A medida visa reduzir custos e promover a sustentabilidade em nível estadual.", 
+                "alepe-aprova-projeto-que-incentiva-energia-solar-em-predios-publicos-de-pernambuco", 
+                "politica",
+                conteudo="Este é o conteúdo longo da notícia de Política sobre energia solar. O projeto é considerado um marco para a transição energética local."
             ),
             SimpleNews(
-                "Economia: Queda do Dólar Impulsiona Importações", 
-                "O mercado reage à nova política monetária e o dólar atinge o menor valor dos últimos 6 meses.", 
-                "queda-dolar-importacoes", 
-                "economia"
+                "Festival de Inverno de Garanhuns confirma datas de 18 a 28 de julho", 
+                "Um dos maiores eventos culturais do Nordeste divulga as datas oficiais de sua próxima edição.", 
+                "festival-de-inverno-de-garanhuns-confirma-datas-de-18-a-28-de-julho", 
+                "cultura"
             ),
             SimpleNews(
-                "Esportes: Grande Final do Campeonato", 
-                "O time favorito vence de virada e leva a taça para casa. Análise completa da partida.", 
-                "final-campeonato-futebol", 
+                "Pernambucana convocada: Seleção Brasileira de Vôlei anuncia lista", 
+                "A jogadora do estado entra na lista de convocadas para a próxima fase de competições internacionais.", 
+                "pernambucana-convocada-selecao-brasileira-de-volei-anuncia-lista", 
                 "esportes"
             ),
             SimpleNews(
-                "Política: Reforma Administrativa em Discussão", 
-                "Deputados debatem as emendas propostas ao texto principal da reforma administrativa.", 
-                "reforma-administrativa-debate", 
-                "politica"
+                "FMI piora projeção de crescimento do Brasil para 2026", 
+                "O Fundo Monetário Internacional revisa para baixo as expectativas de desempenho econômico do país.", 
+                "fmi-piora-projecao-de-crescimento-do-brasil-para-2026", 
+                "economia"
             ),
         ]
-        # --- FIM DO CÓDIGO DE MOCK/SIMULAÇÃO ---
+        # --- FIM DOS DADOS REAIS ---
         # ==============================================================================
 
         preferencias = (
@@ -91,7 +90,6 @@ class Command(BaseCommand):
                 continue
 
             categorias = pref.categorias.all()
-            # Pega os slugs das categorias do usuário para filtrar o mock
             categoria_slugs = [c.slug for c in categorias]
 
             # ==============================================================================
@@ -100,18 +98,16 @@ class Command(BaseCommand):
             # Filtra as notícias mockadas pelas categorias do usuário
             noticias_selecionadas = [
                 n for n in mock_noticias_data 
-                # Pega notícias cuja categoria está nas preferências do usuário, ou se o usuário não escolheu categorias
                 if n.categoria.slug in categoria_slugs or not categoria_slugs 
             ]
             
-            # Renomeia para seguir a variável original, agora é uma lista de SimpleNews
             noticias_qs = noticias_selecionadas 
             
             # --- FIM DA SUBSTITUIÇÃO ---
             # ==============================================================================
 
 
-            if not noticias_qs: # Mudado .exists() para verificar lista vazia
+            if not noticias_qs:
                 self.stdout.write(
                     self.style.WARNING(
                         f"Nenhuma notícia para {user.username} nas categorias escolhidas hoje."
@@ -121,7 +117,7 @@ class Command(BaseCommand):
 
             # Define destaque + outras (resumo sucinto no template via truncate)
             destaque = noticias_qs[0]
-            outras_noticias = noticias_qs[1:5]  # até 4 extras
+            outras_noticias = noticias_qs[1:5] 
 
             subject = f"Resumo das notícias de hoje - {hoje.strftime('%d/%m/%Y')}"
 
@@ -140,7 +136,6 @@ class Command(BaseCommand):
             html_content = render_to_string("emails/newsletter.html", context)
 
             # Texto simples como fallback
-            # O get_absolute_url() da SimpleNews garante que o link funciona aqui também
             linhas_texto = [
                 f"Olá, {user.first_name or user.username}!\n",
                 "Aqui estão as principais notícias selecionadas para você hoje:\n\n",
